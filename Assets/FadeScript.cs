@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FadeScript : MonoBehaviour
 {
 
-    public float speed = 0.01f;  //透明化の速さ
+    public float speed = 0.04f;  //透明化の速さ
     float alfa;    //A値を操作するための変数
     float red, green, blue;    //RGBを操作するための変数
     private bool fadeout = true;
@@ -30,7 +30,7 @@ public class FadeScript : MonoBehaviour
                 //Murabito18Script m18 = murabito18.GetComponent<Murabito18Script>();
                 //m18.PositionSet();
                 
-                Invoke("DelayMethodOff", 1.0f);
+                Invoke("DelayMethodOff", 0.5f);
             }
         }
         else if (fadeout == false)
