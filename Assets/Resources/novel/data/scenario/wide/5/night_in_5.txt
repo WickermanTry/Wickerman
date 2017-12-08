@@ -1,0 +1,75 @@
+﻿*night_in_5_1
+;1回目
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show]
+
+MMD表示[p]
+
+[sd_new name=murabito_5 storage=murabito_5 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_5]
+
+[wait time=1]
+
+私はNo.5の村長母(女)です。[r]
+これは屋内で見つかった時の会話です。[p]
+1回目だけどペナルティ有り。[r]
+不審度が上昇し、家に戻されます。[p]
+
+[scene file="Maptest1117"]
+
+*night_in_5_2
+;2回目
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show]
+
+MMD表示[p]
+
+[sd_new name=murabito_5 storage=murabito_5 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_5]
+
+[wait time=1]
+
+私はNo.5の村長母(女)です。[r]
+これは屋内で見つかった時の会話です。[p]
+2回目なのでペナルティ有り。[r]
+不審度が大幅に上昇し、夜が終わります。[p]
+
+[scene file="Maptest1117"]

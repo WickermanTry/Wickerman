@@ -1,0 +1,109 @@
+﻿*event_1_1
+;恐怖度1段階目
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show]
+
+MMD表示[p]
+
+[sd_new name=murabito_23 storage=murabito_23 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_23]
+
+[wait time=1]
+
+私はNo.23の農家C妹(女)です。[r]
+これはイベント1の会話です。[p]
+現在の恐怖度は1段階目。[p]
+
+[scene file="Maptest1117"]
+
+*event_2_1
+;恐怖度2段階目
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show]
+
+MMD表示[p]
+
+[sd_new name=murabito_23 storage=murabito_23 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_23]
+
+[wait time=1]
+
+私はNo.23の農家C妹(女)です。[r]
+これはイベント1の会話です。[p]
+現在の恐怖度は2段階目。[p]
+
+[scene file="Maptest1117"]
+
+*event_3_1
+;恐怖度3段階目
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show ]
+
+MMD表示[p]
+
+[sd_new name=murabito_23 storage=murabito_23 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_23]
+
+[wait time=1]
+私はNo.23の農家C妹(女)です。[r]
+これはイベント1の会話です。[p]
+現在の恐怖度は3段階目。[p]
+
+[scene file="Maptest1117" ]

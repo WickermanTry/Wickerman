@@ -1,0 +1,113 @@
+﻿*fear_1_1
+;ランダム1
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show]
+
+MMD表示[p]
+
+[sd_new name=murabito_10 storage=murabito_10 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_10]
+
+[wait time=1]
+
+私はNo.10の猟師A息子(男)です。[r]
+これは朝の時間帯の会話です。[p]
+現在の恐怖度は1段階目。[r]
+この会話はランダムの1です。[p]
+
+[scene file="Maptest1117"]
+
+*fear_1_2
+;ランダム2
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show]
+
+MMD表示[p]
+
+[sd_new name=murabito_10 storage=murabito_10 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_10]
+
+[wait time=1]
+
+私はNo.10の猟師A息子(男)です。[r]
+これは朝の時間帯の会話です。[p]
+現在の恐怖度は1段階目。[r]
+この会話はランダムの2です。[p]
+
+[scene file="Maptest1117"]
+
+*fear_1_3
+;ランダム3
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show ]
+
+MMD表示[p]
+
+[sd_new name=murabito_10 storage=murabito_10 x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito_10]
+
+[wait time=1]
+
+私はNo.10の猟師A息子(男)です。[r]
+これは朝の時間帯の会話です。[p]
+現在の恐怖度は1段階目。[r]
+この会話はランダムの3です。[p]
+
+[scene file="Maptest1117" ]

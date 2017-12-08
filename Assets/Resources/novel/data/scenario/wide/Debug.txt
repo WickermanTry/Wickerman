@@ -1,0 +1,73 @@
+;チュートリアル用スクリプトファイル
+
+;メッセージ表示
+[showmessage]
+
+;共通ライブラリ
+;セーブ・ロードバックログなど基本的な機能を取り込む 
+[call file=wide/system target="*system_setting_buttons"]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="Murahaikei"]
+
+;背景の表示
+[bg_show ]
+
+
+[wait time=2]
+
+恐怖度0の場所です[p]
+
+ページは好きなところで切れます[p]
+文章途中で待機,ボタン押したら進む[l]押された[p]
+改行[r]
+されました[p]
+背景の変更[p]
+
+[bg_mod storage="rouka"]
+
+戻ります[p]
+
+[bg_mod storage="Murahaikei"]
+
+選択肢選んでください[p]
+
+[select_new text="選択肢１" target=*select_a1 ]
+[select_new text="選択肢２" target=*select_a2 ]
+[select_new text="選択肢３" target=*select_a3 ]
+
+[select_show sound=click ]
+
+[s]
+
+*select_a1
+選択肢１が押されました[p]
+@jump target=*a_common
+
+*select_a2
+選択肢２が押されました[p]
+@jump target=*a_common
+
+*select_a3
+選択肢３が押されました[p]
+@jump target=*a_common
+
+*a_common 
+共通ルートです[p]
+
+MMD表示[p]
+
+[sd_new name=murabito storage=murabito x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+
+[sd_show name=murabito]
+
+会話終了[p]
+
+[scene file="Maptest1117" ]

@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{243622F8-6B8B-382C-5D46-2A6DE723C0D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
+    <UnityVersion>2017.1.1f1</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_1_1;UNITY_2017_1;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_1_1;UNITY_2017_1;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>Library\UnityAssemblies\UnityEditor.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Timeline">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Timeline">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.TreeEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEditor.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>Library\UnityAssemblies\UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="MMD4MecanimEditor">
+      <HintPath>Assets\MMD4Mecanim\Editor\MMD4MecanimEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="MMD4Mecanim">
+      <HintPath>Assets\MMD4Mecanim\Scripts\MMD4Mecanim.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets\Plugins\JOKER\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="NCalc">
+      <HintPath>Assets\Plugins\JOKER\NCalc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="WicTest.CSharp.csproj">
+      <Project>{109B3965-8222-5217-DD4D-A0888A6EDF9C}</Project>
+      <Name>WicTest.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="WicTest.CSharp.Plugins.csproj">
+      <Project>{2333A36F-5412-FF73-853F-710D7DDA730D}</Project>
+      <Name>WicTest.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Editor\Exporter.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimAnimMorphHelperInspector.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimAssignMaterialModel.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimBoneInspector.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimBulletPhysicsInspector.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimImporter.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimImporterInspector.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimModelInspector.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimPreProcessBuild.cs" />
+    <Compile Include="Assets\MMD4Mecanim\Editor\MMD4MecanimRigidBodyInspector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Charactor\Dansei\murabito_dansei_A\mrabito_dansei_A.MMD4Mecanim.xml" />
+    <None Include="Assets\Charactor\Dansei\murabito_dansei_A\mrabito_dansei_A.xml" />
+    <None Include="Assets\Charactor\Dansei\murabito_dansei_B\murabito_dansei_B.MMD4Mecanim.xml" />
+    <None Include="Assets\Charactor\Dansei\murabito_dansei_B\murabito_dansei_B.xml" />
+    <None Include="Assets\Charactor\Josei\murabit_jyosei_A\murabito_jyosei_A.MMD4Mecanim.xml" />
+    <None Include="Assets\Charactor\Josei\murabit_jyosei_A\murabito_jyosei_A.xml" />
+    <None Include="Assets\Charactor\Josei\murabito_jyosei_B\murabito_jyosei_B.MMD4Mecanim.xml" />
+    <None Include="Assets\Charactor\Josei\murabito_jyosei_B\murabito_jyosei_B.xml" />
+    <None Include="Assets\MMD4Mecanim\Editor\PMX2FBX\pmx2fbx.xml" />
+    <None Include="Assets\MMD4Mecanim\Editor\PMX2FBX\readme.txt" />
+    <None Include="Assets\MMD4Mecanim\Editor\Revision.txt" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-AutoLight.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-BothFaces-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-BothFaces-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-BothFaces-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-BothFaces.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Compatible.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Dummy.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Lighting.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NEXTEdge-ForwardBase.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NEXTEdge-Lighting.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NEXTEdge-Pass4.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NEXTEdge-Pass8.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-BothFaces-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-BothFaces-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-BothFaces-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-BothFaces.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-NoShadowCasting.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Surface-ForwardAdd.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Surface-ForwardBase.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Surface-Lighting.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Surface-ShadowCaster.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Surface-ShadowCollector.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Surface-Tessellation.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-SurfaceEdge-ForwardAdd.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-SurfaceEdge-ForwardBase.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-SurfaceEdge-Lighting.cginc" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-BothFaces-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-BothFaces-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-BothFaces-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-BothFaces.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-BothFaces-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-BothFaces-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-BothFaces-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-BothFaces.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-NoShadowCasting.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Tess.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Transparent-Edge.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit-Transparent.shader" />
+    <None Include="Assets\MMD4Mecanim\Shaders\MMD4Mecanim-MMDLit.shader" />
+    <None Include="Assets\Mega Fantasy Props Pack\README.txt" />
+    <None Include="Assets\Resources\Texts\M18MoveData.txt" />
+    <None Include="Assets\Resources\Texts\Murabito20Data.txt" />
+    <None Include="Assets\Resources\Texts\weapon_list.txt" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\Idol.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\Walk.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\hikizurare.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\hikizuri.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\hikizuri_back.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\hikizuri_mae.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\hito_sukin.MMD4Mecanim.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\hito_sukin.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\huiuti.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\karatetyoppu.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\kubihuri.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\sinobiwalk.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\sitaitukamu.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\人　スキン有.MMD4Mecanim.xml" />
+    <None Include="Assets\Resources\VMD\VMDまとめ\人　スキン有.xml" />
+    <None Include="Assets\Resources\novel\data\config\config.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\first.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\tall\libs\menu.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\tall\libs\save.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\tall\libs\utils.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\tall\scene1.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\tall\system.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\tall\title.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\Debug.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\dout18.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear18_1.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear18_2.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear18_3.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fearTemplate.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_1_1.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_1_2.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_1_3.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_2_1.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_2_2.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_2_3.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_3_1.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_3_2.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\fear_20_3_3.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\libs\menu.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\libs\save.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\libs\utils.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\system.txt" />
+    <None Include="Assets\Resources\novel\data\scenario\wide\title.txt" />
+    <None Include="Assets\Resources\人とスキン 1\人　スキン有.MMD4Mecanim.xml" />
+    <None Include="Assets\Resources\人とスキン 1\人　スキン有.xml" />
+    <None Include="Assets\Resources\追加VMD_10_20\hikizuri_stop.xml" />
+    <None Include="Assets\人とスキン 1\人　スキン有.MMD4Mecanim.xml" />
+    <None Include="Assets\人とスキン 1\人　スキン有.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
+</Project>

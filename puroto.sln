@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "puroto.CSharp", "puroto.CSharp.csproj", "{64BFF61B-F3C5-132F-1CAF-6E8D7D1614C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "puroto.CSharp.Plugins", "puroto.CSharp.Plugins.csproj", "{A38C010D-4D64-5477-8B1A-D1CEB691D2AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "puroto.CSharp.Editor", "puroto.CSharp.Editor.csproj", "{A205672D-0543-0008-6998-82F8874470E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64BFF61B-F3C5-132F-1CAF-6E8D7D1614C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64BFF61B-F3C5-132F-1CAF-6E8D7D1614C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64BFF61B-F3C5-132F-1CAF-6E8D7D1614C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64BFF61B-F3C5-132F-1CAF-6E8D7D1614C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38C010D-4D64-5477-8B1A-D1CEB691D2AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38C010D-4D64-5477-8B1A-D1CEB691D2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38C010D-4D64-5477-8B1A-D1CEB691D2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38C010D-4D64-5477-8B1A-D1CEB691D2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A205672D-0543-0008-6998-82F8874470E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A205672D-0543-0008-6998-82F8874470E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A205672D-0543-0008-6998-82F8874470E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A205672D-0543-0008-6998-82F8874470E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
