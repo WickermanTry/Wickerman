@@ -36,5 +36,8 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.posSet = false;
         AwakeData.Instance.checkNum = 1;
         SceneManager.LoadScene("Maptest1117");
+
+        //時間管理用のシーン
+        //SceneManager.LoadScene("Maptest1208");
     }
 }

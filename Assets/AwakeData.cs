@@ -18,6 +18,8 @@ public class AwakeData
     public List<int> doutList  = new List<int>();
     //過ぎた時間
     public float worldTime_;
+    //過ぎた時間(分)
+    public float worldMinite_;
     //プレイヤーのポジション保存位置
     public Vector3 playerPosition_;
     //朝昼夕
@@ -26,4 +28,7 @@ public class AwakeData
     public bool posSet;
 
     public int checkNum;
+    //室内、室外の移動のfadein　fadeout用
+    public bool inout_ = true;
+
 }
