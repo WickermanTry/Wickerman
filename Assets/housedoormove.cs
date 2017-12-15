@@ -39,7 +39,7 @@ public class housedoormove : MonoBehaviour
         if (fadeTimer_ <= 0)
         {
             //シーンの名前 + 番号
-            SceneManager.LoadScene(ChangeScene_);
+            SceneManager.LoadScene("Maptest1117");
             print("移動");
         }
     }
