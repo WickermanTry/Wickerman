@@ -14,12 +14,8 @@ public class PatrolManager : MonoBehaviour
     [Header("優先度順の村人の番号")]
     private string[] mMurabitoNum;
 
-    [Header("パトロールする人数")]
+    [Header("パトロールする人数"), Range(3, 7)]
     public int mPatrolValue;
-    [SerializeField, Header("パトロールする最小人数")]
-    private int mPatrolMin;
-    [SerializeField, Header("パトロールする最大人数")]
-    private int mPatrolMax;
 
     [Header("パトロール要員のセット")]
     public bool mSet = false;
@@ -98,9 +94,6 @@ public class PatrolManager : MonoBehaviour
 
     void Active()
     {
-        if (mPatrolMin <= mPatrolValue && mPatrolValue <= mPatrolMax)
-        {
-            transform.Find(mPatrolValue + "MurabitoVer").gameObject.SetActive(true);
-        }
+        transform.Find(mPatrolValue + "MurabitoVer").gameObject.SetActive(true);
     }
 }

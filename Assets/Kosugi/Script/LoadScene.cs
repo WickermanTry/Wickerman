@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneScript : MonoBehaviour
+public class LoadScene : MonoBehaviour
 {
     public static bool mListSave;
     public bool mListDebug;

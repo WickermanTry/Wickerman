@@ -27,10 +27,10 @@ public class MurabitoPatrol : MonoBehaviour
         SetPatrolPosition();
         mMurabitoNight = GetComponent<MurabitoNight>();
         mNav = GetComponent<NavMeshAgent>();
-        Debug.LogError("STOP");
-        mNav.enabled = true;
 
         transform.position = mPatrolPositions[0];
+
+        mNav.enabled = true;
         mNav.SetDestination(mPatrolPositions[0]); 
 	}
 
