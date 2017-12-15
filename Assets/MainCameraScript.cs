@@ -7,6 +7,8 @@ public class MainCameraScript : MonoBehaviour
 
     GameObject targetObj;
     Vector3 targetPos;
+    Quaternion targetRota;
+    public Transform target;
 
     void Start()
     {
