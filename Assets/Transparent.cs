@@ -21,15 +21,23 @@ public class Transparent : MonoBehaviour
 
     }
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "view")
         {
+            print("消した");
             obj.SetActive(false);
         }
-        else if (other.tag == "Reset")
-        {
-            obj.SetActive(true);
-        }
     }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "view")
+        {
+            print("出した");
+            obj.SetActive(true);
+        }        
+    }
+
+
 }
