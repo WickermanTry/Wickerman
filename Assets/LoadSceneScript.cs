@@ -30,7 +30,10 @@ public class LoadSceneScript : MonoBehaviour
             AwakeData.Instance.doutList.Add(0);
         }
 
-        AwakeData.Instance.playerPosition_ = new Vector3(0.0f, 0.0f, 0.0f);
+        AwakeData.Instance.playerPosition_ = new Vector3(3.66f, 0.1f, 0.19f);
+        AwakeData.Instance.playerRotation_ = new Quaternion();
+        AwakeData.Instance.cameraPosition_ = new Vector3(0.0f, 7.0f, -1.5f);
+        AwakeData.Instance.cameraRotate_ = new Quaternion();
         AwakeData.Instance.worldTime_ = 0.0f;
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;

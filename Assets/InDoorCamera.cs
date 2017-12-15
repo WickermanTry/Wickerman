@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCameraScript : MonoBehaviour
-{
+public class InDoorCamera : MonoBehaviour {
 
     GameObject targetObj;
     Vector3 targetPos;
@@ -12,8 +11,6 @@ public class MainCameraScript : MonoBehaviour
     {
         targetObj = GameObject.Find("Player");
         targetPos = targetObj.transform.position;
-        targetRota = targetObj.transform.rotation;
-        this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;
     }
 
     void Update()
@@ -21,7 +18,7 @@ public class MainCameraScript : MonoBehaviour
         // targetの移動量分、自分（カメラ）も移動する
         transform.position += targetObj.transform.position - targetPos;
         targetPos = targetObj.transform.position;
-        transform.LookAt(target);
+
         // マウスの右クリックを押している間
         if (Input.GetMouseButton(1))
         {

@@ -10,6 +10,7 @@ public class doorMove : MonoBehaviour
     public float fadeTimer_ = 1.0f;
     public bool door_ = false;
     public GameObject a;
+    public GameObject player_;
     void Start()
     {
         AwakeData.Instance.inout_ = true;
@@ -27,6 +28,8 @@ public class doorMove : MonoBehaviour
         if (door_ == true) fadeTimer_ -= Time.deltaTime;
         if (fadeTimer_ <= 0)
         {
+            player_ = GameObject.Find("Player");
+            AwakeData.Instance.playerPosition_ = player_.transform.position;
             //シーンの名前 + 番号
             SceneManager.LoadScene("House" + HomeNum);
             print("移動");
