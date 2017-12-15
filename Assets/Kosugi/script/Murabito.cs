@@ -41,7 +41,7 @@ public class Murabito : MonoBehaviour
     private void Awake()
     {
         mMurabitoNum = int.Parse(gameObject.name.Substring(8));
-        print(mMurabitoNum);
+
         // Assets/Resources配下のKosugiフォルダから読込
         TextAsset csv = Resources.Load("Kosugi/MurabitoStatus") as TextAsset;
         StringReader reader = new StringReader(csv.text);
