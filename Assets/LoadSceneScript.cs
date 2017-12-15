@@ -35,6 +35,8 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;
         AwakeData.Instance.checkNum = 1;
-        SceneManager.LoadScene("Maptest1117");
+        AwakeData.Instance.sacrificeCount = 0;
+
+        //SceneManager.LoadScene("Maptest1117");
     }
 }

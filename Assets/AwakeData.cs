@@ -21,9 +21,12 @@ public class AwakeData
     //プレイヤーのポジション保存位置
     public Vector3 playerPosition_;
     //朝昼夕
-    public int dayTime_;
+    public int dayTime_;//0:朝1:昼2:夜
     //ポジションセットすべきかどうか
     public bool posSet;
 
     public int checkNum;
+
+    public int sacrificeCount;//生贄のカウント
+
 }
