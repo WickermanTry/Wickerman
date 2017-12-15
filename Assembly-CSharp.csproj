@@ -145,10 +145,12 @@
      <Compile Include="Assets\MMD4Mecanim\Scripts\MMD4MecanimRigidBody.cs" />
      <Compile Include="Assets\MMD4Mecanim\Scripts\MMD4MecanimSpeechHelper.cs" />
      <Compile Include="Assets\MurabitoScript.cs" />
+     <Compile Include="Assets\PlayerPrefsX.cs" />
      <Compile Include="Assets\PlayerScript.cs" />
      <Compile Include="Assets\PlayerScript2.cs" />
      <Compile Include="Assets\PlayerYoruScript.cs" />
      <Compile Include="Assets\PositionSetScript.cs" />
+     <Compile Include="Assets\SaveScript.cs" />
      <Compile Include="Assets\SeenTimer.cs" />
      <Compile Include="Assets\SetTimerScript.cs" />
      <Compile Include="Assets\Talk.cs" />
