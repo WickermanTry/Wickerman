@@ -39,6 +39,6 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.inout_ = true;
         AwakeData.Instance.worldMinite_ = 0;
 
-        //SceneManager.LoadScene("Maptest1117");
+        SceneManager.LoadScene("Maptest1117");
     }
 }
