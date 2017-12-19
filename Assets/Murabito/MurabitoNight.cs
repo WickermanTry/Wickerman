@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MurabitoNight : MonoBehaviour
+public class MurabitoNighttest : MonoBehaviour
 {
     //状態
     public enum MurabitoState

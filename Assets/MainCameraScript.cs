@@ -15,7 +15,7 @@ public class MainCameraScript : MonoBehaviour
         targetObj = GameObject.Find("Player");
         targetPos = targetObj.transform.position;
         targetRota = targetObj.transform.rotation;
-        this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;
+        //this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;
     }
 
     void Update()

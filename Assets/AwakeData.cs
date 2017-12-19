@@ -29,4 +29,8 @@ public class AwakeData
 
     public int sacrificeCount;//生贄のカウント
 
+    public bool inout_;
+
+    public int worldMinite_;
+
 }

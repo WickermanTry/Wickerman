@@ -32,12 +32,12 @@ public class LoadScene : MonoBehaviour
             AwakeData.Instance.MlifeList.Add(1);
         }
         //個人の恐怖値
-        for (int i = 0; i < 31; i++)//30体分(i=1だと0～29の30個で30番目が無い)
+        for (int i = 1; i < 31; i++)//30体分
         {
             AwakeData.Instance.fearList.Add(0);
         }
         //個人の不審度
-        for (int i = 0; i < 31; i++)//30体分(i=1だと0～29の30個で30番目が無い)
+        for (int i = 1; i < 31; i++)//30体分
         {
             AwakeData.Instance.doutList.Add(0);
         }

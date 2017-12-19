@@ -27,7 +27,7 @@ public class housedoormove : MonoBehaviour
         cameraPos_.x = cameraPos_.x + 3.6f;
         cameraPos_.y = cameraPos_.y + 4.23f;
         cameraPos_.z = cameraPos_.z + 0.7f;
-        AwakeData.Instance.cameraPosition_ = cameraPos_;
+        //AwakeData.Instance.cameraPosition_ = cameraPos_;
         print(AwakeData.Instance.inout_);
 
         if (Input.GetKeyDown(KeyCode.C) && inflag)

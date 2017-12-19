@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         this.transform.position = AwakeData.Instance.playerPosition_;
-        this.transform.rotation = AwakeData.Instance.playerRotation_;
+        //this.transform.rotation = AwakeData.Instance.playerRotation_;
     }
 
     void Update()
