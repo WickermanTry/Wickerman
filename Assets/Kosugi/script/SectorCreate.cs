@@ -9,6 +9,7 @@ public enum SectorType
     Sub
 }
 
+[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class SectorCreate : MonoBehaviour
 {
     [Range(1, 5)]
@@ -20,6 +21,8 @@ public class SectorCreate : MonoBehaviour
     [SerializeField, Header("プレイヤーが視線に入ったか")]
     private bool mPlayerSearch = false;
 
+    MeshFilter m;
+
     public bool debugMeshUpdate = false;
 
     [SerializeField]
@@ -27,7 +30,7 @@ public class SectorCreate : MonoBehaviour
 
     void Start()
     {
-        MeshFilter m = this.GetComponent<MeshFilter>();
+        m = this.GetComponent<MeshFilter>();
         m.mesh = CreateMesh();
 
         gameObject.AddComponent<MeshCollider>();
@@ -35,7 +38,6 @@ public class SectorCreate : MonoBehaviour
 
     void Update()
     {
-        MeshFilter m = this.GetComponent<MeshFilter>();
         m.mesh = CreateMesh();
 
         if (debugMeshUpdate)
@@ -88,6 +90,8 @@ public class SectorCreate : MonoBehaviour
         }
         mesh.triangles = triangles;
 
+        mesh.name = "Sector";
+
         return mesh;
     }
 
@@ -108,10 +112,6 @@ public class SectorCreate : MonoBehaviour
         }
         else if (mSectorType == SectorType.Sub && col.gameObject.tag == "Torch")
             print("Torch Enter");
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        mPlayerSearch = false;
     }
 
     public bool GetSearchFlag()
