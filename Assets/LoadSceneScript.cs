@@ -20,12 +20,22 @@ public class LoadSceneScript : MonoBehaviour
             AwakeData.Instance.MlifeList.Add(1);
         }
         //個人の恐怖値
-        for (int i = 1; i < 31; i++)//30体分
+        /* 31体分
+         * 村人の数値を番号に基づきfearList[1]から取っており
+         * i=1だとfearList[0]～fearList[29]になってしまい番号通りに取れなくなるのでi=0に変更しました
+         * fearList[0]はnull(使用しない)でお願いします
+         */
+        for (int i = 0; i < 31; i++)
         {
             AwakeData.Instance.fearList.Add(0);
         }
         //個人の不審度
-        for (int i = 1; i < 31; i++)//30体分
+        /* 31体分
+         * 村人の数値を番号に基づきdoutList[1]から取っており
+         * i=1だとdoutList[0]～doutList[29]になってしまい番号通りに取れなくなるのでi=0に変更しました
+         * doutList[0]はnull(使用しない)でお願いします
+         */
+        for (int i = 0; i < 31; i++)
         {
             AwakeData.Instance.doutList.Add(0);
         }
