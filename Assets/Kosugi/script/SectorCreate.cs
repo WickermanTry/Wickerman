@@ -23,6 +23,9 @@ public class SectorCreate : MonoBehaviour
 
     MeshFilter m;
 
+    [SerializeField, Header("Gizmoの色")]
+    private Color mColor;
+
     public bool debugMeshUpdate = false;
 
     [SerializeField]
@@ -117,5 +120,16 @@ public class SectorCreate : MonoBehaviour
     public bool GetSearchFlag()
     {
         return mPlayerSearch;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (CreateMesh() == null) return;
+
+        Mesh mesh = CreateMesh();
+        mesh.RecalculateNormals();
+
+        Gizmos.color = mColor;
+        Gizmos.DrawMesh(mesh,transform.position,transform.rotation,Vector3.one);
     }
 }

@@ -27,7 +27,7 @@ public class PatrolManager : MonoBehaviour
     [Header("欠員実行")]
     public bool debugLostDo;
 
-    void Start()
+    void Awake()
     {
         // Assets/Resources配下のKosugiフォルダから読込
         TextAsset csv = Resources.Load("Kosugi/Patrol") as TextAsset;
@@ -48,23 +48,18 @@ public class PatrolManager : MonoBehaviour
 	{
         if (mSet)
         {
-            if (mPatrolValue < 0 || mPatrolMurabito.Count < mPatrolValue)
-            {
-                Debug.LogWarning("パトロール対象人数が対応外です！");
-                mSet = false;
-                return;
-            }
-
             print("パトロールする村人");
             for (int i = 0; i < mPatrolValue; i++)
             {
-                print((i + 1) + "人目：" + mPatrolMurabito[i]);
+                int num = i + 1;
+                print(num + "人目：" + mPatrolMurabito[i]);
 
                 if (mPatrolMurabito[i].GetComponent<MurabitoPatrol>().enabled == false)
                 {
                     mPatrolMurabito[i].GetComponent<MurabitoPatrol>().enabled = true;
                     mPatrolMurabito[i].GetComponent<MurabitoPatrol>().SetPatrolRoute
-                        (transform.Find(mPatrolValue + "MurabitoVer"), i + 1);
+                        (transform.Find(mPatrolValue + "MurabitoVer"), num);
+                    mPatrolMurabito[i].GetComponent<MurabitoPatrol>().SetSwingPatternNumber(num);
                 }
             }
 
