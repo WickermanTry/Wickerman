@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.IO;
 
-
 /// <summary>
-/// パトロール用
+/// 巡回プログラム ※スタートのカウントを1にする＝ルートのポイントも1から始める
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
@@ -26,6 +25,9 @@ public class MurabitoPatrol : MonoBehaviour
 
     private MurabitoNight mMurabitoNight;
 
+    [Header("アニメーター")]
+    Animator mAnim;
+
     //NavMeshAgent
     NavMeshAgent mNav;
 
@@ -33,61 +35,64 @@ public class MurabitoPatrol : MonoBehaviour
 	{
         mMurabitoNight = GetComponent<MurabitoNight>();
         mNav = GetComponent<NavMeshAgent>();
+        mAnim = GetComponent<Animator>();
 
         StartSetting();
     }
 
 	void Update ()
 	{
-        if (mMurabitoNight.GetState() != MurabitoNight.MurabitoState.Idle
-            && mMurabitoNight.GetState() != MurabitoNight.MurabitoState.Walk) return;
-
-        if (mMurabitoNight.GetState() != MurabitoNight.MurabitoState.Walk)
-            mMurabitoNight.SetState(MurabitoNight.MurabitoState.Walk);
-
+        // 目指す巡回ポイントとの距離が0.1f以下になったら次の巡回ポイントをセット
         float min_Distance = 0.1f;
         if (mNav.remainingDistance < min_Distance)
         {
             mNav.SetDestination(mPatrolPositions[mCounter]);
+            StartCoroutine(Swing(mCounter));
             mCounter++;
-            StartCoroutine(Swing());  
         }
         else
         {
-            transform.LookAt(mNav.destination);   
+            transform.LookAt(mNav.destination);
         }
 
+        // 巡回ポイント以上のカウントになったら0に戻す
         if(mCounter>= mPatrolPositions.Count)
         {
             mCounter = 0;
         }
 
-        if (mNav.isStopped)
+        // NavMeshが動いていればwalkアニメーションを再生
+        if (!mNav.isStopped)
         {
-            switch (mSwingPattern[mCounter])
-            {
-                case "left":
-                    print(gameObject.name + "left");
-                    break;
-                case "right":
-                    print(gameObject.name + "right");
-                    break;
-                case "forward":
-                    print(gameObject.name + "forward");
-                    break;
-            }
+            mAnim.SetBool("walk", true);
         }
-	}
+        else
+        {
+            mAnim.SetBool("walk", false);
+        }
+    }
 
-    IEnumerator Swing()
+    /// <summary>
+    /// 巡回用首振り
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Swing(int num)
     {
-        print(mSwingPattern[mCounter]);
+        print(mSwingPattern[num]);
+        
         mNav.isStopped = true;
+        mAnim.SetBool(mSwingPattern[num], true);
+        mAnim.SetTrigger("swing");
 
         yield return new WaitForSeconds(5);
+
+        mAnim.SetBool(mSwingPattern[num], false);
         mNav.isStopped = false;
     }
 
+    /// <summary>
+    /// 巡回担当に振り分けられたら呼び出してデータをセット
+    /// </summary>
     void StartSetting()
     {
         SetPatrolPosition();
@@ -99,6 +104,18 @@ public class MurabitoPatrol : MonoBehaviour
         mNav.SetDestination(mPatrolPositions[0]);
     }
 
+    /// <summary>
+    /// 巡回ルートをセット
+    /// </summary>
+    /// <param name="route"></param>
+    /// <param name="num"></param>
+    public void SetPatrolRoute(Transform route, int num)
+    {
+        mPatrolRoute = route.Find("PatrolRoute" + num).gameObject;
+    }
+    /// <summary>
+    /// 巡回ポイントのデータをセット
+    /// </summary>
     void SetPatrolPosition()
     {
         for (int i = 0; i < mPatrolRoute.transform.childCount; i++)
@@ -126,10 +143,11 @@ public class MurabitoPatrol : MonoBehaviour
             }
         }
     }
-    public void SetPatrolRoute(Transform route,int num)
-    {
-        mPatrolRoute = route.Find("PatrolRoute" + num).gameObject;
-    }
+    
+    /// <summary>
+    /// 巡回用首振りのデータをセット
+    /// </summary>
+    /// <param name="num"></param>
     public void SetSwingPatternNumber(int num)
     {
         mSwingPatternNum = num;

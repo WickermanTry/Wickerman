@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 /// <summary>
-/// 村人パトロールの管理
+/// 村人パトロールの管理 ※スタートのカウントを1にする＝ルートのポイントも1から始める
 /// </summary>
 public class PatrolManager : MonoBehaviour
 {
@@ -20,12 +20,12 @@ public class PatrolManager : MonoBehaviour
     [Header("パトロール要員のセット")]
     public bool mSet = false;
 
-    [Space(10)]
-    [SerializeField, Header("*デバッグ用*")]
-    [Header("欠員にする村人の配列番号")]
-    public int debugLostNum;
-    [Header("欠員実行")]
-    public bool debugLostDo;
+    //[Space(10)]
+    //[SerializeField, Header("*デバッグ用*")]
+    //[Header("欠員にする村人の配列番号")]
+    //public int debugLostNum;
+    //[Header("欠員実行")]
+    //public bool debugLostDo;
 
     void Awake()
     {
@@ -68,23 +68,24 @@ public class PatrolManager : MonoBehaviour
             mSet = false;
         }
 
-        if (debugLostDo)
-        {
-            if (debugLostNum < 0 || mPatrolMurabito.Count < debugLostNum)
-            {
-                Debug.LogWarning("デバッグ対象番号が対応外です！");
-                debugLostDo = false;
-                return;
-            }
+        // 欠員発生時の処理(新仕様により必要無いかも？)
+        //if (debugLostDo)
+        //{
+        //    if (debugLostNum < 0 || mPatrolMurabito.Count < debugLostNum)
+        //    {
+        //        Debug.LogWarning("デバッグ対象番号が対応外です！");
+        //        debugLostDo = false;
+        //        return;
+        //    }
 
-            print("欠員対象村人：" + mPatrolMurabito[debugLostNum]);
-            string nameValue = mPatrolMurabito[debugLostNum].name;
-            mPatrolMurabito[debugLostNum] = mPatrolMurabito[mPatrolValue];
-            mPatrolMurabito.RemoveAt(mPatrolValue);
-            Destroy(GameObject.Find(nameValue));
-            mSet = true;
-            debugLostDo = false;
-        }
+        //    print("欠員対象村人：" + mPatrolMurabito[debugLostNum]);
+        //    string nameValue = mPatrolMurabito[debugLostNum].name;
+        //    mPatrolMurabito[debugLostNum] = mPatrolMurabito[mPatrolValue];
+        //    mPatrolMurabito.RemoveAt(mPatrolValue);
+        //    Destroy(GameObject.Find(nameValue));
+        //    mSet = true;
+        //    debugLostDo = false;
+        //}
 	}
 
     void Active()

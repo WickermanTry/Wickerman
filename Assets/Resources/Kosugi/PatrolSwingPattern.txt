@@ -1,7 +1,7 @@
 ﻿巡回担当番号＼ポイント番号,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10
-1,left,left,forward,right,right,forward,forward,left,right,forward
-2,right,forward,left,left,forward,right,left,forward,forward,right
-3,forward,right,right,forward,left,left,right,right,left,right
+1,left,left,front,right,right,front,front,left,right,front
+2,right,front,left,left,front,right,left,front,front,right
+3,front,right,right,front,left,left,right,right,left,right
 4,,,,,,,,,,
 5,,,,,,,,,,
 6,,,,,,,,,,

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// パトロール順路のデバッグ表示
+/// パトロール順路のデバッグ表示 ※スタートのカウントを1にする＝ルートのポイントも1から始める
 /// </summary>
 public class PatrolGizmo : MonoBehaviour
 {
