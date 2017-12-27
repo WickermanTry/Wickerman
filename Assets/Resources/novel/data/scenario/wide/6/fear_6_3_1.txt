@@ -21,7 +21,7 @@
 
 MMD表示[p]
 
-[sd_new name=murabito_6 storage=murabito_6 x=5.37 y=-2.5 z=-4]
+[sd_new name=murabito_6 storage=murabito_Man_3 x=5.37 y=-2.5 z=-4]
 
 ;3Dモデルを表示
 
@@ -59,7 +59,7 @@ MMD表示[p]
 
 MMD表示[p]
 
-[sd_new name=murabito_6 storage=murabito_6 x=5.37 y=-2.5 z=-4]
+[sd_new name=murabito_6 storage=murabito_Man_3 x=5.37 y=-2.5 z=-4]
 
 ;3Dモデルを表示
 
@@ -96,7 +96,7 @@ MMD表示[p]
 [bg_show ]
 
 MMD表示[p]
-[sd_new name=murabito_6 storage=murabito_6 x=5.37 y=-2.5 z=-4]
+[sd_new name=murabito_6 storage=murabito_Man_3 x=5.37 y=-2.5 z=-4]
 
 ;3Dモデルを表示
 

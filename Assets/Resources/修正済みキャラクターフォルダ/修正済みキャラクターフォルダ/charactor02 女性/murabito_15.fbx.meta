@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 3a36c230f217c574bbdd430dbeca8099
+timeCreated: 1513917437
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: __
+    100002: __
+    100004: ____
+    100006: ____
+    100008: ___e
+    100010: "___\u048A\u0590_"
+    100012: _E__
+    100014: _E__
+    100016: _E_e
+    100018: "_E_\u048A\u0590_"
+    100020: _Z___^_[
+    100022: "_\u0490_1"
+    100024: "_\u0490_2"
+    100026: "_\u0490_3"
+    100028: mqo_mesh
+    100030: //RootNode
+    400000: __
+    400002: __
+    400004: ____
+    400006: ____
+    400008: ___e
+    400010: "___\u048A\u0590_"
+    400012: _E__
+    400014: _E__
+    400016: _E_e
+    400018: "_E_\u048A\u0590_"
+    400020: _Z___^_[
+    400022: "_\u0490_1"
+    400024: "_\u0490_2"
+    400026: "_\u0490_3"
+    400028: mqo_mesh
+    400030: //RootNode
+    4300000: mqo_mesh
+    9500000: //RootNode
+    13700000: mqo_mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

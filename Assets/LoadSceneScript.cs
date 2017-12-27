@@ -8,7 +8,7 @@ public class LoadSceneScript : MonoBehaviour
     void Awake()
     {
         //日付
-        AwakeData.Instance.dayNum_ = 0;
+        AwakeData.Instance.dayNum_ = 1;
         //不審度の会話をしたかどうか
         for (int i = 0; i < 31; i++)//31体分(0はnull用)
         {
@@ -48,7 +48,8 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.sacrificeCount = 0;
         AwakeData.Instance.inout_ = true;
         AwakeData.Instance.worldMinite_ = 0;
-
-        //SceneManager.LoadScene("Maptest1117");
+        AwakeData.Instance.indoorCheck_ = true;
+        AwakeData.Instance.houseNum_ = 0;
+        SceneManager.LoadScene("LoadSceneManager");
     }
 }

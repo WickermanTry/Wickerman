@@ -31,8 +31,8 @@ public class doorMove : MonoBehaviour
             player_ = GameObject.Find("Player");
             AwakeData.Instance.playerPosition_ = player_.transform.position;
             //シーンの名前 + 番号
-            SceneManager.LoadScene("House" + HomeNum);
-            print("移動");
+            AwakeData.Instance.houseNum_ = HomeNum;
+            SceneManager.LoadScene("LoadSceneManager");
         }
     }
     void OnTriggerEnter(Collider other)
