@@ -5,63 +5,66 @@ using UnityEngine.AI;
 using System.IO;
 
 /// <summary>
-/// 巡回プログラム ※スタートのカウントを1にする＝ルートのポイントも1から始める
+/// 巡回プログラム
+/// アニメーション周り不安定なので要改善
+/// 首振り→巡回が怪しい
+/// 振り向きはキャラで固定らしい
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
-    [SerializeField, Header("パトロール経路")]
+    [Header("巡回担当に振り分けられたか")]
+    public bool mIsPatrolShift;
+
+    [SerializeField, Header("巡回経路の総括オブジェクト")]
     private GameObject mPatrolRoute;
 
-    [SerializeField, Header("パトロール経路の通過地点")]
+    [SerializeField, Header("巡回経路の各地点")]
     private List<Vector3> mPatrolPositions;
 
-    [SerializeField, Header("巡廻ポイント用カウンター")]
-    private int mCounter = 1;
+    [SerializeField, Header("巡廻地点用カウンター")]
+    private int mCounter = 0;
 
-    [SerializeField, Header("パトロール時の首振りパターン番号")]
-    private int mSwingPatternNum = 0;
-    [SerializeField, Header("パトロール時の首振りパターン")]
-    private List<string> mSwingPattern = new List<string>();
+    [SerializeField, Header("巡回時の振り向きパターン")]
+    private string mSwingPattern = "";
+    [Header("振り向き時の回転角度")]
+    private float mAngle = 0;
 
-    private MurabitoNight mMurabitoNight;
-
-    [Header("アニメーター")]
+    /*---内部データ---*/
     Animator mAnim;
 
-    //NavMeshAgent
+    Transform mModel; // 14.!Root取得用
+
     NavMeshAgent mNav;
 
 	void Start ()
 	{
-        mMurabitoNight = GetComponent<MurabitoNight>();
         mNav = GetComponent<NavMeshAgent>();
-        mAnim = GetComponent<Animator>();
+        mNav.isStopped = true;
 
-        StartSetting();
+        mAnim = GetComponent<Animator>();
+        mModel = transform.Find("14.!Root");
     }
 
 	void Update ()
 	{
-        // 目指す巡回ポイントとの距離が0.1f以下になったら次の巡回ポイントをセット
+        if (!mIsPatrolShift) return;
+
+        // 目指す巡回地点との距離が0.1未満になったら次の巡回地点をセット
         float min_Distance = 0.1f;
-        if (mNav.remainingDistance < min_Distance)
+        if (mNav.remainingDistance < min_Distance && !mNav.isStopped)
         {
-            mNav.SetDestination(mPatrolPositions[mCounter]);
-            StartCoroutine(Swing(mCounter));
+            StartCoroutine(Swing());
             mCounter++;
-        }
-        else
-        {
-            transform.LookAt(mNav.destination);
+            mNav.SetDestination(mPatrolPositions[mCounter]);
         }
 
-        // 巡回ポイント以上のカウントになったら0に戻す
-        if(mCounter>= mPatrolPositions.Count)
+        // 巡回地点の総数以上のカウントになったら1に戻す
+        if (mCounter>= mPatrolPositions.Count)
         {
-            mCounter = 0;
+            mCounter = 1;
         }
 
-        // NavMeshが動いていればwalkアニメーションを再生
+        // NavMeshが動いてるかどうか
         if (!mNav.isStopped)
         {
             mAnim.SetBool("walk", true);
@@ -72,61 +75,61 @@ public class MurabitoPatrol : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 巡回用首振り
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator Swing(int num)
-    {
-        print(mSwingPattern[num]);
-        
-        mNav.isStopped = true;
-        mAnim.SetBool(mSwingPattern[num], true);
-        mAnim.SetTrigger("swing");
-
-        yield return new WaitForSeconds(5);
-
-        mAnim.SetBool(mSwingPattern[num], false);
-        mNav.isStopped = false;
-    }
 
     /// <summary>
-    /// 巡回担当に振り分けられたら呼び出してデータをセット
-    /// </summary>
-    void StartSetting()
-    {
-        SetPatrolPosition();
-        SetSwingPattern();
-
-        transform.position = mPatrolPositions[0];
-
-        mNav.enabled = true;
-        mNav.SetDestination(mPatrolPositions[0]);
-    }
-
-    /// <summary>
-    /// 巡回ルートをセット
+    /// 巡回ルートをまとめている親をセット
+    /// 同時に下記のStartSettingを呼び出す
     /// </summary>
     /// <param name="route"></param>
     /// <param name="num"></param>
-    public void SetPatrolRoute(Transform route, int num)
+    public void SetPatrolRoute(GameObject route)
     {
-        mPatrolRoute = route.Find("PatrolRoute" + num).gameObject;
+        mPatrolRoute = route;
+        StartSetting();
+    }
+
+    /// <summary>
+    /// 巡回担当に振り分けられたら呼び出しデータをセット
+    /// </summary>
+    void StartSetting()
+    {
+        // NavMeshを稼働させる
+        mNav.isStopped = false;
+
+        // 必要なプログラムを作動
+        SetPatrolPosition();
+        SetSwingPattern();
+
+        // 自分の位置を巡回地点の開始地点(position0)に移動する
+        transform.position = mPatrolPositions[0];
+
+        // 開始地点から次の巡回地点をセット
+        mNav.SetDestination(mPatrolPositions[mCounter]);
+
+        // モデルの向きを次の巡回地点にする
+        transform.LookAt(mPatrolPositions[mCounter]);
+        mModel.LookAt(mPatrolPositions[mCounter]);
+
+        // 巡回担当に振り分けられたフラグを立てる
+        mIsPatrolShift = true;
     }
     /// <summary>
-    /// 巡回ポイントのデータをセット
+    /// ①巡回地点のデータをセット
     /// </summary>
     void SetPatrolPosition()
     {
-        for (int i = 0; i < mPatrolRoute.transform.childCount; i++)
-        {
-            mPatrolPositions.Add(mPatrolRoute.transform.Find("position" + i).transform.position);
-        }
+        //巡回ルートの親から巡回ルートのデータをセット
+        mPatrolPositions = mPatrolRoute.GetComponent<RoutePositionSave>().mRoutePosition;
     }
+    /// <summary>
+    /// ②テキストデータから振り向き方向をセット
+    /// 二列ぐらいで、一列目に村人の番号・二列目に振り向きの向きをテキストデータで作成
+    /// それを取得する
+    /// </summary>
     void SetSwingPattern()
     {
         // Assets/Resources配下のKosugiフォルダから読込
-        TextAsset csv = Resources.Load("Kosugi/PatrolSwingPattern") as TextAsset;
+        TextAsset csv = Resources.Load("Kosugi/PatrolPattern") as TextAsset;
         StringReader reader = new StringReader(csv.text);
         while (reader.Peek() > -1)
         {
@@ -134,22 +137,63 @@ public class MurabitoPatrol : MonoBehaviour
             string line = reader.ReadToEnd().Replace('\n', '/');
             // lineに格納したデータを / で分割し配列に再格納
             string[] data = line.Split('/');
+            //
+            string[,] swing = new string[data.Length, data[0].Split(',').Length];
 
-            int dataLength = data[mSwingPatternNum].Split(',').Length;
-
-            for (int i = 0; i < dataLength; i++)
+            for (int i = 0; i < data.Length; i++)
             {
-                mSwingPattern.Add(data[mSwingPatternNum].Split(',')[i]);
+                string[] value = data[i].Split(',');
+                for (int j = 0; j < value.Length; j++)
+                {
+                    swing[i, j] = value[j];
+                }
+
+                if (swing[i, 2] == gameObject.name.Substring(8))
+                {
+                    switch (int.Parse(swing[i, 3]))
+                    {
+                        case 0:
+                            mSwingPattern = "front";
+                            mAngle = 0;
+                            break;
+                        case 1:
+                            mSwingPattern = "left";
+                            mAngle = -90f;
+                            break;
+                        case 2:
+                            mSwingPattern = "right";
+                            mAngle = 90f;
+                            break;
+                    }
+                }
             }
         }
     }
-    
+
+
     /// <summary>
-    /// 巡回用首振りのデータをセット
+    /// 巡回用振り向き動作
     /// </summary>
-    /// <param name="num"></param>
-    public void SetSwingPatternNumber(int num)
+    /// <returns></returns>
+    IEnumerator Swing()
     {
-        mSwingPatternNum = num;
+        mNav.isStopped = true;
+        
+        yield return new WaitForSeconds(1);
+
+        mAnim.SetBool(mSwingPattern, true);
+
+        yield return new WaitForSeconds(5);
+
+        mAnim.SetBool(mSwingPattern, false);
+
+        AngleSetting();
+    }
+
+    void AngleSetting()
+    {
+        Quaternion a = Quaternion.LookRotation(mPatrolPositions[mCounter] - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, a, Time.deltaTime / 2);
+        mNav.isStopped = false;
     }
 }
