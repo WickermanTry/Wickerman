@@ -27,10 +27,15 @@ public class AwakeData
 
     public int checkNum;
 
-    public int sacrificeCount;//生贄のカウント
+    public List<string> stoleObj = new List<string>();   //盗まれたもの
+    public int maxMass;//最大限もてる重さ
+    public int mass;//現在の重さ
+
 
     public bool inout_;
 
     public int worldMinite_;
+
+    public GameObject player;
 
 }

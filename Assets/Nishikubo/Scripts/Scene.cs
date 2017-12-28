@@ -14,7 +14,7 @@ public enum SceneType
     GameClear,
     GameOver,
     Credit,
-    Maptest1117/*,
+    steal/*,
     Stage01_Noon,
     Stage02_Night,
     Stage03_Noon,

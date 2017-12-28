@@ -28,7 +28,7 @@ public class doorMove : MonoBehaviour
         if (door_ == true) fadeTimer_ -= Time.deltaTime;
         if (fadeTimer_ <= 0)
         {
-            player_ = GameObject.Find("Player");
+            player_ = GameObject.FindGameObjectWithTag("Player");
             AwakeData.Instance.playerPosition_ = player_.transform.position;
             //シーンの名前 + 番号
             SceneManager.LoadScene("House" + HomeNum);

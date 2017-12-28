@@ -15,14 +15,14 @@ public class SacrificeCount : MonoBehaviour {
     // Use this for initialization
     void Start () {
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        m_sacrificeCount = AwakeData.Instance.sacrificeCount;
+        //m_sacrificeCount = AwakeData.Instance.sacrificeCount;
     }
 
     //生贄が増える
     public void CountUp()
     {
         m_sacrificeCount += 1;
-        AwakeData.Instance.sacrificeCount = m_sacrificeCount;
+        //AwakeData.Instance.sacrificeCount = m_sacrificeCount;
 
         if (m_sacrificeCount >= 15)
         {
