@@ -37,6 +37,9 @@ public class AwakeData
     //室内、室外の移動のfadein　fadeout用
     public bool inout_ = true;
 
-    public int sacrificeCount;//生贄のカウント
+    public List<string> stoleObj = new List<string>();   //盗まれたもの
+    public int maxMass;//最大限もてる重さ
+    public int mass;//現在の重さ
 
+    public GameObject player;
 }

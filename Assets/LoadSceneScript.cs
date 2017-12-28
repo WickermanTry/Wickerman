@@ -38,9 +38,16 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;
         AwakeData.Instance.checkNum = 1;
-        AwakeData.Instance.sacrificeCount = 0;
+        AwakeData.Instance.maxMass = 30;
+        AwakeData.Instance.mass = 0;
 
-        SceneManager.LoadScene("Maptest1117");
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
+            DontDestroyOnLoad(AwakeData.Instance.player);
+        }
+
+        //SceneManager.LoadScene("Maptest1117");
 
         //時間管理用のシーン
         //SceneManager.LoadScene("Maptest1208");

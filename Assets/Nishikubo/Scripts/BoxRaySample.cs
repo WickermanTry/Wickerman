@@ -22,7 +22,7 @@ public class BoxRaySample : MonoBehaviour {
         //var isBoxCol = Physics.OverlapBox(pos, scale);
 
 
-        var isHit = Physics.BoxCast(pos, scale, transform.forward, out hit, transform.rotation,2);
+        var isHit = Physics.BoxCast(pos, scale, transform.forward, out hit, transform.rotation,0.5f);
 
 
         ////村人とプレイヤーがめり込んだとき
