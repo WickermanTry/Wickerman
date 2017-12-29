@@ -12,7 +12,7 @@ public class MainCameraScript : MonoBehaviour
 
     void Start()
     {
-        targetObj = GameObject.Find("Player");
+        targetObj = GameObject.FindGameObjectWithTag("Player");
         targetPos = targetObj.transform.position;
         targetRota = targetObj.transform.rotation;
         //this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;

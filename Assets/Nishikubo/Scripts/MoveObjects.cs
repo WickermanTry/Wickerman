@@ -63,42 +63,42 @@ public class MoveObjects : MonoBehaviour {
                     case HavePosition.Before://仮
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("TrailingPosition").transform.position;
+                        transform.localPosition = GameObject.Find("TrailingPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
                     case HavePosition.Behind://仮
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("TrailingPosition").transform.position;
+                        transform.localPosition = GameObject.Find("TrailingPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
                     case HavePosition.Side://仮
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("TrailingPosition").transform.position;
+                        transform.localPosition = GameObject.Find("TrailingPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
                     case HavePosition.Push://仮
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("TrailingPosition").transform.position;
+                        transform.localPosition = GameObject.Find("TrailingPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
                     case HavePosition.Pull:
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("TrailingPosition").transform.position;
+                        transform.localPosition = GameObject.Find("TrailingPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
                     case HavePosition.Up://仮
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("TrailingPosition").transform.position;
+                        transform.localPosition = GameObject.Find("TrailingPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
