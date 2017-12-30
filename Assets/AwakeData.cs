@@ -20,6 +20,14 @@ public class AwakeData
     public float worldTime_;
     //プレイヤーのポジション保存位置
     public Vector3 playerPosition_;
+     //プレイヤーのローテーション保存
+    public Quaternion playerRotation_;
+    //カメラポジション保存位置
+    public Vector3 cameraPosition_;
+    //カメラ角度保存位置
+    public Quaternion cameraRotate_;
+
+    public Vector3 indoorcameraPosition_; 
     //朝昼夕
     public int dayTime_;//0:朝1:昼2:夜
     //ポジションセットすべきかどうか
@@ -33,4 +41,5 @@ public class AwakeData
 
     public int worldMinite_;
 
+    public bool cameraFrag_;
 }

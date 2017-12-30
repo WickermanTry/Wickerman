@@ -15,11 +15,31 @@ public class MainCameraScript : MonoBehaviour
         targetObj = GameObject.Find("Player");
         targetPos = targetObj.transform.position;
         targetRota = targetObj.transform.rotation;
-        //this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;
+        if(AwakeData.Instance.cameraFrag_ == false)
+        {
+            this.transform.position = AwakeData.Instance.cameraPosition_;
+        }
+
+        if (AwakeData.Instance.cameraFrag_ == true)
+        {
+            print(true);
+            Vector3 oldPosition = AwakeData.Instance.cameraPosition_;
+            Vector3 cameraPosition = transform.position;
+            cameraPosition.x = oldPosition.x;
+            cameraPosition.z = oldPosition.z;
+            this.transform.position = cameraPosition; 
+
+            Vector3 oldRotation = AwakeData.Instance.cameraRotate_.eulerAngles;
+            Vector3 cameraRotation = transform.rotation.eulerAngles;
+            cameraRotation.y = oldRotation.y;
+            this.transform.rotation = Quaternion.Euler(cameraRotation);
+        }
+
     }
 
     void Update()
     {
+    
         // targetの移動量分、自分（カメラ）も移動する
         transform.position += targetObj.transform.position - targetPos;
         targetPos = targetObj.transform.position;

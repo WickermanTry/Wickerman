@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: 01b437f37b6a19c468257e2e69971a02
+timeCreated: 1513917437
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: __
+    100002: __
+    100004: ____
+    100006: ____
+    100008: ___e
+    100010: "___\u048A\u0590_"
+    100012: _E__
+    100014: _E__
+    100016: _E_e
+    100018: "_E_\u048A\u0590_"
+    100020: _Z___^_[
+    100022: "_\u0490_1"
+    100024: "_\u0490_2"
+    100026: "_\u0490_3"
+    100028: mqo_mesh
+    100030: //RootNode
+    100032: 0.joint_Center
+    100034: 1.!joint_sekizui1
+    100036: 10.joint_migikokansetsu
+    100038: 11.!joint_RightHip
+    100040: 12.joint_hidarikokansetsu
+    100042: 13.!joint_LeftHip
+    100044: 14.!Root
+    100046: 2.!joint_sekizui2
+    100048: 3.!joint_sekizui3
+    100050: 4.joint_Neck
+    100052: 5.!joint_Head
+    100054: 6.joint_migiwaki
+    100056: 7.!joint_RightHand
+    100058: 8.joint_hidariwaki
+    100060: 9.!joint_LeftHand
+    100062: U_Char
+    400000: __
+    400002: __
+    400004: ____
+    400006: ____
+    400008: ___e
+    400010: "___\u048A\u0590_"
+    400012: _E__
+    400014: _E__
+    400016: _E_e
+    400018: "_E_\u048A\u0590_"
+    400020: _Z___^_[
+    400022: "_\u0490_1"
+    400024: "_\u0490_2"
+    400026: "_\u0490_3"
+    400028: mqo_mesh
+    400030: //RootNode
+    400032: 0.joint_Center
+    400034: 1.!joint_sekizui1
+    400036: 10.joint_migikokansetsu
+    400038: 11.!joint_RightHip
+    400040: 12.joint_hidarikokansetsu
+    400042: 13.!joint_LeftHip
+    400044: 14.!Root
+    400046: 2.!joint_sekizui2
+    400048: 3.!joint_sekizui3
+    400050: 4.joint_Neck
+    400052: 5.!joint_Head
+    400054: 6.joint_migiwaki
+    400056: 7.!joint_RightHand
+    400058: 8.joint_hidariwaki
+    400060: 9.!joint_LeftHand
+    400062: U_Char
+    4300000: mqo_mesh
+    4300002: U_Char
+    7400000: Idol_vmd
+    9500000: //RootNode
+    13700000: mqo_mesh
+    13700002: U_Char
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

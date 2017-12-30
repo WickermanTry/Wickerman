@@ -30,7 +30,11 @@ public class LoadSceneScript : MonoBehaviour
             AwakeData.Instance.doutList.Add(0);
         }
 
-        AwakeData.Instance.playerPosition_ = new Vector3(0.0f, 0.0f, 0.0f);
+        AwakeData.Instance.playerPosition_ = new Vector3(3.66f, 0.1f, 0.19f);
+        AwakeData.Instance.playerRotation_ = new Quaternion();
+        AwakeData.Instance.cameraPosition_ = new Vector3(3.66f, 7.1f, -1.31f);
+        AwakeData.Instance.cameraRotate_ = new Quaternion();
+        AwakeData.Instance.indoorcameraPosition_ = new Vector3(0.0f, 3.0f, 1.0f);
         AwakeData.Instance.worldTime_ = 0.0f;
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;
@@ -38,7 +42,8 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.sacrificeCount = 0;
         AwakeData.Instance.inout_ = true;
         AwakeData.Instance.worldMinite_ = 0;
+        AwakeData.Instance.cameraFrag_ = false;
 
-        SceneManager.LoadScene("Maptest1117");
+        SceneManager.LoadScene("Maptest1222");
     }
 }

@@ -11,9 +11,11 @@ public class doorMove : MonoBehaviour
     public bool door_ = false;
     public GameObject a;
     public GameObject player_;
+    public GameObject camera_;
     void Start()
     {
         AwakeData.Instance.inout_ = true;
+        camera_ = GameObject.Find("Main Camera Soto");
     }
 
     void Update()

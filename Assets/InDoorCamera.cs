@@ -11,6 +11,7 @@ public class InDoorCamera : MonoBehaviour {
     {
         targetObj = GameObject.Find("Player");
         targetPos = targetObj.transform.position;
+        this.transform.position = AwakeData.Instance.indoorcameraPosition_;
     }
 
     void Update()
