@@ -2,31 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Rayを数本飛ばしてどれかにプレイヤー当たったら見えてる
+ * 逆に視界部分に当たっててもRayに当たらなければ見えていない
+ * 
+ * でいいのかな
+ */
 
 public enum SectorType
 {
-    Main,
-    Sub
+    Main,   //直接的な視界
+    Sub     //間接的な視界
 }
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class SectorCreate : MonoBehaviour
 {
     [Range(1, 5)]
-    public float radius = 3.0f;
+    public float _radius = 3.0f;
     [Range(1, 360)]
-    public int mDegree = 1;
+    public int _degree = 1;
     [Range(3, 30)]
-    public int triangleNum = 10;
+    public int _triangleNum = 10;
     [SerializeField, Header("プレイヤーが視線に入ったか")]
-    private bool mPlayerSearch = false;
+    private bool isPlayerSearch = false;
 
     MeshFilter m;
 
     [SerializeField, Header("Gizmoの色")]
     private Color mColor;
 
-    public bool debugMeshUpdate = false;
+    public bool isDebugMeshUpdate = false;
 
     [SerializeField]
     private SectorType mSectorType;
@@ -43,7 +49,7 @@ public class SectorCreate : MonoBehaviour
     {
         m.mesh = CreateMesh();
 
-        if (debugMeshUpdate)
+        if (isDebugMeshUpdate)
             DebugMeshUpdate();
     }
 
@@ -52,31 +58,31 @@ public class SectorCreate : MonoBehaviour
         Mesh mesh = new Mesh();
 
         //頂点座標計算
-        Vector3[] vertices = new Vector3[2 + triangleNum];
-        Vector2[] uv = new Vector2[2 + triangleNum];
+        Vector3[] vertices = new Vector3[2 + _triangleNum];
+        Vector2[] uv = new Vector2[2 + _triangleNum];
 
         vertices[0] = new Vector3(0f, 0f, 0f);
         uv[0] = new Vector2(0.5f, 0.5f);
 
-        float deltaRad = Mathf.Deg2Rad * (mDegree / (float)triangleNum);
-        for (int i = 1; i < 2 + triangleNum; i++)
+        float deltaRad = Mathf.Deg2Rad * (_degree / (float)_triangleNum);
+        for (int i = 1; i < 2 + _triangleNum; i++)
         {
             float mValue = 0;
-            if (mDegree <= 180)
+            if (_degree <= 180)
             {
-                mValue = 90 - (mDegree / 2);
+                mValue = 90 - (_degree / 2);
             }
-            else if (mDegree > 180)
+            else if (_degree > 180)
             {
-                mValue = (180 - mDegree) / 2;
+                mValue = (180 - _degree) / 2;
             }
 
             float x = Mathf.Cos(deltaRad * (i - 1) + (Mathf.Deg2Rad * mValue));
             float y = Mathf.Sin(deltaRad * (i - 1) + (Mathf.Deg2Rad * mValue));
             vertices[i] = new Vector3(
-                x * radius,
+                x * _radius,
                 0,
-                y * radius);
+                y * _radius);
 
             uv[i] = new Vector2(x * 0.5f + 0.5f, y * 0.5f + 0.5f);
         }
@@ -84,8 +90,8 @@ public class SectorCreate : MonoBehaviour
         mesh.uv = uv;
 
         //三角形を構成する頂点のindexを，順に設定していく
-        int[] triangles = new int[3 * triangleNum];
-        for (int i = 0; i < triangleNum; i++)
+        int[] triangles = new int[3 * _triangleNum];
+        for (int i = 0; i < _triangleNum; i++)
         {
             triangles[(i * 3)] = 0;
             triangles[(i * 3) + 1] = i + 1;
@@ -103,14 +109,14 @@ public class SectorCreate : MonoBehaviour
         Destroy(GetComponent<MeshCollider>());
         gameObject.AddComponent<MeshCollider>();
 
-        debugMeshUpdate = false;
+        isDebugMeshUpdate = false;
     }
 
     private void OnTriggerEnter(Collider col)
     {
         if (mSectorType == SectorType.Main && col.gameObject.tag == "Player")
         {
-            mPlayerSearch = true;
+            isPlayerSearch = true;
             print("Player Enter");
         }
         else if (mSectorType == SectorType.Sub && col.gameObject.tag == "Torch")
@@ -119,7 +125,7 @@ public class SectorCreate : MonoBehaviour
 
     public bool GetSearchFlag()
     {
-        return mPlayerSearch;
+        return isPlayerSearch;
     }
 
     private void OnDrawGizmos()
