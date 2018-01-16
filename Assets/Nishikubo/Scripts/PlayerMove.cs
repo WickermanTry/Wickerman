@@ -45,22 +45,22 @@ public class PlayerMove : MonoBehaviour {
                 Move(1);
                 break;
             case HavePosition.Before://仮
-                Move(-1);
+                Move(1);
                 break;
             case HavePosition.Behind://仮
-                Move(-1);
+                Move(1);
                 break;
             case HavePosition.Side://仮
-                Move(-1);
+                Move(1);
                 break;
             case HavePosition.Push://仮
-                Move(-1);
+                Move(1);
                 break;
             case HavePosition.Pull:
                 Move(-1);
                 break;
             case HavePosition.Up://仮
-                Move(-1);
+                Move(1);
                 break;
             default:
                 Debug.Log("Error:" + m_state);
