@@ -14,6 +14,10 @@ public class LoadSceneScript : MonoBehaviour
         {
             AwakeData.Instance.FdoutList.Add(1);
         }
+        for (int i = 0; i < 16; i++)//ハウスナンバー
+        {
+            AwakeData.Instance.stealList.Add(false);
+        }
         //村人ライフ
         for (int i = 0; i < 31; i++)//31体分(0はnull用)
         {
@@ -45,11 +49,20 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;
         AwakeData.Instance.checkNum = 1;
-        AwakeData.Instance.sacrificeCount = 0;
         AwakeData.Instance.inout_ = true;
         AwakeData.Instance.worldMinite_ = 0;
-        AwakeData.Instance.indoorCheck_ = true;
-        AwakeData.Instance.houseNum_ = 0;
+        AwakeData.Instance.maxMass = 30;
+        AwakeData.Instance.mass = 0;
+
+       // if (GameObject.FindGameObjectWithTag("Player") == null)
+        //{
+        //    AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
+        //    DontDestroyOnLoad(AwakeData.Instance.player);
+        //}
+
         SceneManager.LoadScene("LoadSceneManager");
+
+
+
     }
 }
