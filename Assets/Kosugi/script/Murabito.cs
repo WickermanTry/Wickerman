@@ -76,9 +76,9 @@ public class Murabito : MonoBehaviour
     {
         PositionSet();
         // 村人の番号ごとの数値を挿入
-        myFearStats = AwakeData.Instance.fearList[1];
-        myDoutStats = AwakeData.Instance.doutList[1];
-        myFdout = AwakeData.Instance.FdoutList[1];
+        myFearStats = AwakeData.Instance.fearList[mMurabitoNum];
+        myDoutStats = AwakeData.Instance.doutList[mMurabitoNum];
+        myFdout = AwakeData.Instance.FdoutList[mMurabitoNum];
         posTime_ = 0;
         //開いてるデータはMLife_0で埋めるぜったいtrueにならないデータ。
         myFamily_1 = AwakeData.Instance.MlifeList[0];
@@ -95,9 +95,9 @@ public class Murabito : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myFearStats = AwakeData.Instance.fearList[1];
-        myDoutStats = AwakeData.Instance.doutList[1];
-        myFdout = AwakeData.Instance.FdoutList[1];
+        myFearStats = AwakeData.Instance.fearList[mMurabitoNum];
+        myDoutStats = AwakeData.Instance.doutList[mMurabitoNum];
+        myFdout = AwakeData.Instance.FdoutList[mMurabitoNum];
         if(posTime_ == AwakeData.Instance.dayTime_)
         {
             PositionSet();

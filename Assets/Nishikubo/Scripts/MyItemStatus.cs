@@ -27,8 +27,7 @@ public class MyItemStatus : MonoBehaviour {
         Vegetables,
         VillageHeadmanImage,
         WickermanImage,
-        WoodenBox,
-        Treasure
+        WoodenBox
     }
 
     //　アイテムを持っているかどうかのフラグ
