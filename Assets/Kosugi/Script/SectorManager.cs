@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// プレイヤーを直視したかどうか(視線系の処理)
+/// むらびとの視線の管理
 /// </summary>
-public class Raycast : MonoBehaviour
+public class SectorManager : MonoBehaviour
 {
     RaycastHit hitLeft, hitRight;
 

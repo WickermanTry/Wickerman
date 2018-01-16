@@ -2,13 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * Rayを数本飛ばしてどれかにプレイヤー当たったら見えてる
- * 逆に視界部分に当たっててもRayに当たらなければ見えていない
- * 
- * でいいのかな
- */
-
 public enum SectorType
 {
     Main,   //直接的な視界
@@ -24,7 +17,7 @@ public class SectorCreate : MonoBehaviour
     public int _degree = 1;
     [Range(3, 30)]
     public int _triangleNum = 10;
-    [SerializeField, Header("プレイヤーが視線に入ったか")]
+    [SerializeField, Header("プレイヤーが範囲に入ったか")]
     private bool isPlayerSearch = false;
 
     MeshFilter m;

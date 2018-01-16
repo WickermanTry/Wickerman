@@ -9,13 +9,13 @@ using System.IO;
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
-    [Header("巡回担当に振り分けられたか")]
+    [Header("巡回担当に振り分けられたか(巡回しているかの判断)")]
     public bool isPatrolShift;
 
-    [SerializeField, Header("巡回経路の総括オブジェクト")]
-    private GameObject mPatrolRoute;
+    [SerializeField, Header("※デバッグ用 巡回ルートの名前")]
+    private string mPatrolRouteName;
 
-    [SerializeField, Header("巡回経路の各地点")]
+    [SerializeField, Header("巡回ルートの各地点")]
     private List<Vector3> mPatrolPositions;
 
     [SerializeField, Header("巡廻地点用カウンター")]
@@ -33,11 +33,11 @@ public class MurabitoPatrol : MonoBehaviour
     private bool isNotPointWarp = false;
 
     /*---内部データ---*/
-    Animator mAnim;
+    Animator mAnim; // Animator取得用
 
     Transform mModel; // 14.!Root取得用
 
-    NavMeshAgent mNav;
+    NavMeshAgent mNav; // NavMeshAgent取得用
 
 	void Start ()
 	{
@@ -50,11 +50,15 @@ public class MurabitoPatrol : MonoBehaviour
 
 	void Update ()
 	{
+        // 巡回担当になっていない場合は巡回処理をしない
         if (!isPatrolShift) return;
 
         Patrol();
     }
 
+    /// <summary>
+    /// 巡回処理
+    /// </summary>
     void Patrol()
     {
         // 目指す巡回地点との距離が0.1未満になったら次の巡回地点をセット
@@ -84,27 +88,29 @@ public class MurabitoPatrol : MonoBehaviour
     }
 
     /// <summary>
-    /// 巡回ルートをまとめている親をセット
-    /// 同時に下記のStartSettingを呼び出す
+    /// 巡回ルートをまとめた親から巡回ルートの地点のListをセット
+    /// 巡回するのに必要な準備の処理を呼び出す
     /// </summary>
     /// <param name="route"></param>
     /// <param name="num"></param>
-    public void SetPatrolRoute(GameObject route)
+    public void SetPatrolRoute(string name, List<Vector3> route)
     {
-        mPatrolRoute = route;
+        mPatrolRouteName = name;
+        mPatrolPositions = route;
+
+        // 巡回ルートのデータをセットされたら準備の処理を起動
         StartSetting();
     }
 
     /// <summary>
-    /// 巡回担当に振り分けられたら呼び出しデータをセット
+    /// 準備用の処理
     /// </summary>
     void StartSetting()
     {
-        // NavMeshを稼働させる
+        // NavMeshを起動させる
         mNav.isStopped = false;
 
         // 必要なプログラムを作動
-        SetPatrolPosition();
         SetSwingPattern();
 
         // 初期設定時のみ自分の位置を巡回地点の開始地点(position0)に移動する
@@ -124,14 +130,7 @@ public class MurabitoPatrol : MonoBehaviour
         // 巡回担当に振り分けられたフラグを立てる
         isPatrolShift = true;
     }
-    /// <summary>
-    /// ①巡回地点のデータをセット
-    /// </summary>
-    void SetPatrolPosition()
-    {
-        //巡回ルートの親から巡回ルートのデータをセット
-        mPatrolPositions = mPatrolRoute.GetComponent<RoutePositionSave>().mRoutePosition;
-    }
+
     /// <summary>
     /// ②テキストデータから振り向き方向をセット
     /// 二列ぐらいで、一列目に村人の番号・二列目に振り向きの向きをテキストデータで作成
@@ -223,12 +222,12 @@ public class MurabitoPatrol : MonoBehaviour
     }
 
     /// <summary>
-    /// 巡回ルートを再設定するために値をリセット
+    /// 巡回ルートを再設定するためにいろいろ値をリセット
     /// </summary>
     public void RouteReset()
     {
         isPatrolShift = false;
-        mPatrolRoute = null;
+        mPatrolRouteName = null;
         mPatrolPositions.Clear();
         _counter = 0;
         mSwingPattern = "";
