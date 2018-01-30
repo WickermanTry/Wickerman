@@ -31,4 +31,4 @@ MMD表示[p]
 私はNo.2の村長(男)です。[r]
 これは不審度が一定値を超えた時の会話です。[p]
 
-[scene file="Maptest1117"]
+[scene file="LoadSceneManager"]

@@ -38,9 +38,10 @@ public class housedoormove : MonoBehaviour
         if (door_ == true) fadeTimer_ -= Time.deltaTime;
         if (fadeTimer_ <= 0)
         {
-            //シーンの名前 + 番号
-            SceneManager.LoadScene("Maptest1117");
-            print("移動");
+            //シーンの名前
+            AwakeData.Instance.houseNum_ = 0;
+            SceneManager.LoadScene("LoadSceneManager");
+
         }
     }
     void OnTriggerEnter(Collider other)

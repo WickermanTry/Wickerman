@@ -21,11 +21,11 @@
 
 MMD表示[p]
 
-[sd_new name=murabito_4 storage=murabito_4 x=5.37 y=-2.5 z=-4]
+;[sd_new name=murabito_4 storage=murabito_4 x=5.37 y=-2.5 z=-4]
 
 ;3Dモデルを表示
 
-[sd_show name=murabito_4]
+;[sd_show name=murabito_4]
 
 [wait time=1]
 
@@ -59,11 +59,11 @@ MMD表示[p]
 
 MMD表示[p]
 
-[sd_new name=murabito_4 storage=murabito_4 x=5.37 y=-2.5 z=-4]
+;[sd_new name=murabito_4 storage=murabito_4 x=5.37 y=-2.5 z=-4]
 
 ;3Dモデルを表示
 
-[sd_show name=murabito_4]
+;[sd_show name=murabito_4]
 
 [wait time=1]
 
@@ -97,11 +97,11 @@ MMD表示[p]
 
 MMD表示[p]
 
-[sd_new name=murabito_4 storage=murabito_4 x=5.37 y=-2.5 z=-4]
+;[sd_new name=murabito_4 storage=murabito_4 x=5.37 y=-2.5 z=-4]
 
 ;3Dモデルを表示
 
-[sd_show name=murabito_4]
+;[sd_show name=murabito_4]
 
 [wait time=1]
 
