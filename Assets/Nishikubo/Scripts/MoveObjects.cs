@@ -24,6 +24,7 @@ public class MoveObjects : MonoBehaviour
         set { m_state = value; }
     }
     public int stealNum_;
+    public int treasureNum_;
     private bool stealTrigger_ = true;
     private GameObject m_player;
     private BoxCollider m_boxCol;
@@ -56,7 +57,7 @@ public class MoveObjects : MonoBehaviour
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_boxCol = this.GetComponent<BoxCollider>();
-        m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
+        m_itemDataBase = this.gameObject.transform.Find("GameManager").GetComponent<ItemDataBase>();
 
         m_state = ObjectState.Idle;
         ObjectStatus(m_itemDataBase.GetItemData());
@@ -73,12 +74,23 @@ public class MoveObjects : MonoBehaviour
                 gameObject.SetActive(true);
                 m_boxCol.isTrigger = false;
                 transform.parent = null;//仮
-
+                if (AwakeData.Instance.houseNum_ == stealNum_)
+                {
+                    if (stealTrigger_ == false)
+                    {
+                        AwakeData.Instance.stealList[stealNum_] = false;
+                        AwakeData.Instance.stealTypeList[treasureNum_] = false;
+                        AwakeData.Instance.stealNumList[stealNum_] = +1;
+                        stealTrigger_ = true;
+                    }
+                }
                 break;
             case ObjectState.Carry:
                 if (stealTrigger_ == true)
                 {
                     AwakeData.Instance.stealList[stealNum_] = true;
+                    AwakeData.Instance.stealTypeList[treasureNum_] = true;
+                    AwakeData.Instance.stealNumList[stealNum_] = -1;
                     stealTrigger_ = false;
                 }
                 switch (m_havePosition)

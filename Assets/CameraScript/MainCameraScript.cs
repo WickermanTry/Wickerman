@@ -9,17 +9,23 @@ public class MainCameraScript : MonoBehaviour
     Vector3 targetPos;
     Quaternion targetRota;
     public Transform target;
+    public Quaternion testcheck;
+    public Quaternion testcheckupdate;
 
     void Start()
     {
+        this.gameObject.transform.position = AwakeData.Instance.cameraPosition_;
+        this.gameObject.transform.rotation = AwakeData.Instance.cameraRotate_;
         targetObj = GameObject.FindGameObjectWithTag("Player");
         targetPos = targetObj.transform.position;
         targetRota = targetObj.transform.rotation;
+        testcheck = this.gameObject.transform.rotation;
         //this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;
     }
 
     void Update()
     {
+        testcheckupdate = this.gameObject.transform.rotation;
         // targetの移動量分、自分（カメラ）も移動する
         transform.position += targetObj.transform.position - targetPos;
         targetPos = targetObj.transform.position;

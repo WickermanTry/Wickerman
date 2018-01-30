@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneScript : MonoBehaviour
 {
+    public int[] a = new int[16];
     void Awake()
     {
         //日付
@@ -17,6 +18,14 @@ public class LoadSceneScript : MonoBehaviour
         for (int i = 0; i < 16; i++)//ハウスナンバー
         {
             AwakeData.Instance.stealList.Add(false);
+        }
+        for(int i = 0; i < 16; i++)//ハウスナンバー
+        {
+            AwakeData.Instance.stealNumList.Add(a[i]);
+        }
+        for(int i = 0; i < 23; i++)//識別番号
+        {
+            AwakeData.Instance.stealTypeList.Add(false);
         }
         //村人ライフ
         for (int i = 0; i < 31; i++)//31体分(0はnull用)
@@ -43,8 +52,9 @@ public class LoadSceneScript : MonoBehaviour
         {
             AwakeData.Instance.doutList.Add(0);
         }
-
-        AwakeData.Instance.playerPosition_ = new Vector3(0.0f, 0.0f, 0.0f);
+        AwakeData.Instance.playerPosition_ = new Vector3(213.4f, 0.2f, 127.7f);
+        AwakeData.Instance.cameraPosition_ = new Vector3(213.4f, 13.0f, 120.7f);
+        AwakeData.Instance.cameraRotate_ = new Quaternion(0.5f,0.0f,0.0f,0.8660254f);
         AwakeData.Instance.worldTime_ = 0.0f;
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;
@@ -54,11 +64,11 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.maxMass = 30;
         AwakeData.Instance.mass = 0;
 
-       // if (GameObject.FindGameObjectWithTag("Player") == null)
-        //{
-        //    AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
-        //    DontDestroyOnLoad(AwakeData.Instance.player);
-        //}
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
+            DontDestroyOnLoad(AwakeData.Instance.player);
+        }
 
         SceneManager.LoadScene("LoadSceneManager");
 

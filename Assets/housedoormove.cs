@@ -12,6 +12,10 @@ public class housedoormove : MonoBehaviour
     public bool door_ = false;
     GameObject camera_;
     GameObject player_;
+    public Vector3 playerChangePosition_;
+    public Quaternion playerChangeRotation_;
+    public Vector3 cameraChangePosition_;
+    public Quaternion cameraChangeRotation_;
     public Transform target_;
     private Vector3 cameraPos_ = new Vector3(0.0f, 0.0f, 0.0f);
     private Quaternion cameraRota_ = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
@@ -60,6 +64,11 @@ public class housedoormove : MonoBehaviour
         if (fadeTimer_ <= 0)
         {
             //シーンの名前 + 番号
+            player_ = GameObject.FindGameObjectWithTag("Player");
+            player_.transform.position = playerChangePosition_;
+            player_.transform.rotation = playerChangeRotation_;
+            AwakeData.Instance.cameraPosition_ = cameraChangePosition_;
+            AwakeData.Instance.cameraRotate_ = cameraChangeRotation_;
             AwakeData.Instance.houseNum_ = 0;
             SceneManager.LoadScene("LoadSceneManager");        
             print("移動");
