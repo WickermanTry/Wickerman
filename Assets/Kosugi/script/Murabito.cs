@@ -25,8 +25,9 @@ public class Murabito : MonoBehaviour
     private int friendNumber = 0;
     //テキストID
     protected string TextID, JumpID;
-    //プレイヤーポジション
+    //ポジション
     private float Px, Py, Pz;
+    private int posTime_;
     //ジャンプナンバー(random)
     private int jumpNum_;
     //このキャラ個人の変化のある数値
@@ -64,10 +65,10 @@ public class Murabito : MonoBehaviour
                 }
             }
 
-            fearCheck01 = int.Parse(status[mMurabitoNum, 1]);
-            fearCheck02 = int.Parse(status[mMurabitoNum, 2]);
-            fearCheck03 = int.Parse(status[mMurabitoNum, 3]);
-            doutCheck = int.Parse(status[mMurabitoNum, 4]);
+            fearCheck01 = int.Parse(status[1, 1]);
+            fearCheck02 = int.Parse(status[1, 2]);
+            fearCheck03 = int.Parse(status[1, 3]);
+            doutCheck = int.Parse(status[1, 4]);
         }
     }
 
@@ -78,7 +79,7 @@ public class Murabito : MonoBehaviour
         myFearStats = AwakeData.Instance.fearList[mMurabitoNum];
         myDoutStats = AwakeData.Instance.doutList[mMurabitoNum];
         myFdout = AwakeData.Instance.FdoutList[mMurabitoNum];
-
+        posTime_ = 0;
         //開いてるデータはMLife_0で埋めるぜったいtrueにならないデータ。
         myFamily_1 = AwakeData.Instance.MlifeList[0];
         myFamily_2 = AwakeData.Instance.MlifeList[0];
@@ -97,6 +98,10 @@ public class Murabito : MonoBehaviour
         myFearStats = AwakeData.Instance.fearList[mMurabitoNum];
         myDoutStats = AwakeData.Instance.doutList[mMurabitoNum];
         myFdout = AwakeData.Instance.FdoutList[mMurabitoNum];
+        if(posTime_ == AwakeData.Instance.dayTime_)
+        {
+            PositionSet();
+        }
     }
     public void SetTextIDMethod()
     {
@@ -253,7 +258,7 @@ public class Murabito : MonoBehaviour
         var mMoveList = new MurabitoMoveDataScript.MMoveList("Texts/M" + mMurabitoNum.ToString() + "MoveData", true);
 
         //時間によって場所移動
-        if(AwakeData.Instance.indoorCheck_ == true)//室内ならば
+        if(AwakeData.Instance.indoorCheck_ == false)//室外
         {
             for (int i = 0; i == AwakeData.Instance.dayTime_; i++)
             {
@@ -264,6 +269,7 @@ public class Murabito : MonoBehaviour
                 Pz = mMoveList.ToList().Find(x => x.Id == "場所セット_0_" + i).posZ;
 
                 this.transform.position = new Vector3(Px, Py, Pz);
+                posTime_ += 1;
             }
         }
         else
@@ -277,6 +283,7 @@ public class Murabito : MonoBehaviour
                 Pz = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posZ;
 
                 this.transform.position = new Vector3(Px, Py, Pz);
+                posTime_ += 1;
             }
         }
     }

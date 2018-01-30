@@ -6,15 +6,19 @@ public class InDoorCamera : MonoBehaviour {
 
     GameObject targetObj;
     Vector3 targetPos;
+    public Quaternion testcheckupdate;
 
     void Start()
     {
-        targetObj = GameObject.Find("Player");
+        this.gameObject.transform.rotation = AwakeData.Instance.cameraRotate_;
+        this.gameObject.transform.position = AwakeData.Instance.cameraPosition_;
+        targetObj = GameObject.FindGameObjectWithTag("Player");
         targetPos = targetObj.transform.position;
     }
 
     void Update()
     {
+        testcheckupdate = this.gameObject.transform.rotation;
         // targetの移動量分、自分（カメラ）も移動する
         transform.position += targetObj.transform.position - targetPos;
         targetPos = targetObj.transform.position;

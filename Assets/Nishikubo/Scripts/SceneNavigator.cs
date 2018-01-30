@@ -154,16 +154,20 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator> {
     {
         FadeOutFinished();
 
+        ////シーン読み込み、変更
+        //SceneManager.LoadScene(_nextSceneName);
+
+        ////シーン名更新
+        //_beforeSceneName = _currentSceneName;
+        //_currentSceneName = _nextSceneName;
+
         //フェードイン開始
         _fader.gameObject.SetActive(true);
         _fader.Alpha = 1;
         _fader.Play(isFadeOut: true, duration: _fadeTime, onFinished: OnFadeInFinish);
     }
 
-    /// <summary>
-    /// フェードイン・アウト
-    /// </summary>
-    /// <param name="fadeTime"></param>
+
     public void Fade(float fadeTime = FADE_TIME)
     {
         if (IsFading)
@@ -180,82 +184,4 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator> {
         _fader.Play(isFadeOut: false, duration: _fadeTime, onFinished: OnFadeOutFinishOnly);
 
     }
-
-    /// <summary>
-    /// シーンを重ねる
-    /// </summary>
-    /// <param name="sceneName"></param>
-    /// <param name="fadeTime"></param>
-    public void Additive(string sceneName, float fadeTime = FADE_TIME)
-    {
-        if (IsFading)
-        {
-            Debug.LogError("フェード中です！");
-            return;
-        }
-
-        //次のシーン名とフェード時間を設定
-        _nextSceneName = sceneName;
-        _fadeTime = fadeTime;
-
-        //フェードアウト
-        _fader.gameObject.SetActive(true);
-        _fader.Play(isFadeOut: false, duration: _fadeTime, onFinished: OnFadeOutFinishAdditive);
-    }
-
-    private void OnFadeOutFinishAdditive()
-    {
-        FadeOutFinished();
-
-        //シーン読み込み、変更
-        SceneManager.LoadScene(_nextSceneName, LoadSceneMode.Additive);
-
-        //シーン名更新
-        _beforeSceneName = _currentSceneName;
-        _currentSceneName = _nextSceneName;
-
-        //フェードイン開始
-        _fader.gameObject.SetActive(true);
-        _fader.Alpha = 1;
-        _fader.Play(isFadeOut: true, duration: _fadeTime, onFinished: OnFadeInFinish);
-    }
-
-
-    /// <summary>
-    /// シーンを削除
-    /// </summary>
-    public void Unload(float fadeTime = FADE_TIME)
-    {
-        if (IsFading)
-        {
-            Debug.LogError("フェード中です！");
-            return;
-        }
-
-        //フェード時間を設定
-        _fadeTime = fadeTime;
-
-        //フェードアウト
-        _fader.gameObject.SetActive(true);
-        _fader.Play(isFadeOut: false, duration: _fadeTime, onFinished: OnFadeOutFinishUnload);
-
-    }
-
-    private void OnFadeOutFinishUnload()
-    {
-        FadeOutFinished();
-
-        //シーン読み込み、変更
-        SceneManager.UnloadScene(_currentSceneName);
-
-        //シーン名更新
-        _beforeSceneName = _currentSceneName;
-        _currentSceneName = _nextSceneName;
-
-        //フェードイン開始
-        _fader.gameObject.SetActive(true);
-        _fader.Alpha = 1;
-        _fader.Play(isFadeOut: true, duration: _fadeTime, onFinished: OnFadeInFinish);
-    }
-
 }

@@ -20,7 +20,7 @@ public class ProcessingSlot : MonoBehaviour {
     private GameObject player;
 
     //生成したかどうか
-    public bool isGenerate = false;
+    private bool isGenerate = false;
 
     
 
@@ -48,7 +48,6 @@ public class ProcessingSlot : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
 
         isGenerate = false;
-
     }
 
     public void MouseOver()
@@ -96,36 +95,21 @@ public class ProcessingSlot : MonoBehaviour {
             AwakeData.Instance.mass = AwakeData.Instance.mass - myItemData.GetItemMass();
             
             //プレイヤーの配下に盗んだモノがあったら
-            if (player.transform.FindChild(myItemData.GetItemType().ToString()) != null)
+            if (player.transform.Find(myItemData.GetItemType().ToString()) != null)
             {
-                Destroy(player.transform.FindChild(myItemData.GetItemType().ToString()).gameObject);                
+                Destroy(player.transform.Find(myItemData.GetItemType().ToString()).gameObject);                
             }
-            else if(player.transform.FindChild(myItemData.GetItemType().ToString() + "(Clone)") != null)
+            else if(player.transform.Find(myItemData.GetItemType().ToString() + "(Clone)") != null)
             {
-                Destroy(player.transform.FindChild(myItemData.GetItemType().ToString() + "(Clone)").gameObject);
+                Destroy(player.transform.Find(myItemData.GetItemType().ToString() + "(Clone)").gameObject);
             }
 
             player.GetComponent<MyItemStatus>().SetItemFlag(myItemData.GetItemNumber(), false);
             transform.GetChild(0).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);//灰色に
-
-
-            //隠せる場所だったら
-            GameObject[] hideArea = GameObject.FindGameObjectsWithTag("HideArea");
-            for (int i = 0; i < hideArea.Length; i++)
-            {
-                if (hideArea[i].GetComponent<HideArea>().isHide)
-                {
-                    SceneNavigator.Instance.Fade(1.0f);
-                    hideArea[i].GetComponent<HideArea>().hideCount++;
-                    obj.GetComponent<MoveObjects>().state = ObjectState.Hide;
-                }
-            }
-
             isGenerate = true;
-
-
         }
 
+        //隠せる場所だったら
 
     }
 }
