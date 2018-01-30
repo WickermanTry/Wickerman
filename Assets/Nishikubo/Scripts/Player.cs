@@ -41,13 +41,19 @@ public class Player : MonoBehaviour
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
 
-    //void Awake()
-    //{
-    //    if (GameObject.FindGameObjectWithTag("Player") == null)
-    //    {
-    //        DontDestroyOnLoad(this);
-    //    }
-    //}
+    private bool m_isHideArea;
+    public bool isHideArea
+    {
+        get { return m_isHideArea; }
+    }
+
+    void Awake()
+    {
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            DontDestroyOnLoad(this);
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -205,6 +211,16 @@ public class Player : MonoBehaviour
             hideArea = other.gameObject;
             //m_uiDisplay.ImageActive(0, true);
         }
+        //if(other.gameObject.tag=="HideArea")
+        //{
+        //    m_isHideArea = true;
+        //}
+
+        //商人と接触したら
+        //if(other.gameObject.tag=="Merchant")
+        //{
+
+        //}
     }
 
 

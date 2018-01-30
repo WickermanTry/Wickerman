@@ -30,6 +30,7 @@ public class ItemDataBase : MonoBehaviour {
         itemLists[18] = new ItemData(18, Resources.Load("Prefabs/Arrows", typeof(Sprite)) as Sprite, "村長の像", MyItemStatus.Item.VillageHeadmanImage, HavePosition.Push, 30, false);
         itemLists[19] = new ItemData(19, Resources.Load("Prefabs/Arrows", typeof(Sprite)) as Sprite, "ウィッカーマンの像", MyItemStatus.Item.WickermanImage, HavePosition.Push, 30, false);
         itemLists[20] = new ItemData(20, Resources.Load("Prefabs/Arrows", typeof(Sprite)) as Sprite, "木箱", MyItemStatus.Item.WoodenBox, HavePosition.Before, 3, false);
+
     }
 
 

@@ -20,7 +20,7 @@ public class ProcessingSlot : MonoBehaviour {
     private GameObject player;
 
     //生成したかどうか
-    private bool isGenerate = false;
+    public bool isGenerate = false;
 
     
 
@@ -48,6 +48,7 @@ public class ProcessingSlot : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
 
         isGenerate = false;
+
     }
 
     public void MouseOver()
@@ -106,10 +107,25 @@ public class ProcessingSlot : MonoBehaviour {
 
             player.GetComponent<MyItemStatus>().SetItemFlag(myItemData.GetItemNumber(), false);
             transform.GetChild(0).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);//灰色に
+
+
+            //隠せる場所だったら
+            GameObject[] hideArea = GameObject.FindGameObjectsWithTag("HideArea");
+            for (int i = 0; i < hideArea.Length; i++)
+            {
+                if (hideArea[i].GetComponent<HideArea>().isHide)
+                {
+                    SceneNavigator.Instance.Fade(1.0f);
+                    hideArea[i].GetComponent<HideArea>().hideCount++;
+                    obj.GetComponent<MoveObjects>().state = ObjectState.Hide;
+                }
+            }
+
             isGenerate = true;
+
+
         }
 
-        //隠せる場所だったら
 
     }
 }

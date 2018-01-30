@@ -16,7 +16,7 @@ public enum ObjectState
 public class MoveObjects : MonoBehaviour {
 
     [SerializeField, Tooltip("状態遷移")]
-    private ObjectState m_state = ObjectState.None;  //遷移
+    private ObjectState m_state = ObjectState.Idle;  //遷移
     public ObjectState state
     {
         get { return m_state; }
@@ -55,8 +55,7 @@ public class MoveObjects : MonoBehaviour {
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_boxCol = this.GetComponent<BoxCollider>();
         m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
-
-        m_state = ObjectState.Idle;
+        //m_state = ObjectState.Idle;
         ObjectStatus(m_itemDataBase.GetItemData());
     }
 
