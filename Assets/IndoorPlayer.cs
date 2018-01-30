@@ -23,7 +23,6 @@ public class IndoorPlayer : MonoBehaviour
     //public Transform _murabito;
     //private GameObject murabito;
     //Vector3 murabitoPos;
-    public Quaternion checkQuaternion_;
 
     void Start()
     {
@@ -34,7 +33,6 @@ public class IndoorPlayer : MonoBehaviour
 
     void Update()
     {
-        checkQuaternion_ = this.gameObject.transform.rotation;
         if (playerState == PlayerState.Normal)
         {
             if (ActionTime == false)//アクション中じゃないことを確認

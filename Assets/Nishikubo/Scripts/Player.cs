@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
     private float m_trailingCount = 0.0f;
     private GameObject hideArea;//隠せる場所を保存用
 
-    public Quaternion checkQuaternion_;
-
     [SerializeField,Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
 
@@ -53,21 +51,18 @@ public class Player : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-        this.gameObject.transform.position = AwakeData.Instance.playerPosition_;
-
         m_state = PlayerState.Idle;
 
         m_animator = this.GetComponent<Animator>();
         m_playerMove = this.GetComponent<PlayerMove>();
-        m_uiDisplay = this.gameObject.transform.Find("PlayerCanvas").GetComponent<UIDisplay>();
-        m_itemDataBase = this.gameObject.transform.Find("GameManager").GetComponent<ItemDataBase>();
+        m_uiDisplay = GameObject.Find("PlayerCanvas").GetComponent<UIDisplay>();
+        m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
 
         //m_dayTime = AwakeData.Instance.sacrificeCount;
     }
 
     // Update is called once per frame
     void Update () {
-        checkQuaternion_ = this.gameObject.transform.rotation;
         switch (m_state)
         {
             case PlayerState.None: break;

@@ -78,22 +78,18 @@ public class PlayerMove : MonoBehaviour {
         m_inputH = Input.GetAxis("Horizontal");
         m_inputV = Input.GetAxis("Vertical");
 
-        if(Camera.main != null)
-        {
-            // カメラの方向から、X-Z平面の単位ベクトルを取得
-            Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-            // 方向キーの入力値とカメラの向きから、移動方向を決定
-            Vector3 moveForward = cameraForward * m_inputV + Camera.main.transform.right * m_inputH;
-            // 移動方向にスピードを掛ける。ジャンプや落下がある場合は、別途Y軸方向の速度ベクトルを足す。
-            m_rb.velocity = moveForward * Speed() + new Vector3(0, m_rb.velocity.y, 0);
+        // カメラの方向から、X-Z平面の単位ベクトルを取得
+        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        // 方向キーの入力値とカメラの向きから、移動方向を決定
+        Vector3 moveForward = cameraForward * m_inputV + Camera.main.transform.right * m_inputH;
+        // 移動方向にスピードを掛ける。ジャンプや落下がある場合は、別途Y軸方向の速度ベクトルを足す。
+        m_rb.velocity = moveForward * Speed() + new Vector3(0, m_rb.velocity.y, 0);
 
-            // キャラクターの向きを進行方向に
-            if (moveForward != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(moveForward * s);
-            }
+        // キャラクターの向きを進行方向に
+        if (moveForward != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(moveForward * s);
         }
-        
     }
 
     public bool IsInput()
