@@ -17,8 +17,6 @@ public class SectorCreate : MonoBehaviour
     public int _degree = 1;
     [Range(3, 30)]
     public int _triangleNum = 10;
-    [SerializeField, Header("プレイヤーが範囲に入ったか")]
-    private bool isPlayerSearch = false;
 
     MeshFilter m;
 
@@ -40,12 +38,20 @@ public class SectorCreate : MonoBehaviour
 
     void Update()
     {
+        // メッシュ
         m.mesh = CreateMesh();
 
         if (isDebugMeshUpdate)
             DebugMeshUpdate();
+
+        //自分 -> Eyes -> sekizui1 -> center -> 14!Root 視界に入った人の方を向く
+        GameObject neck = transform.parent.parent.gameObject;
     }
 
+    /// <summary>
+    /// 扇形のメッシュを生成
+    /// </summary>
+    /// <returns></returns>
     Mesh CreateMesh()
     {
         Mesh mesh = new Mesh();
@@ -97,6 +103,9 @@ public class SectorCreate : MonoBehaviour
         return mesh;
     }
 
+    /// <summary>
+    /// メッシュの更新(デバッグ用)
+    /// </summary>
     void DebugMeshUpdate()
     {
         Destroy(GetComponent<MeshCollider>());
@@ -105,20 +114,31 @@ public class SectorCreate : MonoBehaviour
         isDebugMeshUpdate = false;
     }
 
+    // 広い範囲の視界に入った場合
     private void OnTriggerEnter(Collider col)
+    {
+        if (mSectorType == SectorType.Sub && col.gameObject.tag == "Player")
+        {
+            transform.parent.GetComponent<SectorManager>().isFind = true;
+        }
+
+        //if (mSectorType == SectorType.Sub && col.gameObject.tag == "Torch")
+        //    print("Torch Enter");
+    }
+    // 狭い範囲の視界に入った場合
+    private void OnTriggerStay(Collider col)
     {
         if (mSectorType == SectorType.Main && col.gameObject.tag == "Player")
         {
-            isPlayerSearch = true;
-            print("Player Enter");
+            transform.parent.GetComponent<SectorManager>().isFind = true;
         }
-        else if (mSectorType == SectorType.Sub && col.gameObject.tag == "Torch")
-            print("Torch Enter");
     }
-
-    public bool GetSearchFlag()
+    private void OnTriggerExit(Collider col)
     {
-        return isPlayerSearch;
+        if (col.gameObject.tag == "Player")
+        {
+            transform.parent.GetComponent<SectorManager>().isFind = false;
+        }
     }
 
     private void OnDrawGizmos()

@@ -11,7 +11,7 @@ public class RoutePositionSave : MonoBehaviour
 	{
         for (int i = 0; i < transform.childCount; i++)
         {
-            mRoutePosition.Add(transform.Find("position" + i).transform.position);
+            mRoutePosition.Add(transform.GetChild(i).position);
         }
     }
 }
