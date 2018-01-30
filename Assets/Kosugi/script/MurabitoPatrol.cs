@@ -5,27 +5,41 @@ using UnityEngine.AI;
 using System.IO;
 
 /// <summary>
-/// 巡回プログラム
+/// むらびとの巡回プログラム
+/// 
+/// 01/16
+/// 巡回する人数・ルート・開始時間etcを自由に設定できるようにする
+/// 依頼品毎に日付が変わる(今のところ
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
     [Header("巡回担当に振り分けられたか(巡回しているかの判断)")]
     public bool isPatrolShift;
 
+    [Header("----------")]
+
     [SerializeField, Header("※デバッグ用 巡回ルートの名前")]
-    private string mPatrolRouteName;
+    private string mPatrolRouteName = "";
+
+    [SerializeField, Header("巡回ルートの番号")]
+    private int _patrolRouteNum = 0;
 
     [SerializeField, Header("巡回ルートの各地点")]
     private List<Vector3> mPatrolPositions;
 
-    [SerializeField, Header("巡廻地点用カウンター")]
+    [SerializeField, Header("巡回地点用カウンター")]
     private int _counter = 0;
 
-    [SerializeField, Header("巡回時の振り向きパターン")]
-    private string mSwingPattern = "";
+    [Header("----------")]
 
-    [Header("振り向き時の回転角度")]
-    private float _angle = 0;
+    [SerializeField, Header("巡回時に振り向く方向(1:左,2:右)")]
+    private int mSwingDirection = 0;
+
+    [SerializeField, Header("巡回開始するまでの待機時間")]
+    private float _patrolInterval = 0;
+
+    [SerializeField, Header("各家庭を巡回開始する時間(0は巡回しない)")]
+    private float _housePatrolInterval = 0;
 
     [SerializeField, Header("振り向きにかける時間(とりあえず3s～10sまで)"), Range(3, 10)]
     private int _swingTime = 0;
@@ -39,13 +53,19 @@ public class MurabitoPatrol : MonoBehaviour
 
     NavMeshAgent mNav; // NavMeshAgent取得用
 
-	void Start ()
+    private void Awake()
+    {
+        print("murabito");
+    }
+
+    void Start ()
 	{
         mNav = GetComponent<NavMeshAgent>();
-        mNav.isStopped = true;
 
         mAnim = GetComponent<Animator>();
         mModel = transform.Find("14.!Root");
+
+        transform.parent.GetComponent<LoadCheck>()._count++;
     }
 
 	void Update ()
@@ -53,7 +73,14 @@ public class MurabitoPatrol : MonoBehaviour
         // 巡回担当になっていない場合は巡回処理をしない
         if (!isPatrolShift) return;
 
-        Patrol();
+        if (_patrolInterval > 0)
+        {
+            _patrolInterval -= Time.deltaTime;
+        }
+        else
+        {
+            Patrol();
+        }
     }
 
     /// <summary>
@@ -67,17 +94,16 @@ public class MurabitoPatrol : MonoBehaviour
         {
             StartCoroutine(Swing());
             _counter++;
+            // 巡回地点の総数以上のカウントになったら0に戻す
+            if (_counter == mPatrolPositions.Count)
+            {
+                _counter = 0;
+            }
             mNav.SetDestination(mPatrolPositions[_counter]);
         }
 
-        // 巡回地点の総数以上のカウントになったら1に戻す
-        if (_counter >= mPatrolPositions.Count)
-        {
-            _counter = 0;
-        }
-
         // NavMeshが動いてるかどうか
-        if (!mNav.isStopped && !mAnim.GetBool("walk"))
+        if (!mNav.isStopped)// && !mAnim.GetBool("walk"))
         {
             mAnim.SetBool("walk", true);
         }
@@ -88,37 +114,27 @@ public class MurabitoPatrol : MonoBehaviour
     }
 
     /// <summary>
-    /// 巡回ルートをまとめた親から巡回ルートの地点のListをセット
-    /// 巡回するのに必要な準備の処理を呼び出す
-    /// </summary>
-    /// <param name="route"></param>
-    /// <param name="num"></param>
-    public void SetPatrolRoute(string name, List<Vector3> route)
-    {
-        mPatrolRouteName = name;
-        mPatrolPositions = route;
-
-        // 巡回ルートのデータをセットされたら準備の処理を起動
-        StartSetting();
-    }
-
-    /// <summary>
     /// 準備用の処理
     /// </summary>
-    void StartSetting()
+    public void StartSetting(List<Vector3> route)
     {
-        // NavMeshを起動させる
-        mNav.isStopped = false;
+        if (isPatrolShift) return;
+
+        mPatrolPositions = route;
 
         // 必要なプログラムを作動
-        SetSwingPattern();
+        //SetData();
 
-        // 初期設定時のみ自分の位置を巡回地点の開始地点(position0)に移動する
+        // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
         if (!isNotPointWarp)
         {
             transform.position = mPatrolPositions[0];
             isNotPointWarp = false;
         }
+
+        // NavMeshを起動させる
+        mNav.enabled = true;
+        mNav.isStopped = false;
 
         // 開始地点から次の巡回地点をセット
         mNav.SetDestination(mPatrolPositions[_counter]);
@@ -132,67 +148,21 @@ public class MurabitoPatrol : MonoBehaviour
     }
 
     /// <summary>
-    /// ②テキストデータから振り向き方向をセット
-    /// 二列ぐらいで、一列目に村人の番号・二列目に振り向きの向きをテキストデータで作成
-    /// それを取得する
+    /// むらびとにデータをセット
     /// </summary>
-    void SetSwingPattern()
+    /// <param name="swingDirection">振り向きの方向</param>
+    /// <param name="patrolRouteNum">巡回ルートの番号</param>
+    /// <param name="patrolInterval">巡回開始するまでの待機時間</param>
+    /// <param name="homePatrolInterval">各家庭を巡回開始する時間</param>
+    public void SetData(int swingDirection,int patrolRouteNum, float patrolInterval, float housePatrolInterval)
     {
-        // Assets/Resources配下のKosugiフォルダから読込
-        TextAsset csv = Resources.Load("Kosugi/PatrolPattern") as TextAsset;
-        StringReader reader = new StringReader(csv.text);
-        while (reader.Peek() > -1)
-        {
-            // テキストデータを , と / 区切りに変換
-            string line = reader.ReadToEnd().Replace('\n', '/');
-            // lineに格納したデータを / で分割し配列に再格納
-            string[] data = line.Split('/');
-            //
-            string[,] swing = new string[data.Length, data[0].Split(',').Length];
+        _patrolRouteNum = patrolRouteNum;
+        _patrolInterval = patrolInterval;
+        mSwingDirection = swingDirection;
+        _housePatrolInterval = housePatrolInterval;
 
-            /*
-             * 0列目:家の番号--------使う(_houseListNum
-             * 1列目:家の名前--------使わない
-             * 2列目:むらびとの名前--使わない
-             * 3列目:むらびとの番号--使う(_murabitoListNum
-             * 4列目:振り向きの向き--使う(_swingListNum
-             */
-
-            int _murabitoListNum = 3;
-            int _swingListNum = 4;
-
-            float _swingAngle = 90f;
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                string[] value = data[i].Split(',');
-                for (int j = 0; j < value.Length; j++)
-                {
-                    swing[i, j] = value[j];
-                }
-
-                if (swing[i, _murabitoListNum] == gameObject.name.Substring(8))
-                {
-                    switch (int.Parse(swing[i, _swingListNum]))
-                    {
-                        case 0:
-                            mSwingPattern = "front";
-                            _angle = 0;
-                            break;
-                        case 1:
-                            mSwingPattern = "left";
-                            _angle = -_swingAngle;
-                            break;
-                        case 2:
-                            mSwingPattern = "right";
-                            _angle = _swingAngle;
-                            break;
-                    }
-                }
-            }
-        }
+        mAnim.SetInteger("swing_num", mSwingDirection);
     }
-
 
     /// <summary>
     /// 巡回用振り向き動作
@@ -204,16 +174,17 @@ public class MurabitoPatrol : MonoBehaviour
         
         yield return new WaitForSeconds(1);
 
-        mAnim.SetBool(mSwingPattern, true);
+        mAnim.SetBool("swing", true);
 
         // 指定した時間振り向く
         yield return new WaitForSeconds(_swingTime);
 
-        mAnim.SetBool(mSwingPattern, false);
+        mAnim.SetBool("swing", false);
 
         AngleSetting();
     }
 
+    // 首の向きをスムーズに正面に戻す
     void AngleSetting()
     {
         Quaternion a = Quaternion.LookRotation(mPatrolPositions[_counter] - transform.position);
@@ -221,17 +192,9 @@ public class MurabitoPatrol : MonoBehaviour
         mNav.isStopped = false;
     }
 
-    /// <summary>
-    /// 巡回ルートを再設定するためにいろいろ値をリセット
-    /// </summary>
-    public void RouteReset()
+    // 巡回ルート番号取得用
+    public int GetRouteNumber()
     {
-        isPatrolShift = false;
-        mPatrolRouteName = null;
-        mPatrolPositions.Clear();
-        _counter = 0;
-        mSwingPattern = "";
-
-        isNotPointWarp = true;
+        return _patrolRouteNum;
     }
 }

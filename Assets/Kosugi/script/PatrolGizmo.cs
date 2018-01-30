@@ -23,15 +23,15 @@ public class PatrolGizmo : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            from = transform.Find("position" + i).position;
+            from = transform.GetChild(i).position;
 
             if (i == transform.childCount - 1)
             {
-                to = transform.Find("position" + 0).position;
+                to = transform.GetChild(0).position;
             }
             else
             {
-                to = transform.Find("position" + (i + 1)).position;
+                to = transform.GetChild(i+1).position;
             }
 
             Gizmos.DrawLine(from, to);
