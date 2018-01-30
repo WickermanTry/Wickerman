@@ -69,7 +69,7 @@ public class Merchant : MonoBehaviour {
         m_day = AwakeData.Instance.dayNum_;
         RequestItems(m_RequestDataBase.GetRequeatData());
 
-        //SetRequestClear(m_RequestDataBase.GetRequeatData(),m_ItemDataBase.GetItemData());
+        m_isAchieved = RequestCleared(m_ItemDataBase.GetItemData());
     }
 
     //データの格納用
@@ -90,20 +90,32 @@ public class Merchant : MonoBehaviour {
         }
     }
 
+
     //達成してるかどうか
-    public void SetRequestClear(RequestData requestData, ItemData[] itemData)
+    public bool RequestCleared(ItemData[] itemData)
     {
+        bool item1 = false;
+        bool item2 = false;
+
         foreach (var item in itemData)
         {
             //依頼品がアイテムデータベースにある&&所持している
-            if ((item.GetItemType() == requestItem1) && m_myItemStatus.GetItemFlag(item.GetItemType()))
+            if ((item.GetItemType() == requestItem1) && m_myItemStatus.GetItemFlag(requestItem1))
             {
-                //依頼品を達成している
-                //その依頼品のフラグをtrue
-                Debug.Log("ok");
-
+                //Debug.Log("item1は所持");
+                item1 = true;
             }
         }
+        foreach (var item in itemData)
+        {
+            //依頼品がアイテムデータベースにある&&所持している
+            if ((item.GetItemType() == requestItem2) && m_myItemStatus.GetItemFlag(requestItem2))
+            {
+                //Debug.Log("item2は所持");
+                item2 = true;
+            }
+        }
+        return (item1 && item2);
     }
 
 

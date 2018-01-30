@@ -23,9 +23,9 @@ public class TextController : MonoBehaviour {
     private Merchant merchant;
     private ItemDataBase m_ItemDataBase;
     private RequestDataBase m_RequestDataBase;
+    private ItemData m_itemData;
 
     private Player player;
-    [SerializeField]
     private PlayerState beforeState;//遷移前のプレイヤーの状態
 
     void Start()
@@ -142,6 +142,11 @@ public class TextController : MonoBehaviour {
     {
         Debug.Log("会話終了");
         player.state = beforeState;
+        if (merchant.isAchieved)//達成後
+        {
+            Debug.Log("okkk");
+            DayReset(m_ItemDataBase.GetItemData());
+        }
         SceneNavigator.Instance.Unload();
     }
 
@@ -154,19 +159,19 @@ public class TextController : MonoBehaviour {
         {
             if (merchant.day <= 5)
             {
-                scenarios[0] = "私は商人である。お前に依頼する品はこれだ。";
+                scenarios[0] = "私は商人である。\nお前に依頼する品はこれだ。";
                 scenarios[1] = RequestTalk(m_ItemDataBase.GetItemData());
                 scenarios[2] = "夜までにもってくるのだ。";
             }
             else if (merchant.day <= 10)
             {
-                scenarios[0] = "よく続いているな。今日お前に依頼する品はこれだ。";
+                scenarios[0] = "よく続いているな。\n今日お前に依頼する品はこれだ。";
                 scenarios[1] = RequestTalk(m_ItemDataBase.GetItemData());
                 scenarios[2] = "少し難しいかもしれないが、夜までにもってくるのだ。";
             }
             else if (merchant.day <= 15)
             {
-                scenarios[0] = "いつもありがとう。今回お前に依頼する品はこれだ。";
+                scenarios[0] = "いつもありがとう。\n今回お前に依頼する品はこれだ。";
                 scenarios[1] = RequestTalk(m_ItemDataBase.GetItemData());
                 scenarios[2] = "いつも通り、夜までにもってくるのだ。期待している。";
             }
@@ -174,8 +179,9 @@ public class TextController : MonoBehaviour {
         }
         else if(merchant.isAchieved)//達成後
         {
-            scenarios[0] = "よく持ってきてくれた。これで依頼は達成だ。";
-
+            scenarios[0] = "おお、よく持ってきてくれた。\nどれどれ…";
+            scenarios[1] = "うん、確かに受け取った。\nこれで依頼は達成だ。";
+            scenarios[2] = "次もよろしく頼むよ。";
         }
 
 
@@ -218,4 +224,74 @@ public class TextController : MonoBehaviour {
         }
         return requestItem;
     }
+
+    /// <summary>
+    /// 太字
+    /// </summary>
+    /// <param name="str">文字</param>
+    /// <returns></returns>
+    private string bold(string str)
+    {
+        return "<b>" + str + "</b>";
+    }
+
+    /// <summary>
+    /// 色変え
+    /// </summary>
+    /// <param name="str">文字</param>
+    /// <param name="color">色</param>
+    /// <returns></returns>
+    private string color(string str,string color)
+    {
+        return "<color=" + color + ">" + str + "</color>";
+    }
+
+    //依頼達成後にその日の依頼品を消す
+    private void DayReset(ItemData[] itemData)
+    {
+        foreach (var item in itemData)
+        {
+            if (merchant.requestItem1 == item.GetItemType())
+            {
+                //達成した依頼品の重さを引く
+                AwakeData.Instance.mass = AwakeData.Instance.mass - item.GetItemMass();
+                //依頼品がプレイヤーの配下にあったらDelete
+                if (player.transform.FindChild(item.GetItemType().ToString()) != null)
+                {
+                    Destroy(player.transform.FindChild(item.GetItemType().ToString()).gameObject);
+                }
+                else if (player.transform.FindChild(item.GetItemType().ToString() + "(Clone)") != null)
+                {
+                    Destroy(player.transform.FindChild(item.GetItemType().ToString() + "(Clone)").gameObject);
+                }
+                //依頼品のMyItemFlagをFalseに
+                player.GetComponent<MyItemStatus>().SetItemFlag(item.GetItemNumber(), false);
+
+            }
+        }
+        if (merchant.requestItem1 != merchant.requestItem2)
+        {
+            foreach (var item in itemData)
+            {
+                if (merchant.requestItem2 == item.GetItemType())
+                {
+                    //達成した依頼品の重さを引く
+                    AwakeData.Instance.mass = AwakeData.Instance.mass - item.GetItemMass();
+                    //依頼品がプレイヤーの配下にあったらDelete
+                    if (player.transform.FindChild(item.GetItemType().ToString()) != null)
+                    {
+                        Destroy(player.transform.FindChild(item.GetItemType().ToString()).gameObject);
+                    }
+                    else if (player.transform.FindChild(item.GetItemType().ToString() + "(Clone)") != null)
+                    {
+                        Destroy(player.transform.FindChild(item.GetItemType().ToString() + "(Clone)").gameObject);
+                    }
+                    //依頼品のMyItemFlagをFalseに
+                    player.GetComponent<MyItemStatus>().SetItemFlag(item.GetItemNumber(), false);
+
+                }
+            }
+        }
+    }
+
 }
