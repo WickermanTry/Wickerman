@@ -258,7 +258,7 @@ public class Murabito : MonoBehaviour
         var mMoveList = new MurabitoMoveDataScript.MMoveList("Texts/M" + mMurabitoNum.ToString() + "MoveData", true);
 
         //時間によって場所移動
-        //if(AwakeData.Instance.indoorCheck_ == false)//室外
+        if(AwakeData.Instance.indoorCheck_ == false)//室外
         {
             for (int i = 0; i == AwakeData.Instance.dayTime_; i++)
             {
@@ -272,15 +272,15 @@ public class Murabito : MonoBehaviour
                 posTime_ += 1;
             }
         }
-        //else
+        else
         {
             for (int i = 0; i == AwakeData.Instance.dayTime_; i++)
             {
                 SetEventMethod();
 
-                //Px = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posX;
-                //Py = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posY;
-                //Pz = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posZ;
+                Px = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posX;
+                Py = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posY;
+                Pz = mMoveList.ToList().Find(x => x.Id == "場所セット_"+ AwakeData.Instance.houseNum_ +"_"+ i).posZ;
 
                 this.transform.position = new Vector3(Px, Py, Pz);
                 posTime_ += 1;

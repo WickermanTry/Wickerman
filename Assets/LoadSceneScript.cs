@@ -5,14 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneScript : MonoBehaviour
 {
+    public int[] a = new int[16];
     void Awake()
     {
         //日付
-        AwakeData.Instance.dayNum_ = 0;
+        AwakeData.Instance.dayNum_ = 1;
         //不審度の会話をしたかどうか
         for (int i = 0; i < 31; i++)//31体分(0はnull用)
         {
             AwakeData.Instance.FdoutList.Add(1);
+        }
+        for (int i = 0; i < 16; i++)//ハウスナンバー
+        {
+            AwakeData.Instance.stealList.Add(false);
+        }
+        for(int i = 0; i < 16; i++)//ハウスナンバー
+        {
+            AwakeData.Instance.stealNumList.Add(a[i]);
+        }
+        for(int i = 0; i < 23; i++)//識別番号
+        {
+            AwakeData.Instance.stealTypeList.Add(false);
         }
         //村人ライフ
         for (int i = 0; i < 31; i++)//31体分(0はnull用)
@@ -39,8 +52,9 @@ public class LoadSceneScript : MonoBehaviour
         {
             AwakeData.Instance.doutList.Add(0);
         }
-
-        AwakeData.Instance.playerPosition_ = new Vector3(0.0f, 0.0f, 0.0f);
+        AwakeData.Instance.playerPosition_ = new Vector3(213.4f, 0.2f, 127.7f);
+        AwakeData.Instance.cameraPosition_ = new Vector3(213.4f, 13.0f, 120.7f);
+        AwakeData.Instance.cameraRotate_ = new Quaternion(0.5f,0.0f,0.0f,0.8660254f);
         AwakeData.Instance.worldTime_ = 0.0f;
         AwakeData.Instance.dayTime_ = 0;
         AwakeData.Instance.posSet = false;
@@ -56,10 +70,8 @@ public class LoadSceneScript : MonoBehaviour
             DontDestroyOnLoad(AwakeData.Instance.player);
         }
 
-        //SceneManager.LoadScene("Maptest1117");
+        SceneManager.LoadScene("LoadSceneManager");
 
-        //時間管理用のシーン
-        //SceneManager.LoadScene("Maptest1208");
 
 
     }
