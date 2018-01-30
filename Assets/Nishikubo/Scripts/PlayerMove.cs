@@ -66,6 +66,7 @@ public class PlayerMove : MonoBehaviour {
                 Debug.Log("Error:" + m_state);
                 break;
         }
+        
     }
 
 
@@ -110,25 +111,33 @@ public class PlayerMove : MonoBehaviour {
     {
         m_mass = AwakeData.Instance.mass;
 
-        if (0 <= m_mass && m_mass <= 4)//普通
+        if (!SceneNavigator.Instance.IsFading)
         {
-            m_speed = m_sp;
+
+            if (0 <= m_mass && m_mass <= 4)//普通
+            {
+                m_speed = m_sp;
+            }
+            else if (5 <= m_mass && m_mass <= 9)//少し遅い
+            {
+                m_speed = m_sp / 1.2f;
+            }
+            else if (10 <= m_mass && m_mass <= 14)//遅い
+            {
+                m_speed = m_sp / 1.5f;
+            }
+            else if (15 <= m_mass && m_mass <= 29)//結構遅い
+            {
+                m_speed = m_sp / 2.0f;
+            }
+            else if (30 <= m_mass)//論外
+            {
+                m_speed = m_sp / 9.0f;
+            }
         }
-        else if (5 <= m_mass && m_mass <= 9)//少し遅い
+        else
         {
-            m_speed = m_sp / 1.2f;
-        }
-        else if (10 <= m_mass && m_mass <= 14)//遅い
-        {
-            m_speed = m_sp / 1.5f;
-        }
-        else if (15 <= m_mass && m_mass <= 29)//結構遅い
-        {
-            m_speed = m_sp / 2.0f;
-        }
-        else if (30 <= m_mass)//論外
-        {
-            m_speed = m_sp / 9.0f;
+            m_speed = 0;
         }
 
         return m_speed;
