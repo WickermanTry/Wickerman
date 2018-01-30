@@ -14,6 +14,7 @@ public class Test : MonoBehaviour
 
 	void Start ()
 	{
+        DontDestroyOnLoad(gameObject);
         mPatrolManager = GameObject.Find("PatrolManager").GetComponent<PatrolManager>();
 	}
 
@@ -21,10 +22,11 @@ public class Test : MonoBehaviour
 	{
         if (isSceneChange)
         {
-            for(int i = 1; i < 15; i++)
-            {
-                mPatrolManager.SetMurabito(i);
-            }
+            //for(int i = 1; i < 15; i++)
+            //{
+            //    mPatrolManager.SetMurabito(i);
+            //}
+            mPatrolManager.SetMurabito(_houseNum);
             mPatrolManager.isSceneChange1 = true;
             isSceneChange = false;
         }
