@@ -24,9 +24,9 @@ public class TextController : MonoBehaviour {
     private ItemDataBase m_ItemDataBase;
     private RequestDataBase m_RequestDataBase;
     private ItemData m_itemData;
-
     private Player player;
     private PlayerState beforeState;//遷移前のプレイヤーの状態
+
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class TextController : MonoBehaviour {
         //プレイヤーの動きを止める
         beforeState = player.state;
         player.state = PlayerState.None;
+
         Show();
     }
 
@@ -56,6 +57,7 @@ public class TextController : MonoBehaviour {
     /// </summary>
     void Initialize()
     {
+
         isCompleteLine = false;
         lineText.text = "";
         currentText = scenarios[currentLine];
@@ -144,7 +146,6 @@ public class TextController : MonoBehaviour {
         player.state = beforeState;
         if (merchant.isAchieved)//達成後
         {
-            Debug.Log("okkk");
             DayReset(m_ItemDataBase.GetItemData());
         }
         SceneNavigator.Instance.Unload();
@@ -255,6 +256,11 @@ public class TextController : MonoBehaviour {
             {
                 //達成した依頼品の重さを引く
                 AwakeData.Instance.mass = AwakeData.Instance.mass - item.GetItemMass();
+                //持ってるとき
+                if (player.state == PlayerState.Trailing)
+                {
+                    player.AfterAchieving();
+                }
                 //依頼品がプレイヤーの配下にあったらDelete
                 if (player.transform.FindChild(item.GetItemType().ToString()) != null)
                 {
@@ -277,6 +283,11 @@ public class TextController : MonoBehaviour {
                 {
                     //達成した依頼品の重さを引く
                     AwakeData.Instance.mass = AwakeData.Instance.mass - item.GetItemMass();
+                    //持ってるとき
+                    if (player.state == PlayerState.Trailing)
+                    {
+                        player.AfterAchieving();
+                    }
                     //依頼品がプレイヤーの配下にあったらDelete
                     if (player.transform.FindChild(item.GetItemType().ToString()) != null)
                     {

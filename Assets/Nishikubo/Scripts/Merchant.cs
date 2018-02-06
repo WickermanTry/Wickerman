@@ -40,10 +40,12 @@ public class Merchant : MonoBehaviour {
     {
         get { return m_isAchieved; }
     }
-
+    [SerializeField]
     private ItemDataBase m_ItemDataBase;
+    [SerializeField]
     private RequestDataBase m_RequestDataBase;
     private RequestData m_RequestData;
+    [SerializeField]
     private MyItemStatus m_myItemStatus;
 
     private bool m_falg = false;//1度のみ
@@ -59,16 +61,24 @@ public class Merchant : MonoBehaviour {
     void Start () {
         m_ItemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
         m_RequestDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<RequestDataBase>();
-        m_myItemStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<MyItemStatus>();
+        if(m_myItemStatus==null)
+        {
+            m_myItemStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<MyItemStatus>();
+        }
         m_day = AwakeData.Instance.dayNum_;
 
     }
 
     // Update is called once per frame
     void Update () {
+        if(m_myItemStatus==null)
+        {
+            return;
+        }
         m_day = AwakeData.Instance.dayNum_;
         RequestItems(m_RequestDataBase.GetRequeatData());
 
+        //if(m_ItemDataBase!=null)
         m_isAchieved = RequestCleared(m_ItemDataBase.GetItemData());
     }
 

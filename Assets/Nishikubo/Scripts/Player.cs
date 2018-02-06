@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
     private float m_trailingCount = 0.0f;
     private GameObject hideArea;//隠せる場所を保存用
 
-    public Quaternion checkQuaternion_;
-
     [SerializeField,Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
 
@@ -43,31 +41,34 @@ public class Player : MonoBehaviour
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
 
-    //void Awake()
-    //{
-    //    if (GameObject.FindGameObjectWithTag("Player") == null)
-    //    {
-    //        DontDestroyOnLoad(this);
-    //    }
-    //}
+    private bool m_isHideArea;
+    public bool isHideArea
+    {
+        get { return m_isHideArea; }
+    }
+
+    void Awake()
+    {
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            DontDestroyOnLoad(this);
+        }
+    }
 
     // Use this for initialization
     void Start () {
-        this.gameObject.transform.position = AwakeData.Instance.playerPosition_;
-
         m_state = PlayerState.Idle;
 
         m_animator = this.GetComponent<Animator>();
         m_playerMove = this.GetComponent<PlayerMove>();
-        m_uiDisplay = this.gameObject.transform.Find("PlayerCanvas").GetComponent<UIDisplay>();
-        m_itemDataBase = this.gameObject.transform.Find("GameManager").GetComponent<ItemDataBase>();
+        m_uiDisplay = GameObject.Find("PlayerCanvas").GetComponent<UIDisplay>();
+        m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
 
         //m_dayTime = AwakeData.Instance.sacrificeCount;
     }
 
     // Update is called once per frame
     void Update () {
-        checkQuaternion_ = this.gameObject.transform.rotation;
         switch (m_state)
         {
             case PlayerState.None: break;
@@ -144,12 +145,8 @@ public class Player : MonoBehaviour
                 hideArea = null;
                 m_uiDisplay.ImageActive(0, false);
             }
-            m_animator.SetBool("hikizuri", false);
             ItemFlag(m_itemDataBase.GetItemData(), false);
-            m_objectKeep = null;
-            m_trailingCount = 0.0f;
-
-            m_state = PlayerState.Idle;
+            AfterAchieving();
         }
     }
 
@@ -210,6 +207,16 @@ public class Player : MonoBehaviour
             hideArea = other.gameObject;
             //m_uiDisplay.ImageActive(0, true);
         }
+        //if(other.gameObject.tag=="HideArea")
+        //{
+        //    m_isHideArea = true;
+        //}
+
+        //商人と接触したら
+        //if(other.gameObject.tag=="Merchant")
+        //{
+
+        //}
     }
 
 
@@ -240,6 +247,17 @@ public class Player : MonoBehaviour
                 this.GetComponent<MyItemStatus>().SetItemFlag(m_itemData.GetItemNumber(), flag);
             }
         }
+    }
+
+    //Trailing状態終了時に呼ぶ
+    public void AfterAchieving()
+    {
+        m_animator.SetBool("hikizuri", false);
+        m_objectKeep = null;
+        m_trailingCount = 0.0f;
+
+        m_state = PlayerState.Idle;
+
     }
 
 }
