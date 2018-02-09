@@ -70,7 +70,7 @@ public class LoadSceneScript : MonoBehaviour
             DontDestroyOnLoad(AwakeData.Instance.player);
         }
 
-        SceneManager.LoadScene("LoadSceneManager");
+        SceneManager.LoadScene("Day1");
 
 
 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 80a139b4b747b9846bb1f60328074fff
+timeCreated: 1516935665
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: RiiTegakiFude
+  fontNames:
+  - RiiTegakiFude
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
