@@ -10,7 +10,9 @@ public class LoadCheck : MonoBehaviour
 	void Awake()
 	{
         print("check");
-	}
+        // シーン跨いでも破棄しないようにする
+        DontDestroyOnLoad(gameObject);
+    }
 
 	void Update ()
 	{

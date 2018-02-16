@@ -6,13 +6,6 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 村人の巡回の管理
-/// 
-/// 01/30
-/// 広い範囲の視界に入ったら入った場所まで歩いて行って見回すぐらいしたらおもしろいかも？(一回だけ
-/// 歩いてる道中も少しだけ視界動かせたら良いかも
-/// 
-/// 巡回する人数・ルート・開始時間etcを自由に設定できるようにする
-/// 依頼品毎に日付が変わる(今のところ
 /// </summary>
 public class PatrolManager : MonoBehaviour
 {
@@ -55,8 +48,12 @@ public class PatrolManager : MonoBehaviour
     // テキストデータ用変数
     private string[,] data, murabitoData;
 
+    // DontDestroyOnLoad用
     static PatrolManager patrolManager = null;
-    static PatrolManager instance
+    /// <summary>
+    /// DontDestroyOnLoad用
+    /// </summary>
+    static PatrolManager Instance
     {
         get { return patrolManager ?? (patrolManager = FindObjectOfType<PatrolManager>()); }
     }
@@ -72,7 +69,7 @@ public class PatrolManager : MonoBehaviour
     {
         // オブジェクトが重複しているかのチェック
 
-        if (this != instance)
+        if (this != Instance)
         {
             Destroy(gameObject);
             return;
@@ -91,7 +88,6 @@ public class PatrolManager : MonoBehaviour
         mPatrolMurabitoList.Clear();
         mPatrolMurabitoList.Add(null);
 
-        //Unloaded->Loaded->Changedの順番  
         //SceneManager.sceneLoaded += SceneLoaded;
         //SceneManager.sceneUnloaded += SceneUnloaded;
         //SceneManager.activeSceneChanged += ActiveSceneChanged; 
@@ -241,7 +237,7 @@ public class PatrolManager : MonoBehaviour
             Debug.LogWarning("指定された家番号は範囲外です");
             return;
         }
-        if (mPatrolMurabitoList.Contains("Murabito" + data[num, murabitoNumColumn]))
+        if (mPatrolMurabitoList.Contains("murabito" + data[num, murabitoNumColumn]))
         {
             Debug.LogWarning("指定した家番号のむらびとはListに格納済みです");
             return;
@@ -252,7 +248,7 @@ public class PatrolManager : MonoBehaviour
         {
             murabitoData[mPatrolMurabitoList.Count, i] = data[num, i];
         }
-        mPatrolMurabitoList.Add("Murabito" + murabitoData[mPatrolMurabitoList.Count, murabitoNumColumn]);
+        mPatrolMurabitoList.Add("murabito" + murabitoData[mPatrolMurabitoList.Count, murabitoNumColumn]);
         print("Set -> Murabito" + murabitoData[mPatrolMurabitoList.Count - 1, murabitoNumColumn]);
     }
 
@@ -323,7 +319,7 @@ public class PatrolManager : MonoBehaviour
             int route = int.Parse(murabitoData[i, patrolRouteNumColumn]);
             float interval = float.Parse(murabitoData[i, patrolIntervalColumn]);
             float homeInterval = float.Parse(murabitoData[i, housePatrolIntervalColumn]);
-            GameObject.Find("Murabito" + murabitoData[i, murabitoNumColumn]).GetComponent<MurabitoPatrol>().SetData(swing, route, interval, homeInterval);
+            GameObject.Find("murabito" + murabitoData[i, murabitoNumColumn]).GetComponent<MurabitoPatrol>().SetData(swing, route, interval, homeInterval);
         }
     }
 
@@ -336,8 +332,11 @@ public class PatrolManager : MonoBehaviour
         mPatrolMurabitoList.Add(null);
     }
 
+    /// <summary>
+    /// // DontDestroyOnLoad用
+    /// </summary>
     private void OnDestroy()
     {
-        if (this == instance) patrolManager = null;
+        if (this == Instance) patrolManager = null;
     }
 }
