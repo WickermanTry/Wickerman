@@ -56,6 +56,10 @@ public class Door : MonoBehaviour
             mPlayer.transform.forward = transform.forward;
             
             AwakeData.Instance.houseNum_ = _houseNum;
+
+            AwakeData.Instance.isHouse = !AwakeData.Instance.isHouse;
+            AwakeData.Instance.isDoorMove = false;
+            SceneManager.LoadScene("House" + AwakeData.Instance.houseNum_);
         }
         // 家の中から外に出る場合
         else
@@ -64,11 +68,11 @@ public class Door : MonoBehaviour
             mPlayer.transform.forward = -transform.forward;
 
             AwakeData.Instance.houseNum_ = 0;
+
+            AwakeData.Instance.isHouse = !AwakeData.Instance.isHouse;
+            AwakeData.Instance.isDoorMove = false;
+            SceneManager.LoadScene("hiru" + AwakeData.Instance.dayNum_);
         }
-        AwakeData.Instance.isHouse = !AwakeData.Instance.isHouse;
-        AwakeData.Instance.isDoorMove = false;
-        print(AwakeData.Instance.isHouse);
-        SceneManager.LoadScene("LoadSceneManager");
 
         yield return null;
     }

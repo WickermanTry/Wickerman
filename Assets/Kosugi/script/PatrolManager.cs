@@ -38,13 +38,6 @@ public class PatrolManager : MonoBehaviour
 
     [Header("----------")]
 
-    [Header("シーンチェンジ確認用:ゲーム外、ゲーム→ゲーム")]
-    public bool isSceneChange1 = false;
-    [Header("シーンチェンジ確認用:ゲーム→ゲーム外")]
-    public bool isSceneChange2 = false;
-
-    [Header("----------")]
-
     // テキストデータ用変数
     private string[,] data, murabitoData;
 
@@ -68,7 +61,6 @@ public class PatrolManager : MonoBehaviour
     private void Awake()
     {
         // オブジェクトが重複しているかのチェック
-
         if (this != Instance)
         {
             Destroy(gameObject);
@@ -138,23 +130,6 @@ public class PatrolManager : MonoBehaviour
 
         //    isRouteChange = false;
         //}
-
-        // ※デバッグ用 
-        if (isSceneChange1)
-        {
-            SceneManager.LoadScene("Patrol");
-
-            isSceneChange1 = false;
-        }
-        else if (isSceneChange2)
-        {
-            SceneManager.LoadScene("Test");
-
-            // リストのデータを初期化
-            DataReset();
-
-            isSceneChange2 = false;
-        }
 
         // 欠員発生時の処理(必要無くなった)
         //if (debugLostDo)

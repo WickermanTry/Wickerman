@@ -22,13 +22,13 @@ public class MainCameraManager : MonoBehaviour
     public GameObject mPlayer;
 
     // DontDestroyOnLoad用
-    static PatrolManager patrolManager = null;
+    static MainCameraManager mainCameraManager = null;
     /// <summary>
     /// DontDestroyOnLoad用
     /// </summary>
-    static PatrolManager Instance
+    static MainCameraManager Instance
     {
-        get { return patrolManager ?? (patrolManager = FindObjectOfType<PatrolManager>()); }
+        get { return mainCameraManager ?? (mainCameraManager = FindObjectOfType<MainCameraManager>()); }
     }
 
     void Awake()
@@ -44,6 +44,13 @@ public class MainCameraManager : MonoBehaviour
             {false, GetComponent<MainCameraScript>() },
             {true, GetComponent<HouseCameraScript>() },
         };
+
+        // オブジェクトが重複しているかのチェック
+        if (this != Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         // シーン跨いでも破棄しないようにする
         DontDestroyOnLoad(gameObject);
@@ -83,7 +90,6 @@ public class MainCameraManager : MonoBehaviour
         // 同じ状態への変更は行わない
 
         // 通常ステートからの遷移
-
     }
 
     /// <summary>
@@ -91,6 +97,6 @@ public class MainCameraManager : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
-        if (this == Instance) patrolManager = null;
+        if (this == Instance) mainCameraManager = null;
     }
 }

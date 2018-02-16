@@ -56,6 +56,7 @@ public class MurabitoPatrol : MonoBehaviour
     private void Awake()
     {
         print("murabito");
+        transform.parent.GetComponent<LoadCheck>()._count++;
     }
 
     void Start ()
@@ -64,8 +65,6 @@ public class MurabitoPatrol : MonoBehaviour
 
         mAnim = GetComponent<Animator>();
         mModel = transform.Find("14.!Root");
-
-        transform.parent.GetComponent<LoadCheck>()._count++;
     }
 
 	void Update ()
