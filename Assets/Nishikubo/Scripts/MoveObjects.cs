@@ -13,19 +13,16 @@ public enum ObjectState
 }
 
 //動かせる（盗める）もの
-public class MoveObjects : MonoBehaviour
-{
+public class MoveObjects : MonoBehaviour {
 
     [SerializeField, Tooltip("状態遷移")]
-    private ObjectState m_state = ObjectState.None;  //遷移
+    private ObjectState m_state = ObjectState.Idle;  //遷移
     public ObjectState state
     {
         get { return m_state; }
         set { m_state = value; }
     }
-    public int stealNum_;
-    public int treasureNum_;
-    private bool stealTrigger_ = true;
+
     private GameObject m_player;
     private BoxCollider m_boxCol;
     private Vector3 m_velocity = Vector3.zero;
@@ -57,15 +54,13 @@ public class MoveObjects : MonoBehaviour
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_boxCol = this.GetComponent<BoxCollider>();
-        m_itemDataBase = this.gameObject.transform.Find("GameManager").GetComponent<ItemDataBase>();
-
-        m_state = ObjectState.Idle;
+        m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
+        //m_state = ObjectState.Idle;
         ObjectStatus(m_itemDataBase.GetItemData());
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update () {
         switch (m_state)
         {
             case ObjectState.None:
@@ -74,25 +69,9 @@ public class MoveObjects : MonoBehaviour
                 gameObject.SetActive(true);
                 m_boxCol.isTrigger = false;
                 transform.parent = null;//仮
-                if (AwakeData.Instance.houseNum_ == stealNum_)
-                {
-                    if (stealTrigger_ == false)
-                    {
-                        AwakeData.Instance.stealList[stealNum_] = false;
-                        AwakeData.Instance.stealTypeList[treasureNum_] = false;
-                        AwakeData.Instance.stealNumList[stealNum_] = +1;
-                        stealTrigger_ = true;
-                    }
-                }
+
                 break;
             case ObjectState.Carry:
-                if (stealTrigger_ == true)
-                {
-                    AwakeData.Instance.stealList[stealNum_] = true;
-                    AwakeData.Instance.stealTypeList[treasureNum_] = true;
-                    AwakeData.Instance.stealNumList[stealNum_] = -1;
-                    stealTrigger_ = false;
-                }
                 switch (m_havePosition)
                 {
                     case HavePosition.None:

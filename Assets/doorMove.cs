@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class doorMove : MonoBehaviour
 {
-    bool inflag = false;
+    public bool inflag = false;
     public int HomeNum = 1; //家の番号
     public float fadeTimer_ = 1.0f;
     public bool door_ = false;
     public GameObject a;
     public GameObject player_;
+    public GameObject Target;
     public Vector3 playerChangePosition_;
     public Quaternion playerChangeRotation_;
     public Vector3 cameraChangePosition_;
@@ -19,7 +20,6 @@ public class doorMove : MonoBehaviour
     {
         AwakeData.Instance.inout_ = true;
     }
-
     void Update()
     {
         print(AwakeData.Instance.inout_);
@@ -48,11 +48,19 @@ public class doorMove : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player") inflag = true;
+        if (other.gameObject.tag == "Player")
+        {
+            inflag = true;
+
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player") inflag = false;
+        if (other.gameObject.tag == "Player")
+        {
+            inflag = false;
+
+        }
     }
 }

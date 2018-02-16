@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class housedoormove : MonoBehaviour
 {
 
-    bool inflag = false;
+    public bool inflag = false;
     public string ChangeScene_;
     public float fadeTimer_ = 1.0f;
     public bool door_ = false;
