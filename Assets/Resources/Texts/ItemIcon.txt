@@ -1,0 +1,23 @@
+﻿アイテムのアイコンリスト
+atomballIcon,atomball
+axeIcon,axe
+bowIcon, bow
+closeTreasureboxIcon,closeTreasurebox
+coinIcon,coin
+crystalIcon,crystal
+crystalballIcon,crystalball
+dragonIcon,dragon
+goldIcon,gold
+goldDenterIcon,goldDenter
+headIcon,head
+holyIcon,holy
+housekiIcon,houseki
+magicpotIcon,magicpot
+openTreasureboxIcon,openTreasurebox
+paintingIcon,painting
+sheldIcon,sheld
+silverv,silver
+silverDenterIcon,silverDenter
+spikeballIcon,spikeball
+swordIcon,sword
+wickermanIcon,wickerman

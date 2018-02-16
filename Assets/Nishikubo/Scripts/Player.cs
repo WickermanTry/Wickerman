@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private GameObject hideArea;//隠せる場所を保存用
 
     public Quaternion checkQuaternion_;
+  
 
     [SerializeField,Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
@@ -241,5 +242,4 @@ public class Player : MonoBehaviour
             }
         }
     }
-
 }

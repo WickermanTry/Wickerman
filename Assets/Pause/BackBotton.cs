@@ -17,10 +17,11 @@ public class BackBotton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             canvas.SetActive(true);
-            Canvas_.SetActive(false);         
+            Canvas_.SetActive(false);
+            requestGoal_ = false;      
         }
 	}
 }

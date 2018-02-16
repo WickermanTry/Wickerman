@@ -203,8 +203,8 @@
     <None Include="Assets\MMD4Mecanim\VMD\人とスキン 1\人　スキン有.xml" />
     <None Include="Assets\MMD4Mecanim\VMD\追加VMD_10_20\hikizuri_stop.xml" />
     <None Include="Assets\Mega Fantasy Props Pack\README.txt" />
-    <None Include="Assets\Pause\RequestGoal.txt" />
     <None Include="Assets\Resources\Kosugi\MurabitoStatus.txt" />
+    <None Include="Assets\Resources\Texts\ItemIcon.txt" />
     <None Include="Assets\Resources\Texts\M10MoveData.txt" />
     <None Include="Assets\Resources\Texts\M11MoveData.txt" />
     <None Include="Assets\Resources\Texts\M12MoveData.txt" />
@@ -265,6 +265,7 @@
     <None Include="Assets\Resources\Texts\Murabito8Data.txt" />
     <None Include="Assets\Resources\Texts\Murabito9Data.txt" />
     <None Include="Assets\Resources\Texts\Muraibto12Data.txt" />
+    <None Include="Assets\Resources\Texts\RequestGoal.txt" />
     <None Include="Assets\Resources\novel\data\config\config.txt" />
     <None Include="Assets\Resources\novel\data\prefab\No.1主人公母\murabito_1.MMD4Mecanim.xml" />
     <None Include="Assets\Resources\novel\data\prefab\No.1主人公母\murabito_1.xml" />
