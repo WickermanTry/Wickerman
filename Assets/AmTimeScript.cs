@@ -63,6 +63,6 @@ public class AmTimeScript : MonoBehaviour
             }
         }
         AwakeData.Instance.worldTime_ += Time.deltaTime;
-        this.GetComponent<Text>().text = AwakeData.Instance.worldMinite_.ToString("00") + ":" + AwakeData.Instance.worldTime_.ToString("00");
+        this.GetComponent<Text>().text = AwakeData.Instance.worldMinite_.ToString("00") + ":" + Mathf.Floor(AwakeData.Instance.worldTime_).ToString("00");
     }
 }
