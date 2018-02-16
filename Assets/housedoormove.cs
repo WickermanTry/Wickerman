@@ -28,31 +28,31 @@ public class housedoormove : MonoBehaviour
 
     void Update()
     {
-        camera_ = GameObject.Find("Main Camera");
-        cameraPos_ = camera_.transform.position;
-        cameraPos_.x = cameraPos_.x + 3.8f;
-        cameraPos_.y = cameraPos_.y + 4f;
+        //camera_ = GameObject.Find("Main Camera");
+        //cameraPos_ = camera_.transform.position;
+        //cameraPos_.x = cameraPos_.x + 3.8f;
+        //cameraPos_.y = cameraPos_.y + 4f;
         
-        if(cameraRota_.y < 90)
-        {
-            Debug.Log("b");
-            cameraPos_.z = cameraPos_.z + 1f;
+        //if(cameraRota_.y < 90)
+        //{
+        //    Debug.Log("b");
+        //    cameraPos_.z = cameraPos_.z + 1f;
             
-        }
-        else
-        {
-            Debug.Log("c");
-            cameraPos_.z = cameraPos_.z - 2.3f;
-        }
-        AwakeData.Instance.cameraPosition_ = cameraPos_;
+        //}
+        //else
+        //{
+        //    Debug.Log("c");
+        //    cameraPos_.z = cameraPos_.z - 2.3f;
+        //}
+        //AwakeData.Instance.cameraPosition_ = cameraPos_;
 
-        cameraRota_ = camera_.transform.rotation;
-        Vector3 cameraRotation = AwakeData.Instance.cameraRotate_.eulerAngles;
-        cameraRota_.y = cameraRotation.y;
-        AwakeData.Instance.cameraRotate_ = camera_.transform.rotation;
+        //cameraRota_ = camera_.transform.rotation;
+        //Vector3 cameraRotation = AwakeData.Instance.cameraRotate_.eulerAngles;
+        //cameraRota_.y = cameraRotation.y;
+        //AwakeData.Instance.cameraRotate_ = camera_.transform.rotation;
 
 
-        print(AwakeData.Instance.inout_);
+        //print(AwakeData.Instance.inout_);
 
         if (Input.GetKeyDown(KeyCode.C) && inflag)
         {

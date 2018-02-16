@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         m_playerMove = this.GetComponent<PlayerMove>();
         m_uiDisplay = GameObject.Find("PlayerCanvas").GetComponent<UIDisplay>();
         m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
-
+        this.transform.position = AwakeData.Instance.playerPosition_;
         //m_dayTime = AwakeData.Instance.sacrificeCount;
     }
 
