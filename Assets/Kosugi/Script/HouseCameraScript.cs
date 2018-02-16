@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 02/09 小杉
-/// 家の出入りの処理を作り直す課程で
-/// カメラの変数名や処理等に一部手を加えました。
-/// 私個人がわかりやすくなるような変更ばかりなので
-/// 不都合あれば戻したり変えたりしても大丈夫です。
+/// 室内用カメラ
 /// </summary>
-public class MainCameraScript : MonoBehaviour
+public class HouseCameraScript : MonoBehaviour
 {
     [Header("Player Object")]
     private GameObject mPlayer;
@@ -18,8 +14,11 @@ public class MainCameraScript : MonoBehaviour
     [SerializeField, Header("Player Rotation")]
     private Quaternion mPlayerRotation;
 
-    [SerializeField, Header("カメラの高さ"), Range(5, 10)]
-    private float _cameraHeight = 10;
+    [SerializeField, Header("Playerからどれくらい後ろの位置か(倍率)")]
+    private float _leaveValue = 3;
+
+    [SerializeField, Header("カメラの高さ")]
+    private float _cameraHeight = 5.0f;
 
     void Start()
     {
@@ -28,7 +27,7 @@ public class MainCameraScript : MonoBehaviour
         mPlayerRotation = mPlayer.transform.rotation;
 
         // 初期位置設定
-        transform.position = new Vector3(mPlayerPosition.x, _cameraHeight, mPlayerPosition.z - 10);
+        transform.position = new Vector3(mPlayerPosition.x, mPlayerPosition.y + _cameraHeight, mPlayerPosition.z) - mPlayer.transform.forward * _leaveValue;
     }
 
     void Update()

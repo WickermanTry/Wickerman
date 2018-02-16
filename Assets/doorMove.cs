@@ -22,7 +22,7 @@ public class doorMove : MonoBehaviour
 
     void Update()
     {
-        print(AwakeData.Instance.inout_);
+        //print(AwakeData.Instance.inout_);
         HomeNum.ToString();
         if (Input.GetKeyDown(KeyCode.C) && inflag)
         {
