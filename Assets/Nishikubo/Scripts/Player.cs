@@ -47,13 +47,6 @@ public class Player : MonoBehaviour
         get { return m_isHideArea; }
     }
 
-    void Awake()
-    {
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            DontDestroyOnLoad(this);
-        }
-    }
 
     // Use this for initialization
     void Start () {
@@ -65,6 +58,7 @@ public class Player : MonoBehaviour
         m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
 
         //m_dayTime = AwakeData.Instance.sacrificeCount;
+
     }
 
     // Update is called once per frame
@@ -130,6 +124,27 @@ public class Player : MonoBehaviour
             {
                 //放置(置けるポジションを用意する予定)
                 AwakeData.Instance.mass = AwakeData.Instance.mass - m_objectKeep.mass;
+                //地面にレイ飛ばしてポジションをそこの上にする
+                RaycastHit hit;
+                bool isHit = Physics.Raycast(m_objectKeep.transform.position, -transform.up, out hit);
+                if (isHit)
+                {
+                    Debug.Log(hit.collider.name +"  "+ hit.distance);
+                    m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, hit.distance, m_objectKeep.transform.position.z);
+                    if (m_objectKeep.havePosition == HavePosition.Side)
+                    {
+                        m_objectKeep.transform.localRotation = Quaternion.Euler(new Vector3(m_objectKeep.transform.eulerAngles.x, -90.0f, 0.0f));
+                        m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, hit.transform.position.y + 1.0f, m_objectKeep.transform.position.z);
+                    }
+
+                    if (hit.collider.name== "Terrain")
+                    {
+                        m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, 0.0f, m_objectKeep.transform.position.z);
+
+                    }
+
+                }
+
                 m_objectKeep.state = ObjectState.Idle;
             }
             else
@@ -146,7 +161,12 @@ public class Player : MonoBehaviour
                 m_uiDisplay.ImageActive(0, false);
             }
             ItemFlag(m_itemDataBase.GetItemData(), false);
-            AfterAchieving();
+            m_animator.SetBool("hikizuri", false);
+            m_objectKeep = null;
+            m_trailingCount = 0.0f;
+
+            m_state = PlayerState.Idle;
+
         }
     }
 
@@ -173,7 +193,11 @@ public class Player : MonoBehaviour
 
         if ((isHit) || (isHit && checkbox))
         {
-            m_uiDisplay.ImageActive(1,true);
+            if(m_objectKeep==null)
+            {
+                m_uiDisplay.ImageActive(1, true);
+
+            }
 
             if (Input.GetButtonDown("Steal") && m_objectKeep==null /*&& isHit*/)//space
             {
@@ -212,11 +236,6 @@ public class Player : MonoBehaviour
         //    m_isHideArea = true;
         //}
 
-        //商人と接触したら
-        //if(other.gameObject.tag=="Merchant")
-        //{
-
-        //}
     }
 
 
@@ -250,13 +269,17 @@ public class Player : MonoBehaviour
     }
 
     //Trailing状態終了時に呼ぶ
-    public void AfterAchieving()
+    public void AfterAchieving(string request)
     {
-        m_animator.SetBool("hikizuri", false);
-        m_objectKeep = null;
-        m_trailingCount = 0.0f;
+        if(m_objectKeep.gameObject.name == request || m_objectKeep.gameObject.name + "(Clone)" == request)
+        {
+            m_animator.SetBool("hikizuri", false);
+            m_objectKeep = null;
+            m_trailingCount = 0.0f;
 
-        m_state = PlayerState.Idle;
+            m_state = PlayerState.Idle;
+
+        }
 
     }
 

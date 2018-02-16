@@ -19,7 +19,7 @@ public class AmTimeScript : MonoBehaviour
     void Update()
     {
 
-        print(AwakeData.Instance.dayTime_);
+        //print(AwakeData.Instance.dayTime_);
         if (AwakeData.Instance.worldTime_ >= 60.0f)
         {
             AwakeData.Instance.worldTime_ = AwakeData.Instance.worldTime_ - 60;

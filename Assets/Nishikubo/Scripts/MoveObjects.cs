@@ -25,7 +25,7 @@ public class MoveObjects : MonoBehaviour {
 
     private GameObject m_player;
     private BoxCollider m_boxCol;
-    private Vector3 m_velocity = Vector3.zero;
+    //private Vector3 m_velocity = Vector3.zero;
 
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
@@ -83,42 +83,58 @@ public class MoveObjects : MonoBehaviour {
                         gameObject.SetActive(false);
 
                         break;
-                    case HavePosition.Before://仮
-                        m_boxCol.isTrigger = true;
+                    case HavePosition.Before:
+                        if (isMultiple == false)
+                        {
+                            m_boxCol.isTrigger = false;
+
+                        }
+                        else
+                        {
+                            m_boxCol.isTrigger = true;
+                        }
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Behind://仮
+                    case HavePosition.Behind:
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("BehindPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Side://仮
-                        m_boxCol.isTrigger = true;
+                    case HavePosition.Side:
+                        if (isMultiple == false)
+                        {
+                            m_boxCol.isTrigger = false;
+
+                        }
+                        else
+                        {
+                            m_boxCol.isTrigger = true;
+                        }
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("SidePosition").transform.localPosition;
+                        transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 90.0f, 90.0f));
+
+                        break;
+                    case HavePosition.Push:
+                        m_boxCol.isTrigger = false;
+                        transform.parent = m_player.transform;
+                        transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Push://仮
+                    case HavePosition.Pull://
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Pull:
-                        m_boxCol.isTrigger = true;
-                        transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
-                        transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
-
-                        break;
-                    case HavePosition.Up://仮
+                    case HavePosition.Up://
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("UpPosition").transform.localPosition;
@@ -152,6 +168,16 @@ public class MoveObjects : MonoBehaviour {
     }
 
     /// <summary>
+    ///生成処理 
+    /// </summary>
+    private void Inisialize()
+    {
+        //すでに存在するとき&&プレイヤーが所持してるとき
+        //生成しない
+        //if(this.gameObject)
+    }
+
+    /// <summary>
     /// ItamDataBaseから値参照用
     /// </summary>
     /// <param name="itemLists"></param>
@@ -169,5 +195,6 @@ public class MoveObjects : MonoBehaviour {
             }
         }
     }
+
 
 }

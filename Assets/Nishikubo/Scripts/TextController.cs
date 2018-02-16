@@ -147,6 +147,7 @@ public class TextController : MonoBehaviour {
         if (merchant.isAchieved)//達成後
         {
             DayReset(m_ItemDataBase.GetItemData());
+            AwakeData.Instance.dayNum_++;
         }
         SceneNavigator.Instance.Unload();
     }
@@ -259,7 +260,7 @@ public class TextController : MonoBehaviour {
                 //持ってるとき
                 if (player.state == PlayerState.Trailing)
                 {
-                    player.AfterAchieving();
+                    player.AfterAchieving(item.GetItemType().ToString());
                 }
                 //依頼品がプレイヤーの配下にあったらDelete
                 if (player.transform.FindChild(item.GetItemType().ToString()) != null)
@@ -286,7 +287,7 @@ public class TextController : MonoBehaviour {
                     //持ってるとき
                     if (player.state == PlayerState.Trailing)
                     {
-                        player.AfterAchieving();
+                        player.AfterAchieving(item.GetItemType().ToString());
                     }
                     //依頼品がプレイヤーの配下にあったらDelete
                     if (player.transform.FindChild(item.GetItemType().ToString()) != null)

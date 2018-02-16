@@ -18,7 +18,7 @@ public class DebugDay : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        dayText.text = dayNum.ToString()+"日目";
+        dayText.text = AwakeData.Instance.dayNum_.ToString()+"日目";
 	}
 
     public void OnClickDayUp()
