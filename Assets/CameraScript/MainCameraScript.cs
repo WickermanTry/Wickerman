@@ -14,8 +14,8 @@ public class MainCameraScript : MonoBehaviour
 
     void Start()
     {
-        this.gameObject.transform.position = AwakeData.Instance.cameraPosition_;
-        this.gameObject.transform.rotation = AwakeData.Instance.cameraRotate_;
+        //this.gameObject.transform.position = AwakeData.Instance.cameraPosition_;
+        //this.gameObject.transform.rotation = AwakeData.Instance.cameraRotate_;
         targetObj = GameObject.FindGameObjectWithTag("Player");
         targetPos = targetObj.transform.position;
         targetRota = targetObj.transform.rotation;
@@ -42,4 +42,5 @@ public class MainCameraScript : MonoBehaviour
             //transform.RotateAround(targetPos, transform.right, mouseInputY * Time.deltaTime * 200f);
         }
     }
+
 }

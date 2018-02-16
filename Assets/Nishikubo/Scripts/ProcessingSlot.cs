@@ -92,9 +92,30 @@ public class ProcessingSlot : MonoBehaviour {
         if(!isGenerate)//1回だけ生成
         {
             var obj=Instantiate((GameObject)Resources.Load("Prefabs/StealObjects/" + myItemData.GetItemType().ToString()));
+
             obj.transform.position = GameObject.Find("TrailingPosition").transform.position;
+            //地面にレイ飛ばしてポジションをそこの上にする
+            RaycastHit hit;
+            bool isHit = Physics.Raycast(obj.transform.position, -transform.up, out hit);
+            if(isHit)
+            {
+                Debug.Log(hit.collider.name);
+                obj.transform.position = new Vector3(obj.transform.position.x, hit.transform.position.y, obj.transform.position.z);
+                if (hit.collider.name == "Terrain")
+                {
+                    obj.transform.position = new Vector3(obj.transform.position.x, 0.0f, obj.transform.position.z);
+
+                }
+
+            }
+
             AwakeData.Instance.mass = AwakeData.Instance.mass - myItemData.GetItemMass();
-            
+
+            if(player.GetComponent<Player>().state==PlayerState.Trailing)
+            {
+                player.GetComponent<Player>().AfterAchieving(myItemData.GetItemType().ToString());
+            }
+
             //プレイヤーの配下に盗んだモノがあったら
             if (player.transform.FindChild(myItemData.GetItemType().ToString()) != null)
             {

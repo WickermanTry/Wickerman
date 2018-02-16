@@ -64,11 +64,11 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.maxMass = 30;
         AwakeData.Instance.mass = 0;
 
-        if (GameObject.FindGameObjectWithTag("Player") == null)
-        {
-            AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
-            DontDestroyOnLoad(AwakeData.Instance.player);
-        }
+        //if (GameObject.FindGameObjectWithTag("Player") == null)
+        //{
+        //    AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
+        //    DontDestroyOnLoad(AwakeData.Instance.player);
+        //}
 
         SceneManager.LoadScene("LoadSceneManager");
 

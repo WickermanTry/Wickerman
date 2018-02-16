@@ -18,6 +18,10 @@ public class PlayerMove : MonoBehaviour {
     private float m_sp;//スピード保持
     private Rigidbody m_rb;
 
+    //[SerializeField]
+    //private float minPosition = -100.0f;
+    //[SerializeField]
+    //private float maxPosition = 100.0f;
 
     // Use this for initialization
     void Start () {
@@ -34,6 +38,8 @@ public class PlayerMove : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //移動範囲
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, minPosition, maxPosition), Mathf.Clamp(transform.position.y, minPosition, maxPosition), Mathf.Clamp(transform.position.z, minPosition, maxPosition));
 
     }
 
@@ -76,11 +82,12 @@ public class PlayerMove : MonoBehaviour {
     /// <param name="s">+か-で向き変化</param>
     private void Move(float s)
     {
-        m_inputH = Input.GetAxis("Horizontal");
-        m_inputV = Input.GetAxis("Vertical");
 
         if(Camera.main != null)
         {
+            m_inputH = Input.GetAxis("Horizontal");
+            m_inputV = Input.GetAxis("Vertical");
+
             // カメラの方向から、X-Z平面の単位ベクトルを取得
             Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             // 方向キーの入力値とカメラの向きから、移動方向を決定
@@ -93,6 +100,10 @@ public class PlayerMove : MonoBehaviour {
             {
                 transform.rotation = Quaternion.LookRotation(moveForward * s);
             }
+        }
+        else if(Camera.main==null)
+        {
+            Debug.Log("error ");
         }
         
     }
