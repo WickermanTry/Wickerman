@@ -11,7 +11,7 @@ public class HouseCameraScript : MonoBehaviour
     private GameObject mPlayer;
 
     [Header("Playerを見る角度")]
-    public float _cameraAngle = 70;
+    public float _cameraAngle = 60;
 
     [SerializeField, Header("カメラの高さ")]
     private float _cameraHeight = 5.0f;

@@ -13,11 +13,11 @@ public class Door : MonoBehaviour
     [Header("床の高さ")]
     private float _floorHeight = 0.3f;
 
-    [Header("家の番号"),SerializeField]
+    [Header("家の番号"), SerializeField]
     private int _houseNum;
 
     [Header("フェードにかける時間"), SerializeField]
-    private float _fadeTime;
+    private float _fadeTime = 1;
 
 
     void Start()
