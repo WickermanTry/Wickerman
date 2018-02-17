@@ -5,8 +5,6 @@ using UnityEngine;
 public class MainCameraManager : MonoBehaviour
 {
     /*------内部設定(外部からは弄らないこと)------*/
-    [Header("最初の状態")]
-    private bool mStartState = false;
     [SerializeField, Header("前の状態")]
     private bool mBeforeState;
     [SerializeField, Header("現在の状態")]
@@ -36,7 +34,7 @@ public class MainCameraManager : MonoBehaviour
         mPlayer = GameObject.FindGameObjectWithTag("Player");
 
         // 初期のステートをセット
-        mNowState = mStartState;
+        mNowState = AwakeData.Instance.isHouse;
 
         // 各ステートでアクティブにするスクリプトをセット
         mState = new Dictionary<bool, MonoBehaviour>()
@@ -76,6 +74,8 @@ public class MainCameraManager : MonoBehaviour
             else
                 mState[state.Key].enabled = false;
         }
+
+        SetState(value);
     }
 
     /// <summary>
@@ -88,8 +88,25 @@ public class MainCameraManager : MonoBehaviour
         mNowState = state;
 
         // 同じ状態への変更は行わない
+        if (mBeforeState == mNowState) return;
 
         // 通常ステートからの遷移
+        if (mBeforeState == false)
+        {
+            if (mNowState == true)
+            {
+                transform.rotation = Quaternion.Euler(GetComponent<HouseCameraScript>()._cameraAngle, transform.rotation.y, transform.rotation.z);
+                print("change");
+            }
+        }
+        if (mBeforeState == true)
+        {
+            if (mNowState == false)
+            {
+                transform.rotation = Quaternion.Euler(GetComponent<MainCameraScript>()._cameraAngle, transform.rotation.y, transform.rotation.z);
+                print("change");
+            }
+        }
     }
 
     /// <summary>
