@@ -10,8 +10,8 @@ public class HouseCameraScript : MonoBehaviour
     [Header("Player Object")]
     private GameObject mPlayer;
 
-    [SerializeField, Header("Playerを見る角度")]
-    private float _cameraAngle;
+    [Header("Playerを見る角度")]
+    public float _cameraAngle = 70;
 
     [SerializeField, Header("カメラの高さ")]
     private float _cameraHeight = 5.0f;
@@ -19,8 +19,6 @@ public class HouseCameraScript : MonoBehaviour
     void Start()
     {
         mPlayer = GetComponent<MainCameraManager>().mPlayer;
-
-        transform.Rotate(new Vector3(1, 0, 0), _cameraAngle);
     }
 
     void Update()

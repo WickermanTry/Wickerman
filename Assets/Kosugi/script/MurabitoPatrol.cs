@@ -6,10 +6,6 @@ using System.IO;
 
 /// <summary>
 /// むらびとの巡回プログラム
-/// 
-/// 01/16
-/// 巡回する人数・ルート・開始時間etcを自由に設定できるようにする
-/// 依頼品毎に日付が変わる(今のところ
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
@@ -21,14 +17,17 @@ public class MurabitoPatrol : MonoBehaviour
     [SerializeField, Header("※デバッグ用 巡回ルートの名前")]
     private string mPatrolRouteName = "";
 
-    [SerializeField, Header("巡回ルートの番号")]
+    [Header("巡回ルートの番号")]
     private int _patrolRouteNum = 0;
 
-    [SerializeField, Header("巡回ルートの各地点")]
+    [SerializeField, Header("巡回ルートの各ポイント")]
     private List<Vector3> mPatrolPositions;
 
-    [SerializeField, Header("巡回地点用カウンター")]
+    [SerializeField, Header("巡回ポイント用カウンター")]
     private int _counter = 0;
+
+    [SerializeField, Header("※デバッグ用 目的地になっている巡回ポイント座標")]
+    private Vector3 mDestinationPoint;
 
     [Header("----------")]
 
@@ -55,7 +54,6 @@ public class MurabitoPatrol : MonoBehaviour
 
     private void Awake()
     {
-        print("murabito");
         transform.parent.GetComponent<LoadCheck>()._count++;
     }
 
@@ -110,6 +108,8 @@ public class MurabitoPatrol : MonoBehaviour
         {
             mAnim.SetBool("walk", false);
         }
+
+        mDestinationPoint = mNav.destination;
     }
 
     /// <summary>
@@ -119,10 +119,8 @@ public class MurabitoPatrol : MonoBehaviour
     {
         if (isPatrolShift) return;
 
+        mPatrolRouteName = "Route" + _patrolRouteNum;
         mPatrolPositions = route;
-
-        // 必要なプログラムを作動
-        //SetData();
 
         // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
         if (!isNotPointWarp)
@@ -189,6 +187,19 @@ public class MurabitoPatrol : MonoBehaviour
         Quaternion a = Quaternion.LookRotation(mPatrolPositions[_counter] - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, a, Time.deltaTime / 2);
         mNav.isStopped = false;
+    }
+
+    /// <summary>
+    /// 日付跨いだ際のデータリセット用
+    /// </summary>
+    public void DataReset()
+    {
+        transform.parent.GetComponent<LoadCheck>()._count++;
+        if (mPatrolPositions.Count > 0)
+        {
+            StartSetting(mPatrolPositions);
+        }
+        print("reset");
     }
 
     // 巡回ルート番号取得用

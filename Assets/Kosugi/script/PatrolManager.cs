@@ -10,7 +10,9 @@ using UnityEngine.SceneManagement;
 public class PatrolManager : MonoBehaviour
 {
     [SerializeField, Header("巡回担当のむらびと達(List[0]はnullで使用しない)")]
-    private List<string> mPatrolMurabitoList = new List<string>();
+    private List<GameObject> mPatrolMurabitoList = new List<GameObject>();
+    [SerializeField]
+    private List<int> mListNum = new List<int>();
 
     [Header("----------")]
 
@@ -40,6 +42,8 @@ public class PatrolManager : MonoBehaviour
 
     // テキストデータ用変数
     private string[,] data, murabitoData;
+
+    public int _dayCheck = 0;
 
     // DontDestroyOnLoad用
     static PatrolManager patrolManager = null;
@@ -80,6 +84,9 @@ public class PatrolManager : MonoBehaviour
         mPatrolMurabitoList.Clear();
         mPatrolMurabitoList.Add(null);
 
+        mListNum.Clear();
+        mListNum.Add(0);
+
         //SceneManager.sceneLoaded += SceneLoaded;
         //SceneManager.sceneUnloaded += SceneUnloaded;
         //SceneManager.activeSceneChanged += ActiveSceneChanged; 
@@ -110,6 +117,15 @@ public class PatrolManager : MonoBehaviour
             SetRoute();// _patrolValue);
         }
 
+        if (_dayCheck == AwakeData.Instance.dayTime_)
+        {
+            _dayCheck = AwakeData.Instance.dayTime_ + 1;
+            for(int i = 1; i < mPatrolMurabitoList.Count; i++)
+            {
+                mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().DataReset();
+            }
+        }
+
         // むらびとのルートをルート1からルート5にチェンジ
         // 途中でルート変更するかわからないので保留
         //if (isRouteChange && isSwitchable)
@@ -122,33 +138,33 @@ public class PatrolManager : MonoBehaviour
         //        return;
         //    }
 
-        //    for (int i = 1; i <= 3; i++)
-        //    {
-        //        MurabitoPatrol murabito = GameObject.Find(mPatrolMurabito[i]).GetComponent<MurabitoPatrol>();
-        //        //murabito.StartSetting(transform.Find("Route" + 5).GetComponent<RoutePositionSave>().mRoutePosition);
-        //    }
+            //    for (int i = 1; i <= 3; i++)
+            //    {
+            //        MurabitoPatrol murabito = GameObject.Find(mPatrolMurabito[i]).GetComponent<MurabitoPatrol>();
+            //        //murabito.StartSetting(transform.Find("Route" + 5).GetComponent<RoutePositionSave>().mRoutePosition);
+            //    }
 
-        //    isRouteChange = false;
-        //}
+            //    isRouteChange = false;
+            //}
 
-        // 欠員発生時の処理(必要無くなった)
-        //if (debugLostDo)
-        //{
-        //    if (debugLostNum < 0 || mPatrolMurabito.Count < debugLostNum)
-        //    {
-        //        Debug.LogWarning("デバッグ対象番号が対応外です！");
-        //        debugLostDo = false;
-        //        return;
-        //    }
+            // 欠員発生時の処理(必要無くなった)
+            //if (debugLostDo)
+            //{
+            //    if (debugLostNum < 0 || mPatrolMurabito.Count < debugLostNum)
+            //    {
+            //        Debug.LogWarning("デバッグ対象番号が対応外です！");
+            //        debugLostDo = false;
+            //        return;
+            //    }
 
-        //    print("欠員対象村人：" + mPatrolMurabito[debugLostNum]);
-        //    string nameValue = mPatrolMurabito[debugLostNum].name;
-        //    mPatrolMurabito[debugLostNum] = mPatrolMurabito[mPatrolValue];
-        //    mPatrolMurabito.RemoveAt(mPatrolValue);
-        //    Destroy(GameObject.Find(nameValue));
-        //    mSet = true;
-        //    debugLostDo = false;
-        //}
+            //    print("欠員対象村人：" + mPatrolMurabito[debugLostNum]);
+            //    string nameValue = mPatrolMurabito[debugLostNum].name;
+            //    mPatrolMurabito[debugLostNum] = mPatrolMurabito[mPatrolValue];
+            //    mPatrolMurabito.RemoveAt(mPatrolValue);
+            //    Destroy(GameObject.Find(nameValue));
+            //    mSet = true;
+            //    debugLostDo = false;
+            //}
     }
 
     /// <summary>
@@ -157,7 +173,7 @@ public class PatrolManager : MonoBehaviour
     void DataExport()
     {
         // Assets/Resources配下のKosugiフォルダから読込
-        TextAsset csv = Resources.Load("Kosugi/PatrolStatus") as TextAsset;
+        TextAsset csv = Resources.Load("Kosugi/MurabitoPatrol") as TextAsset;
         StringReader reader = new StringReader(csv.text);
         while (reader.Peek() > -1)
         {
@@ -186,17 +202,17 @@ public class PatrolManager : MonoBehaviour
     /// データセットに必要な関数①
     /// 巡回するむらびとを指定して巡回担当の配列に格納
     /// </summary>
-    /// <param name="num">巡回するむらびとを出す家番号</param>
+    /// <param name="num">巡回するむらびとの番号</param>
     public void SetMurabito(int num)
     {
-        /* 0列目:家の番号
-         * 1列目:家の名前
-         * 2列目:むらびとの名前
-         * 3列目:むらびとの番号
-         * 4列目:振り向きの方向
-         * 5列目:巡回ルートの番号
-         * 6列目:巡回開始までの待機時間
-         * 7列目:各家庭を巡回開始する時間
+        /*
+         * 0列目:むらびとの番号
+         * 1列目:巡回ルートの番号
+         * 2列目:振り向きの方向
+         * 3列目:巡回開始までの待機時間
+         * 4列目:各家庭を巡回開始する時間
+         * 5列目:家の名前
+         * 6列目:むらびとの名前
          * 
          * 0行目:null
          * 1行目:主人公のデータ(実質null
@@ -204,26 +220,40 @@ public class PatrolManager : MonoBehaviour
          */
 
         // 列番号を指定
-        int murabitoNumColumn = 3;
+        int murabitoNumColumn = 0;  //横
+        int murabitoNumRow = 0;     //縦
+
+        // 指定したむらびと番号のむらびとが巡回対象か調べる
+        // いなかった場合でもメッセージ等は出ない
+        for (int i = 0; i < data.GetLength(0); i++)
+        {
+            if (data[i, murabitoNumColumn] == num.ToString())
+            {
+                murabitoNumRow = i;
+                mListNum.Add(i);
+                break;
+            }
+        }
 
         // 配列のデータ指定ミスや重複を排除
-        if (num <= 1 || murabitoData.GetLength(0) < num)
+        if (murabitoNumRow <= 1 || murabitoData.GetLength(0) < murabitoNumRow)
         {
-            Debug.LogWarning("指定された家番号は範囲外です");
+            Debug.LogWarning("指定したむらびと番号は存在しません");
             return;
         }
-        if (mPatrolMurabitoList.Contains("murabito" + data[num, murabitoNumColumn]))
+        if (mPatrolMurabitoList.Contains(GameObject.Find("murabito" + data[murabitoNumRow, murabitoNumColumn])))
         {
-            Debug.LogWarning("指定した家番号のむらびとはListに格納済みです");
+            
+            Debug.LogWarning("指定したむらびとはListに格納済みです");
             return;
         }
 
         // 指定された家番号のむらびとのデータを格納
         for (int i = 0; i < data.GetLength(1); i++)
         {
-            murabitoData[mPatrolMurabitoList.Count, i] = data[num, i];
+            murabitoData[mPatrolMurabitoList.Count, i] = data[murabitoNumRow, i];
         }
-        mPatrolMurabitoList.Add("murabito" + murabitoData[mPatrolMurabitoList.Count, murabitoNumColumn]);
+        mPatrolMurabitoList.Add(GameObject.Find("murabito" + murabitoData[mPatrolMurabitoList.Count, murabitoNumColumn]));
         print("Set -> Murabito" + murabitoData[mPatrolMurabitoList.Count - 1, murabitoNumColumn]);
     }
 
@@ -245,18 +275,6 @@ public class PatrolManager : MonoBehaviour
         // 配列にいるむらびとにデータを渡す
         SetMurabitoData();
 
-        print("巡回するむらびと");
-        for (int i = 1; i < mPatrolMurabitoList.Count; i++)
-        {
-            print(i + "人目：" + mPatrolMurabitoList[i]);
-
-            MurabitoPatrol murabito = GameObject.Find(mPatrolMurabitoList[i]).GetComponent<MurabitoPatrol>();
-            murabito.StartSetting(transform.GetChild(murabito.GetRouteNumber()).GetComponent<RoutePositionSave>().mRoutePosition);
-            if (i < 3)
-            {
-                isSwitchable = true;
-            }
-        }
         isRouteSet = false;
     }
 
@@ -266,35 +284,50 @@ public class PatrolManager : MonoBehaviour
     void SetMurabitoData()
     {
         /*
-         * 0列目:家の番号
-         * 1列目:家の名前
-         * 2列目:むらびとの名前
-         * 3列目:むらびとの番号
-         * 4列目:振り向きの方向
-         * 5列目:巡回ルートの番号
-         * 6列目:巡回開始までの待機時間
-         * 7列目:各家庭を巡回開始する時間
+         * 0列目:むらびとの番号
+         * 1列目:巡回ルートの番号
+         * 2列目:振り向きの方向
+         * 3列目:巡回開始までの待機時間
+         * 4列目:各家庭を巡回開始する時間
+         * 5列目:家の名前
+         * 6列目:むらびとの名前
          *
          * 0行目:null
          * 1行目:主人公のデータ(実質null
          * 2行目～は各むらびとのデータ
          */
 
-        // 列番号を指定
-        int murabitoNumColumn = 3;
-        int swingDirectionColumn = 4;
-        int patrolRouteNumColumn = 5;
-        int patrolIntervalColumn = 6;
-        int housePatrolIntervalColumn = 7;
+        // データの列番号を指定
+        int swingDirectionColumn = 2;
+        int patrolRouteNumColumn = 1;
+        int patrolIntervalColumn = 3;
+        int housePatrolIntervalColumn = 4;
 
         // むらびとに各データを渡す
+        print("巡回するむらびと");
         for (int i = 1; i < mPatrolMurabitoList.Count; i++)
         {
+            print(i + "人目：" + mPatrolMurabitoList[i]);
+
+            // 振り向きの方向
             int swing = int.Parse(murabitoData[i, swingDirectionColumn]);
+            // 巡回ルートの番号
             int route = int.Parse(murabitoData[i, patrolRouteNumColumn]);
+            // 巡回開始までの待機時間
             float interval = float.Parse(murabitoData[i, patrolIntervalColumn]);
+            // 各家庭の巡回を開始するまでの時間
             float homeInterval = float.Parse(murabitoData[i, housePatrolIntervalColumn]);
-            GameObject.Find("murabito" + murabitoData[i, murabitoNumColumn]).GetComponent<MurabitoPatrol>().SetData(swing, route, interval, homeInterval);
+            mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().SetData(swing, route, interval, homeInterval);
+
+            // 巡回ルートを子オブジェクトから検索しルートを格納した配列を渡す
+            MurabitoPatrol murabito = mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>();
+            murabito.StartSetting(transform.GetChild(murabito.GetRouteNumber()).GetComponent<RoutePositionSave>().mRoutePosition);
+
+            // 各家庭を巡回するルートを別途渡す
+            if (i < 3)
+            {
+                isSwitchable = true;
+            }
         }
     }
 

@@ -10,8 +10,8 @@ public class MainCameraScript : MonoBehaviour
     [Header("Player Object")]
     private GameObject mPlayer;
 
-    [SerializeField, Header("Playerを見る角度")]
-    private float _cameraAngle;
+    [Header("Playerを見る角度")]
+    public float _cameraAngle = 40;
 
     [SerializeField, Header("カメラの高さ")]
     private float _cameraHeight = 10;
@@ -21,10 +21,6 @@ public class MainCameraScript : MonoBehaviour
     void Start()
     {
         mPlayer = GetComponent<MainCameraManager>().mPlayer;
-
-        transform.Rotate(new Vector3(1, 0, 0), _cameraAngle);
-
-        transform.position= mPlayer.transform.position - mPlayer.transform.forward * _cameraHeight;
     }
 
     void Update()
