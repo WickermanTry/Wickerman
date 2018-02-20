@@ -48,6 +48,18 @@ public class MoveObjects : MonoBehaviour {
         get { return m_isMultiple; }
     }
 
+    void Awake()
+    {
+        if(GameObject.Find(this.name))
+        {
+            Debug.Log("a");
+        }
+        else if (!GameObject.Find(this.name))
+        {
+            Debug.Log("b");
+        }
+    }
+
 
     // Use this for initialization
     void Start()
