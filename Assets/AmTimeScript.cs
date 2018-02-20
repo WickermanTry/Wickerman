@@ -18,49 +18,20 @@ public class AmTimeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //print(AwakeData.Instance.dayTime_);
         if (AwakeData.Instance.worldTime_ >= 60.0f)
         {
             AwakeData.Instance.worldTime_ = AwakeData.Instance.worldTime_ - 60;
             AwakeData.Instance.worldMinite_++;
         }
-
-        if (AwakeData.Instance.dayTime_ == 0)//朝
+        if (AwakeData.Instance.worldMinite_ >= 5)
         {
-            if ((AwakeData.Instance.worldMinite_ >= 1) && AwakeData.Instance.worldTime_ >= 30)
-            {
-                AwakeData.Instance.worldTime_ = 0;
-                AwakeData.Instance.worldMinite_ = 0;
-                AwakeData.Instance.dayTime_ = 1;
-                //フェードインを呼ぶスクリプト
-                gameObject.SetActive(true);
-            }
-        }
-        else if (AwakeData.Instance.dayTime_ == 1)//昼
-        {
-            if (AwakeData.Instance.worldMinite_ >= 2)
-            {
-                AwakeData.Instance.worldTime_ = 0;
-                AwakeData.Instance.worldMinite_ = 0;
-                AwakeData.Instance.dayTime_ = 2;
-                //フェードインを呼ぶスクリプト
-                gameObject.SetActive(true);
-            }
-        }
-        else if (AwakeData.Instance.dayTime_ == 2)//夕方
-        {
-            if ((AwakeData.Instance.worldMinite_ >= 1) && AwakeData.Instance.worldTime_ >= 30)
-            {
-                AwakeData.Instance.dayTime_ = 3;
-                AwakeData.Instance.worldTime_ = 0;
-                AwakeData.Instance.worldMinite_ = 0;
-
-                //フェードインを呼ぶスクリプト
-                //中間へ
-                SceneManager.LoadScene(Scene_);
-                AwakeData.Instance.houseNum_ = 0;
-            }
+            AwakeData.Instance.worldTime_   = 0;
+            AwakeData.Instance.worldMinite_ = 0;
+            AwakeData.Instance.dayNum_      += 1;
+            AwakeData.Instance.houseNum_ = 0;
+            SceneManager.LoadScene(Scene_);
+            //フェードインを呼ぶスクリプト
+            gameObject.SetActive(true);
         }
         AwakeData.Instance.worldTime_ += Time.deltaTime;
         this.GetComponent<Text>().text = AwakeData.Instance.worldMinite_.ToString("00") + ":" + Mathf.Floor(AwakeData.Instance.worldTime_).ToString("00");
