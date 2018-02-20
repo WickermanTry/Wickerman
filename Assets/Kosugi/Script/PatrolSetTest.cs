@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PatrolSetTest : MonoBehaviour
 {
-    public int _murabitoNum;
+    public List<int> murabitoNum = new List<int>();
     public bool _patrolTest;
 
     private void Awake()
@@ -31,7 +31,11 @@ public class PatrolSetTest : MonoBehaviour
 	{
         if (!_patrolTest&& GameObject.Find("PatrolManager"))
         {
-            GameObject.Find("PatrolManager").GetComponent<PatrolManager>().SetMurabito(_murabitoNum);
+            for (int i = 0; i < murabitoNum.Count; i++)
+            {
+                GameObject.Find("PatrolManager").GetComponent<PatrolManager>().SetMurabito(murabitoNum[i]);
+            }
+            
             _patrolTest = true;
             Destroy(gameObject);
         }

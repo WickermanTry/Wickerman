@@ -7,11 +7,18 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// むらびとの巡回プログラム
+/// 
+/// 同じルートに二人(以上)担当になったら二人目をルートを半周ずらす
+/// （あと当たり判定消す
+/// 　じゃないとすれ違えない
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
     [Header("巡回担当に振り分けられたか(巡回しているかの判断)")]
     public bool isPatrolShift;
+
+    [Header("担当ルートを半周ずれて巡回するか")]
+    public bool isRouteDelay;
 
     [Header("----------")]
 
@@ -43,7 +50,7 @@ public class MurabitoPatrol : MonoBehaviour
     private float _housePatrolInterval = 0;
 
     [SerializeField, Header("振り向きにかける時間(とりあえず3s～10sまで)"), Range(3, 10)]
-    private int _swingTime = 0;
+    private int _swingTime = 3;
 
     private bool isNotPointWarp = false;
 
@@ -70,36 +77,41 @@ public class MurabitoPatrol : MonoBehaviour
         mAnim = GetComponent<Animator>();
         mModel = transform.Find("14.!Root");
 
-        if (gameObject.name == "murabito2")
-        {
-            SceneManager.sceneLoaded += SceneLoaded;
-            SceneManager.sceneUnloaded += SceneUnloaded;
-            //SceneManager.activeSceneChanged += ActiveSceneChanged;
+        SceneManager.sceneLoaded += SceneLoaded;
+        SceneManager.sceneUnloaded += SceneUnloaded;
+        //SceneManager.activeSceneChanged += ActiveSceneChanged;
 
-            // Unloaded -> Changed -> Loadeds
-        }
+        // Unloaded -> Changed -> Loadeds
 
         sceneName = SceneManager.GetActiveScene().name;
     }
 
     void SceneLoaded(UnityEngine.SceneManagement.Scene loadScene, LoadSceneMode arg1)
     {
-        if (loadScene.name == sceneName)
+        if (isPatrolShift)
         {
-            print("!");
-            mNav.isStopped = false;
-            mNav.destination = SaveDistancePosition;
-        }
-        else
-        {
-            print("?"); 
-            mNav.isStopped = true;
+            if (loadScene.name == sceneName)
+            {
+                print("!");
+                mNav.isStopped = false;
+                mNav.destination = SaveDistancePosition;
+            }
+            else
+            {
+                print("?");
+                mNav.isStopped = true;
+            }
         }
     }
     private void SceneUnloaded(UnityEngine.SceneManagement.Scene unloadScene)
     {
-        if (unloadScene.name == sceneName)
-            SaveDistancePosition = mNav.destination;
+        if (isPatrolShift)
+        {
+            if (unloadScene.name == sceneName)
+            {
+                SaveDistancePosition = mNav.destination;
+            }
+        }
     }
     //private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
     //{
@@ -160,7 +172,7 @@ public class MurabitoPatrol : MonoBehaviour
     /// <summary>
     /// 準備用の処理
     /// </summary>
-    public void StartSetting(List<Vector3> route)
+    public void RouteSetting(List<Vector3> route)
     {
         if (isPatrolShift) return;
 
@@ -170,7 +182,16 @@ public class MurabitoPatrol : MonoBehaviour
         // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
         if (!isNotPointWarp)
         {
-            transform.position = mPatrolPositions[0];
+            if (isRouteDelay)
+            {
+                transform.position = mPatrolPositions[mPatrolPositions.Count / 2];
+                _counter = mPatrolPositions.Count / 2;
+            }
+            else
+            {
+                transform.position = mPatrolPositions[0];
+            }
+            
             isNotPointWarp = false;
         }
 
@@ -199,12 +220,17 @@ public class MurabitoPatrol : MonoBehaviour
     /// <param name="patrolRouteNum">巡回ルートの番号</param>
     /// <param name="patrolInterval">巡回開始するまでの待機時間</param>
     /// <param name="homePatrolInterval">各家庭を巡回開始する時間</param>
-    public void SetData(int swingDirection,int patrolRouteNum, float patrolInterval, float housePatrolInterval)
+    /// <param name="route">巡回するルート</param>
+    /// <param name="isAlready">巡回するルートに既に巡回者がいるかどうか</param>
+    public void SetData(int swingDirection,int patrolRouteNum, float patrolInterval, float housePatrolInterval, List<Vector3> route, bool isAlready)
     {
         _patrolRouteNum = patrolRouteNum;
         _patrolInterval = patrolInterval;
         mSwingDirection = swingDirection;
         _housePatrolInterval = housePatrolInterval;
+        isRouteDelay = isAlready;
+
+        RouteSetting(route);
 
         mAnim.SetInteger("swing_num", mSwingDirection);
     }
@@ -245,14 +271,8 @@ public class MurabitoPatrol : MonoBehaviour
         transform.parent.GetComponent<LoadCheck>()._count++;
         if (mPatrolPositions.Count > 0)
         {
-            StartSetting(mPatrolPositions);
+            RouteSetting(mPatrolPositions);
         }
         print("reset");
-    }
-
-    // 巡回ルート番号取得用
-    public int GetRouteNumber()
-    {
-        return _patrolRouteNum;
     }
 }
