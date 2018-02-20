@@ -86,21 +86,7 @@ public class PatrolManager : MonoBehaviour
 
         mListNum.Clear();
         mListNum.Add(0);
-
-        //SceneManager.sceneLoaded += SceneLoaded;
-        //SceneManager.sceneUnloaded += SceneUnloaded;
-        //SceneManager.activeSceneChanged += ActiveSceneChanged; 
     }
-
-    //private void SceneUnloaded(UnityEngine.SceneManagement.Scene arg0)
-    //{
-    //    print("unload");
-    //}
-
-    //private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-    //{
-    //    print("change");
-    //}
 
     void Update ()
 	{
@@ -346,5 +332,14 @@ public class PatrolManager : MonoBehaviour
     private void OnDestroy()
     {
         if (this == Instance) patrolManager = null;
+    }
+
+
+    public void NavMeshStopSwitch(bool flag)
+    {
+        for(int i = 1; i < mPatrolMurabitoList.Count; i++)
+        {
+            mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().NavMeshIsStopped(flag);
+        }
     }
 }
