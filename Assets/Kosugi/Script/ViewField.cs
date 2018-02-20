@@ -4,12 +4,12 @@ using UnityEngine;
 
 public enum SectorType
 {
-    Main,   //直接的な視界
-    Sub     //間接的な視界
+    Main,   //直接的な視野
+    Sub     //間接的な視野
 }
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class SectorCreate : MonoBehaviour
+public class ViewField : MonoBehaviour
 {
     [Range(1, 5)]
     public float _radius = 3.0f;
@@ -149,6 +149,6 @@ public class SectorCreate : MonoBehaviour
         mesh.RecalculateNormals();
 
         Gizmos.color = mColor;
-        Gizmos.DrawMesh(mesh,transform.position,transform.rotation,Vector3.one);
+        Gizmos.DrawMesh(mesh, transform.position, transform.rotation, transform.lossyScale);
     }
 }

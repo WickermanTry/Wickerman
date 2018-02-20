@@ -255,13 +255,4 @@ public class MurabitoPatrol : MonoBehaviour
     {
         return _patrolRouteNum;
     }
-
-    /// <summary>
-    /// 室内シーン中のNavMeshの動作のストップ切替
-    /// </summary>
-    /// <param name="flag"></param>
-    public void NavMeshIsStopped(bool flag)
-    {
-        
-    }
 }

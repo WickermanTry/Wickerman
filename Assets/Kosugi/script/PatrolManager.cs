@@ -333,13 +333,4 @@ public class PatrolManager : MonoBehaviour
     {
         if (this == Instance) patrolManager = null;
     }
-
-
-    public void NavMeshStopSwitch(bool flag)
-    {
-        for(int i = 1; i < mPatrolMurabitoList.Count; i++)
-        {
-            mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().NavMeshIsStopped(flag);
-        }
-    }
 }
