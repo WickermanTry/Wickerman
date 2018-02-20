@@ -48,6 +48,10 @@ public class MoveObjects : MonoBehaviour {
         get { return m_isMultiple; }
     }
 
+    void Awake()
+    {
+        //Inisialize();
+    }
 
     // Use this for initialization
     void Start()
@@ -174,7 +178,6 @@ public class MoveObjects : MonoBehaviour {
     {
         //すでに存在するとき&&プレイヤーが所持してるとき
         //生成しない
-        //if(this.gameObject)
     }
 
     /// <summary>
