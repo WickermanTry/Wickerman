@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ProcessingIconSlot : MonoBehaviour
 {
-
     public ItemIcon itemIcon;
 
     public void SetIconData(ItemIcon icon)

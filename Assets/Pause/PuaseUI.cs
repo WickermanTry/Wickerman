@@ -74,10 +74,12 @@ public class PuaseUI : MonoBehaviour {
                 case 0:
                     Item.SetActive(true);
                     Pause.SetActive(false);
+                    AwakeData.Instance.menuflag = false;
                     break;
                 case 1:
                     Map.SetActive(true);
                     Pause.SetActive(false);
+                    AwakeData.Instance.menuflag = false;
                     break;
                 case 2:
                     Time.timeScale = 1;

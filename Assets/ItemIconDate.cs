@@ -33,12 +33,12 @@ public class ItemIconDate : MonoBehaviour {
     }
 
 
-    public ItemIcon[] GetItemData()
+    public ItemIcon[] GetIconData()
     {
         return itemIcon;
     }
 
-    public int GetItemTotal()
+    public int GetIconTotal()
     {
         return itemIcon.Length;
     }

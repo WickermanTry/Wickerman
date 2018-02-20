@@ -36,7 +36,7 @@ public class AwakeData
     //ポジションセットすべきかどうか
     public bool posSet;
 
-
+    public bool menuflag;
     public int checkNum;
 
     public List<string> stoleObj = new List<string>();   //盗まれたもの

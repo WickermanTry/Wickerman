@@ -63,6 +63,7 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.worldMinite_ = 0;
         AwakeData.Instance.maxMass = 30;
         AwakeData.Instance.mass = 0;
+        AwakeData.Instance.menuflag = false;
 
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
@@ -70,7 +71,7 @@ public class LoadSceneScript : MonoBehaviour
             DontDestroyOnLoad(AwakeData.Instance.player);
         }
 
-        SceneManager.LoadScene("Day1");
+        SceneManager.LoadScene("LoadSceneManager");
 
 
 

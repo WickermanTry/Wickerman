@@ -15,7 +15,7 @@ public class IconImage : MonoBehaviour {
 	
     void OnEnable()
     {
-        
+        CreateSlot(iconData.GetIconData());
     }
 
 	public void CreateSlot(ItemIcon[] itemLists)
