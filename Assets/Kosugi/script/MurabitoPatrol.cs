@@ -55,7 +55,7 @@ public class MurabitoPatrol : MonoBehaviour
     private bool isNotPointWarp = false;
 
     /*---内部データ---*/
-    Animator mAnim; // Animator取得用
+    public Animator mAnim; // Animator取得用
 
     Transform mModel; // 14.!Root取得用
 
@@ -127,6 +127,12 @@ public class MurabitoPatrol : MonoBehaviour
         if (_intervalCount > 0)
         {
             _intervalCount -= Time.deltaTime;
+        }
+        else if (mAnim.GetBool("Find"))
+        {
+            StopCoroutine(Swing());
+            mNav.isStopped = true;
+            transform.LookAt(GameObject.Find("Player").transform.position);
         }
         else
         {
@@ -212,6 +218,9 @@ public class MurabitoPatrol : MonoBehaviour
 
         // 巡回担当に振り分けられたフラグを立てる
         isPatrolShift = true;
+
+        // モデル等を非表示→表示にする
+        GetComponent<MurabitoHouse>().SetPosition(true);
     }
 
     /// <summary>

@@ -21,7 +21,8 @@ public class MurabitoHouse : MonoBehaviour
     [SerializeField, Header("※デバッグ用 住家の名前")]
     private string houseName;
 
-    public bool thisState;
+    [SerializeField, Header("アクティブにする子オブジェクト")]
+    private List<GameObject> mObject = new List<GameObject>();
 
     // テキストデータ用変数
     private string[,] data, murabitoData;
@@ -31,33 +32,37 @@ public class MurabitoHouse : MonoBehaviour
     {
         _murabitoNumber = int.Parse(gameObject.name.Substring(8));
 
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            mObject.Add(transform.GetChild(i).gameObject);
+        }
+
         // テキストデータを読み込む
         DataExport(_murabitoNumber);
+
+        SetData();  
     }
 
     void Start()
     {
-        SetData();
+        print("House");
+        SetPosition(false);
     }
 
     void Update()
     {
-        if (!GetComponent<MurabitoPatrol>().isPatrolShift)
-        {
-            SetPosition(GetComponent<MurabitoPatrol>().isPatrolShift);
-        }
-        else
-        {
-            return;
-        }
+
     }
 
-    void SetPosition(bool flag)
+    public void SetPosition(bool flag)
     {
-        transform.position = GameObject.Find("house" + _houseNumber).transform.position;
-        for (int i = 0; i < transform.childCount; i++)
+        if (flag == false)
         {
-            transform.GetChild(i).gameObject.SetActive(flag);
+            transform.position = GameObject.Find("house" + _houseNumber).transform.position;
+        }
+        for (int i = 0; i < mObject.Count; i++)
+        {
+            mObject[i].SetActive(flag);
         }
     }
 
@@ -85,7 +90,6 @@ public class MurabitoHouse : MonoBehaviour
             for (int j = 0; j < value.Length; j++)
             {
                 data[num, j] = value[j];
-                print(data[num, j]);
             }
         }
     }

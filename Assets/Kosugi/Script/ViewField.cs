@@ -44,7 +44,7 @@ public class ViewField : MonoBehaviour
         if (isDebugMeshUpdate)
             DebugMeshUpdate();
 
-        //自分 -> Eyes -> sekizui1 -> center -> 14!Root 視界に入った人の方を向く
+        //自分 -> Eyes -> sekizui1 視界に入った人の方を向く
         GameObject neck = transform.parent.parent.gameObject;
     }
 
@@ -119,7 +119,7 @@ public class ViewField : MonoBehaviour
     {
         if (mSectorType == SectorType.Sub && col.gameObject.tag == "Player")
         {
-            transform.parent.GetComponent<SectorManager>().isFind = true;
+            transform.parent.parent.GetComponent<SectorManager>().isFind = true;
         }
 
         //if (mSectorType == SectorType.Sub && col.gameObject.tag == "Torch")
@@ -130,14 +130,16 @@ public class ViewField : MonoBehaviour
     {
         if (mSectorType == SectorType.Main && col.gameObject.tag == "Player")
         {
-            transform.parent.GetComponent<SectorManager>().isFind = true;
+            print("stay");
+            transform.parent.parent.GetComponent<SectorManager>().isFind = true;
         }
     }
     private void OnTriggerExit(Collider col)
     {
         if (col.gameObject.tag == "Player")
         {
-            transform.parent.GetComponent<SectorManager>().isFind = false;
+            print("exit");
+            transform.parent.parent.GetComponent<SectorManager>().isFind = false;
         }
     }
 
