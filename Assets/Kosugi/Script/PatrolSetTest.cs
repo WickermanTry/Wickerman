@@ -1,22 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PatrolSetTest : MonoBehaviour
 {
     public int _murabitoNum;
     public bool _patrolTest;
-	void Start ()
-	{
-		
-	}
 
-	void Update ()
+    private void Awake()
+    {
+        // シーン跨いでも破棄しないようにする
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        SceneManager.sceneLoaded += SceneLoaded;
+        //SceneManager.sceneUnloaded += SceneUnloaded;
+        //SceneManager.activeSceneChanged += ActiveSceneChanged;
+
+        // Unloaded -> Changed -> Loadeds
+    }
+    void SceneLoaded(UnityEngine.SceneManagement.Scene loadScene, LoadSceneMode arg1)
+    {
+        print("patrol");      
+    }
+
+    void Update ()
 	{
-        if (_patrolTest)
+        if (!_patrolTest&& GameObject.Find("PatrolManager"))
         {
             GameObject.Find("PatrolManager").GetComponent<PatrolManager>().SetMurabito(_murabitoNum);
-            _patrolTest = false;
+            _patrolTest = true;
+            Destroy(gameObject);
         }
 	}
 }
