@@ -23,7 +23,7 @@ public class MurabitoPatrol : MonoBehaviour
     [Header("----------")]
 
     [SerializeField, Header("※デバッグ用 巡回ルートの名前")]
-    private string mPatrolRouteName = "";
+    private string patrolRouteName = "";
 
     [Header("巡回ルートの番号")]
     private int _patrolRouteNum = 0;
@@ -40,7 +40,7 @@ public class MurabitoPatrol : MonoBehaviour
     [Header("----------")]
 
     [SerializeField, Header("巡回時に振り向く方向(1:左,2:右)")]
-    private int mSwingDirection = 0;
+    private int _swingDirection = 0;
 
     [SerializeField, Header("巡回開始するまでの待機時間")]
     private float _patrolInterval = 0;
@@ -62,6 +62,7 @@ public class MurabitoPatrol : MonoBehaviour
     NavMeshAgent mNav; // NavMeshAgent取得用
 
     string sceneName = "";
+
     [SerializeField]
     Vector3 SaveDistancePosition;
 
@@ -176,7 +177,7 @@ public class MurabitoPatrol : MonoBehaviour
     {
         if (isPatrolShift) return;
 
-        mPatrolRouteName = "Route" + _patrolRouteNum;
+        patrolRouteName = "Route" + _patrolRouteNum;
         mPatrolPositions = route;
 
         // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
@@ -204,7 +205,7 @@ public class MurabitoPatrol : MonoBehaviour
 
         // モデルの向きを次の巡回地点にする
         transform.LookAt(mPatrolPositions[_counter]);
-        mModel.LookAt(mPatrolPositions[_counter]);
+        //mModel.LookAt(mPatrolPositions[_counter]);
 
         // 巡回開始までの時間をカウント用変数に入れる
         _intervalCount = _patrolInterval;
@@ -226,13 +227,13 @@ public class MurabitoPatrol : MonoBehaviour
     {
         _patrolRouteNum = patrolRouteNum;
         _patrolInterval = patrolInterval;
-        mSwingDirection = swingDirection;
+        _swingDirection = swingDirection;
         _housePatrolInterval = housePatrolInterval;
         isRouteDelay = isAlready;
 
         RouteSetting(route);
 
-        mAnim.SetInteger("swing_num", mSwingDirection);
+        mAnim.SetInteger("swing_num", _swingDirection);
     }
 
     /// <summary>

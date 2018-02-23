@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -7,34 +7,34 @@ using Novel;
 using UnityEngine.UI;
 
 /// <summary>
-/// å·¡å›ã—ã¦ãªã„æ™‚
+/// „‰ñ‚µ‚Ä‚È‚¢
 /// </summary>
 public class Murabito : MonoBehaviour
 {
-    [SerializeField, Header("æ‘äººã®ç•ªå·")]
+    [SerializeField, Header("‘ºl‚Ì”Ô†")]
     private int mMurabitoNum;
 
-    //ã‚¤ãƒ™ãƒ³ãƒˆã®æœ‰ç„¡ãƒã‚§ãƒƒã‚¯
+    //ƒCƒxƒ“ƒg‚Ì—L–³ƒ`ƒFƒbƒN
     private bool eventCheck = false;
-    //ã‚¤ãƒ™ãƒ³ãƒˆç•ªå·
+    //ƒCƒxƒ“ƒg”Ô†
     private int eventNumber = 0;
-    //å‰æ—¥ã«å®¶æ—ãŒæ¶ˆãˆãŸã‹ã©ã†ã‹
+    //‘O“ú‚É‰Æ‘°‚ªÁ‚¦‚½‚©‚Ç‚¤‚©
     private bool familyCheck = false;
-    //ãƒ•ã‚¡ãƒŸãƒªãƒ¼ç•ªå·
+    //ƒtƒ@ƒ~ƒŠ[”Ô†
     private int familyNumber = 0;
-    //å‰æ—¥ã«å‹é”ãŒæ¶ˆãˆãŸã‹ã©ã†ã‹
+    //‘O“ú‚É—F’B‚ªÁ‚¦‚½‚©‚Ç‚¤‚©
     private bool friendCheck = false;
-    //ãƒ•ãƒ¬ãƒ³ãƒ‰ç•ªå·
+    //ƒtƒŒƒ“ƒh”Ô†
     private int friendNumber = 0;
-    //ãƒ†ã‚­ã‚¹ãƒˆID
+    //ƒeƒLƒXƒgID
     protected string TextID, JumpID;
-    //ãƒã‚¸ã‚·ãƒ§ãƒ³
+    //ƒ|ƒWƒVƒ‡ƒ“
     private float Px, Py, Pz;
     private int posTime_;
-    //ã‚¸ãƒ£ãƒ³ãƒ—ãƒŠãƒ³ãƒãƒ¼(random)
+    //ƒWƒƒƒ“ƒvƒiƒ“ƒo[(random)
     private int jumpNum_;
-    //ã“ã®ã‚­ãƒ£ãƒ©å€‹äººã®å¤‰åŒ–ã®ã‚ã‚‹æ•°å€¤
-    [Header("æ•°å€¤")]
+    //‚±‚ÌƒLƒƒƒ‰ŒÂl‚Ì•Ï‰»‚Ì‚ ‚é”’l
+    [Header("”’l")]
 
     [SerializeField]
     protected int fearCheck01;
@@ -48,7 +48,7 @@ public class Murabito : MonoBehaviour
     {
         mMurabitoNum = int.Parse(gameObject.name.Substring(8));
 
-        // Assets/Resourcesé…ä¸‹ã®Kosugiãƒ•ã‚©ãƒ«ãƒ€ã‹ã‚‰èª­è¾¼
+        // Assets/Resources”z‰º‚ÌKosugiƒtƒHƒ‹ƒ_‚©‚ç“Ç
         TextAsset csv = Resources.Load("Kosugi/MurabitoStatus") as TextAsset;
         StringReader reader = new StringReader(csv.text);
 
@@ -78,12 +78,12 @@ public class Murabito : MonoBehaviour
     void Start()
     {
         PositionSet();
-        // æ‘äººã®ç•ªå·ã”ã¨ã®æ•°å€¤ã‚’æŒ¿å…¥
+        // ‘ºl‚Ì”Ô†‚²‚Æ‚Ì”’l‚ğ‘}“ü
         myFearStats = AwakeData.Instance.fearList[mMurabitoNum];
         myDoutStats = AwakeData.Instance.doutList[mMurabitoNum];
         myFdout = AwakeData.Instance.FdoutList[mMurabitoNum];
         posTime_ = 0;
-        //é–‹ã„ã¦ã‚‹ãƒ‡ãƒ¼ã‚¿ã¯MLife_0ã§åŸ‹ã‚ã‚‹ãœã£ãŸã„trueã«ãªã‚‰ãªã„ãƒ‡ãƒ¼ã‚¿ã€‚
+        //ŠJ‚¢‚Ä‚éƒf[ƒ^‚ÍMLife_0‚Å–„‚ß‚é‚º‚Á‚½‚¢true‚É‚È‚ç‚È‚¢ƒf[ƒ^B
         myFamily_1 = AwakeData.Instance.MlifeList[0];
         myFamily_2 = AwakeData.Instance.MlifeList[0];
         myFamily_3 = AwakeData.Instance.MlifeList[0];
@@ -110,11 +110,11 @@ public class Murabito : MonoBehaviour
     {
         JumpID = "";
 
-        //ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šå‡ºã—ã¦ãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
-        //â˜†ï¼Šã“ã“ã«æ•°å­—ï¼Šã‚’æ¶ˆã—ã¦å½“ã¦ã¯ã¾ã‚‹æ•°å­—ã‚’å…¥ã‚Œã‚‹
+        //ƒf[ƒ^‚ğæ‚èo‚µ‚ÄƒŠƒXƒg‚É’Ç‰Á‚·‚éƒXƒNƒŠƒvƒg
+        //™–‚±‚±‚É”š–‚ğÁ‚µ‚Ä“–‚Ä‚Í‚Ü‚é”š‚ğ“ü‚ê‚é
         var mList = new MurabitoDataScript.MList("Texts/Murabito" + mMurabitoNum.ToString() + "Data", true);
 
-        //(ç¾åœ¨ã¯ä»®ã§ã™)å…¨ã¦ã«ä»®ã§æ‘äºº20å…¥ã‚Œã¦ãŠãã¾ã™
+        //(Œ»İ‚Í‰¼‚Å‚·)‘S‚Ä‚É‰¼‚Å‘ºl20“ü‚ê‚Ä‚¨‚«‚Ü‚·
         if (familyCheck == true)
         {
             TextID = mList.ToList().Find(x => x.Id == "family_1").Num1;
@@ -219,7 +219,7 @@ public class Murabito : MonoBehaviour
             }
             else
             {
-                //ç¾åœ¨ã“ã“ã«æ¥ã¦ã„ã‚‹
+                //Œ»İ‚±‚±‚É—ˆ‚Ä‚¢‚é
                 if (AwakeData.Instance.dayTime_ == 0)
                 {
                     TextID = mList.ToList().Find(x => x.Id == "fear_1").Num1;
@@ -257,19 +257,19 @@ public class Murabito : MonoBehaviour
     }
     public void PositionSet()
     {
-        //â˜†ï¼Šã“ã“ã«æ•°å­—ï¼Šã‚’æ¶ˆã—ã¦å½“ã¦ã¯ã¾ã‚‹æ•°å­—ã‚’å…¥ã‚Œã‚‹
+        //™–‚±‚±‚É”š–‚ğÁ‚µ‚Ä“–‚Ä‚Í‚Ü‚é”š‚ğ“ü‚ê‚é
         var mMoveList = new MurabitoMoveDataScript.MMoveList("Texts/M" + mMurabitoNum.ToString() + "MoveData", true);
 
-        //æ™‚é–“ã«ã‚ˆã£ã¦å ´æ‰€ç§»å‹•
-        if(AwakeData.Instance.indoorCheck_ == false)//å®¤å¤–
+        //ŠÔ‚É‚æ‚Á‚ÄêŠˆÚ“®
+        if(AwakeData.Instance.indoorCheck_ == false)//ºŠO
         {
             for (int i = 0; i == AwakeData.Instance.dayTime_; i++)
             {
                 SetEventMethod();
 
-                Px = mMoveList.ToList().Find(x => x.Id == "å ´æ‰€ã‚»ãƒƒãƒˆ_0_" + i).posX;
-                Py = mMoveList.ToList().Find(x => x.Id == "å ´æ‰€ã‚»ãƒƒãƒˆ_0_" + i).posY;
-                Pz = mMoveList.ToList().Find(x => x.Id == "å ´æ‰€ã‚»ãƒƒãƒˆ_0_" + i).posZ;
+                Px = mMoveList.ToList().Find(x => x.Id == "êŠƒZƒbƒg_0_" + i).posX;
+                Py = mMoveList.ToList().Find(x => x.Id == "êŠƒZƒbƒg_0_" + i).posY;
+                Pz = mMoveList.ToList().Find(x => x.Id == "êŠƒZƒbƒg_0_" + i).posZ;
 
                 this.transform.position = new Vector3(Px, Py, Pz);
                 posTime_ += 1;
@@ -281,9 +281,9 @@ public class Murabito : MonoBehaviour
             {
                 SetEventMethod();
 
-                Px = mMoveList.ToList().Find(x => x.Id == "å ´æ‰€ã‚»ãƒƒãƒˆ_"+ AwakeData.Instance.houseNum_ +"_"+ i).posX;
-                Py = mMoveList.ToList().Find(x => x.Id == "å ´æ‰€ã‚»ãƒƒãƒˆ_"+ AwakeData.Instance.houseNum_ +"_"+ i).posY;
-                Pz = mMoveList.ToList().Find(x => x.Id == "å ´æ‰€ã‚»ãƒƒãƒˆ_"+ AwakeData.Instance.houseNum_ +"_"+ i).posZ;
+                Px = mMoveList.ToList().Find(x => x.Id == "êŠƒZƒbƒg_"+ AwakeData.Instance.houseNum_ +"_"+ i).posX;
+                Py = mMoveList.ToList().Find(x => x.Id == "êŠƒZƒbƒg_"+ AwakeData.Instance.houseNum_ +"_"+ i).posY;
+                Pz = mMoveList.ToList().Find(x => x.Id == "êŠƒZƒbƒg_"+ AwakeData.Instance.houseNum_ +"_"+ i).posZ;
 
                 this.transform.position = new Vector3(Px, Py, Pz);
                 posTime_ += 1;
