@@ -62,4 +62,6 @@ public class AwakeData
 
     public GameObject player;
 
+    public bool item1_, item2_;
+    public bool talkFlag;
 }
