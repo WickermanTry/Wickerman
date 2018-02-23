@@ -284,4 +284,8 @@ public class Player : MonoBehaviour
 
     }
 
+    public void PlayerFind()
+    {
+        print("むらびとに見つかった...");
+    }
 }

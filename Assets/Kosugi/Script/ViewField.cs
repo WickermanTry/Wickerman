@@ -130,7 +130,6 @@ public class ViewField : MonoBehaviour
     {
         if (mSectorType == SectorType.Main && col.gameObject.tag == "Player")
         {
-            print("stay");
             transform.parent.parent.GetComponent<SectorManager>().isFind = true;
         }
     }
@@ -138,7 +137,6 @@ public class ViewField : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            print("exit");
             transform.parent.parent.GetComponent<SectorManager>().isFind = false;
         }
     }

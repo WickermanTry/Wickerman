@@ -106,7 +106,7 @@ public class PatrolManager : MonoBehaviour
         if (_dayCheck == AwakeData.Instance.dayTime_)
         {
             _dayCheck = AwakeData.Instance.dayTime_ + 1;
-            for(int i = 1; i < mPatrolMurabitoList.Count; i++)
+            for (int i = 1; i < mPatrolMurabitoList.Count; i++)
             {
                 mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().DataReset();
             }

@@ -45,7 +45,6 @@ public class MurabitoHouse : MonoBehaviour
 
     void Start()
     {
-        print("House");
         SetPosition(false);
     }
 

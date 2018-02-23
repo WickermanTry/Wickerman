@@ -24,7 +24,7 @@ public class PatrolSetTest : MonoBehaviour
     }
     void SceneLoaded(UnityEngine.SceneManagement.Scene loadScene, LoadSceneMode arg1)
     {
-        print("patrol");      
+
     }
 
     void Update ()

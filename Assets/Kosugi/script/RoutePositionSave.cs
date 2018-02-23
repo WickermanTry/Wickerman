@@ -33,7 +33,5 @@ public class RoutePositionSave : MonoBehaviour
     public void SetAlreadyPatrolFlag(bool flag)
     {
         isAlreadyPatrol = flag;
-
-        Debug.LogError("stop");
     }
 }

@@ -7,7 +7,7 @@ public class LoadCheck : MonoBehaviour
     //[HideInInspector]
     public int _count = 0;
 
-    public int _dayCheck = 0;
+    public int _today = 0;
 
     // DontDestroyOnLoad用
     static LoadCheck loadCheck = null;
@@ -33,9 +33,9 @@ public class LoadCheck : MonoBehaviour
 
     void Update()
     {
-        if (_dayCheck==AwakeData.Instance.dayTime_)
+        if (_count == transform.childCount && _today == AwakeData.Instance.dayTime_)
         {
-            _dayCheck = AwakeData.Instance.dayTime_ + 1;
+            _today++;
             _count = 0;
             GameObject.Find("PatrolManager").GetComponent<PatrolManager>().SetRoute();
             print("RouteSet");

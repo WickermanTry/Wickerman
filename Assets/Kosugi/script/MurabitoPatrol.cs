@@ -93,13 +93,11 @@ public class MurabitoPatrol : MonoBehaviour
         {
             if (loadScene.name == sceneName)
             {
-                print("!");
                 mNav.isStopped = false;
                 mNav.destination = SaveDistancePosition;
             }
             else
             {
-                print("?");
                 mNav.isStopped = true;
             }
         }
@@ -130,9 +128,10 @@ public class MurabitoPatrol : MonoBehaviour
         }
         else if (mAnim.GetBool("Find"))
         {
-            StopCoroutine(Swing());
-            mNav.isStopped = true;
             transform.LookAt(GameObject.Find("Player").transform.position);
+            StopCoroutine("Swing");
+            mNav.isStopped = true;
+            GameObject.Find("Player").GetComponent<Player>().PlayerFind();
         }
         else
         {
@@ -278,11 +277,10 @@ public class MurabitoPatrol : MonoBehaviour
     /// </summary>
     public void DataReset()
     {
-        transform.parent.GetComponent<LoadCheck>()._count++;
         if (mPatrolPositions.Count > 0)
         {
             RouteSetting(mPatrolPositions);
         }
-        print("reset");
+        print("Reset");
     }
 }
