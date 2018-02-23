@@ -8,7 +8,6 @@ public class Merchant : MonoBehaviour {
 
     
     //日付
-    [SerializeField]
     private int m_day;
     public int day
     {
@@ -40,22 +39,15 @@ public class Merchant : MonoBehaviour {
     {
         get { return m_isAchieved; }
     }
-    [SerializeField]
     private ItemDataBase m_ItemDataBase;
-    [SerializeField]
     private RequestDataBase m_RequestDataBase;
     private RequestData m_RequestData;
-    [SerializeField]
     private MyItemStatus m_myItemStatus;
 
     private bool m_falg = false;//1度のみ
 
 
 
-    void Awake()
-    {
-
-    }
 
     // Use this for initialization
     void Start () {

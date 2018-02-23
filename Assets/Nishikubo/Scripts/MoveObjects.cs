@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public enum ObjectState
 {
@@ -50,7 +51,9 @@ public class MoveObjects : MonoBehaviour {
 
     void Awake()
     {
-        //Inisialize();
+        //DestoryIfExist(this.name);
+        DontDestroyOnLoad(this);
+
     }
 
     // Use this for initialization
@@ -169,6 +172,8 @@ public class MoveObjects : MonoBehaviour {
                 break;
         }
 
+
+
     }
 
     /// <summary>
@@ -176,9 +181,40 @@ public class MoveObjects : MonoBehaviour {
     /// </summary>
     private void Inisialize()
     {
-        //すでに存在するとき&&プレイヤーが所持してるとき
-        //生成しない
+        //int count = 0;
+        ////すでに存在するとき&&プレイヤーが所持してるとき
+        ////生成しない
+        //GameObject obj = GameObject.Find(this.name);
+        //if(GameObject.Find(this.name).name == this.name)
+        //{
+        //    count++;
+        //    Debug.Log("aaaa "+count);
+        //}
+        //else
+        //{
+        //    Debug.Log("EEEE " + count);
+        //}
     }
+
+    //public void DestoryIfExist(string name)
+    //{
+    //    var gameObject = GameObject.Find("Player").transform.FindChild(name);
+    //    //var gameObjectclone = GameObject.Find("Player").transform.FindChild(name+"(Clone)");
+
+    //    if (gameObject == null)
+    //    {
+    //        return;
+    //    }
+    //    GameObject.Destroy(this.gameObject);
+
+    //    //else
+    //    //{
+    //    //    Debug.Log("aru");
+    //    //}
+
+
+        
+    //}
 
     /// <summary>
     /// ItamDataBaseから値参照用
