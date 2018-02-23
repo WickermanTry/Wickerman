@@ -20,8 +20,6 @@ public class CreateSlot : MonoBehaviour {
     {
         //　アイテムデータベースに登録されているアイテム用のスロットを全作成
         CreateSlots(itemDataBase.GetItemData());
-
-
     }
 
     //　アイテムスロットの作成

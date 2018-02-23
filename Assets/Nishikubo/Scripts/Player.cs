@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
 
+
     //void Awake()
     //{
     //    if (GameObject.FindGameObjectWithTag("Player") == null)
@@ -235,10 +236,13 @@ public class Player : MonoBehaviour
         {
             m_itemData = item;
             //配列にヒットした要素があるか
-            if ((m_itemData.GetItemType().ToString() == m_objectKeep.name) || (m_itemData.GetItemType().ToString() + "(Clone)" == m_objectKeep.name))
+            //var itemtypeString = m_itemData.GetItemType().ToString();
+            var itemnameString = m_itemData.GetItemName();
+            if ((itemnameString == m_objectKeep.name) || (m_itemData.GetItemType().ToString() + "(Clone)" == m_objectKeep.name))
             {
                 //フラグを立てて盗んだ状態
-                this.GetComponent<MyItemStatus>().SetItemFlag(m_itemData.GetItemNumber(), flag);
+                var t = this.GetComponent<MyItemStatus>();
+                t.SetItemFlag(m_itemData.GetItemNumber(), flag);
             }
         }
     }

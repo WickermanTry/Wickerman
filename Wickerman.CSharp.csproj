@@ -99,7 +99,6 @@
     <Compile Include="Assets\CameraScript\MainCameraScript.cs" />
     <Compile Include="Assets\CameraScript\SubCameraScript.cs" />
     <Compile Include="Assets\CDataScript.cs" />
-    <Compile Include="Assets\changeIcon.cs" />
     <Compile Include="Assets\CharacterManagerScript.cs" />
     <Compile Include="Assets\CheckNumberScript.cs" />
     <Compile Include="Assets\ClassList.cs" />
@@ -111,11 +110,8 @@
     <Compile Include="Assets\FadeScript.cs" />
     <Compile Include="Assets\housedoormove.cs" />
     <Compile Include="Assets\HouseFade.cs" />
-    <Compile Include="Assets\IconImage.cs" />
     <Compile Include="Assets\InDoorCamera.cs" />
     <Compile Include="Assets\IndoorPlayer.cs" />
-    <Compile Include="Assets\ItemIcon.cs" />
-    <Compile Include="Assets\ItemIconDate.cs" />
     <Compile Include="Assets\JOKER_GAME\JOKER\Scripts\Novel\Components\AnimComponent.cs" />
     <Compile Include="Assets\JOKER_GAME\JOKER\Scripts\Novel\Components\AudioComponent.cs" />
     <Compile Include="Assets\JOKER_GAME\JOKER\Scripts\Novel\Components\BgComponent.cs" />
@@ -250,7 +246,6 @@
     <Compile Include="Assets\PlayerYoruScript.cs" />
     <Compile Include="Assets\PmTimeScript.cs" />
     <Compile Include="Assets\PositionSetScript.cs" />
-    <Compile Include="Assets\ProcessingIconSlot.cs" />
     <Compile Include="Assets\SaveScript.cs" />
     <Compile Include="Assets\SceneManagerScript.cs" />
     <Compile Include="Assets\SeenTimer.cs" />
