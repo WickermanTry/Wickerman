@@ -12,6 +12,9 @@ public class SceneManagerScript : MonoBehaviour
     private PlayerState beforeState;//遷移前のプレイヤーの状態
     void Start()
     {
+        if (AwakeData.Instance.talkTimeFlag)
+            AwakeData.Instance.talkTimeFlag = true;
+
         if(AwakeData.Instance.talkFlag)
         {
             player.state = beforeState;
