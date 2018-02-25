@@ -140,7 +140,7 @@
     <vertexScaleByHeightFlag>false</vertexScaleByHeightFlag>
     <vertexScaleByHeight>158</vertexScaleByHeight>
     <waitProcessExitting>false</waitProcessExitting>
-    <pmxAssetPath>Assets/syoninFolder/商人 リュック無し.pmx</pmxAssetPath>
+    <pmxAssetPath>Assets/Merchant/syoninFolder/商人 リュック無し.pmx</pmxAssetPath>
     <vmdAssetPathList>
       <string>Assets/MMD4Mecanim/VMD/人とスキン 1/Walk.vmd</string>
     </vmdAssetPathList>
@@ -182,5 +182,7 @@
       <selfShadowEnabled>true</selfShadowEnabled>
       <sphereMapEnabled>true</sphereMapEnabled>
     </materialGlobalProperty>
+    <materialProperyList />
+    <materialBlockPropertyList />
   </mmd4MecanimProperty>
 </PMX2FBXConfig>

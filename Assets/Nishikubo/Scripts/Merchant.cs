@@ -133,12 +133,35 @@ public class Merchant : MonoBehaviour {
         return (item1 && item2);
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void talkMethod()
     {
-        if (other.gameObject.tag == "Player")
+        //はじめの会話
+        if (!m_falg)
         {
-            m_falg = false;
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/start_" + AwakeData.Instance.dayNum_, "");
+            m_falg = true;
+        }
+        //両方持ってないとき1回目
+        else if (!AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !m_kind)
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing_" + AwakeData.Instance.dayNum_, "");
+            m_kind = true;
+        }
+        //片方だけ初めて持ってきたとき一回目
+        else if (AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !m_kind2 || !AwakeData.Instance.item1_ && AwakeData.Instance.item2_ && !m_kind2)
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/not", "");
+            m_kind2 = true;
+        }
+        //すべてが集まってるとき
+        else if (AwakeData.Instance.item1_ && AwakeData.Instance.item2_)
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/clear", "");
+        }
+        //集まりきってないときの二回めの会話
+        else
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing", "");
         }
     }
 
@@ -146,34 +169,7 @@ public class Merchant : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" && Input.GetButtonDown("Steal"))
         {
-            //はじめの会話
-            if (!m_falg)
-            {
-                NovelSingleton.StatusManager.callJoker("wide/merchant_text/start_"+AwakeData.Instance.dayNum_, "");
-                m_falg = true;
-            }
-            //両方持ってないとき1回目
-            else if(!AwakeData.Instance.item1_ && !AwakeData.Instance.item2_&& !m_kind)
-            {
-                NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing_" + AwakeData.Instance.dayNum_, "");
-                m_kind = true;
-            }
-            //片方だけ初めて持ってきたとき一回目
-            else if(AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !m_kind2|| !AwakeData.Instance.item1_ && AwakeData.Instance.item2_&&!m_kind2)
-            {
-                NovelSingleton.StatusManager.callJoker("wide/merchant_text/not", "");
-                m_kind2 = true;
-            }
-            //すべてが集まってるとき
-            else if(AwakeData.Instance.item1_ && AwakeData.Instance.item2_)
-            {
-                NovelSingleton.StatusManager.callJoker("wide/merchant_text/clear", "");
-            }
-            //集まりきってないときの二回めの会話
-            else
-            {
-                NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing", "");
-            }
+            talkMethod();
         }
     }
 
