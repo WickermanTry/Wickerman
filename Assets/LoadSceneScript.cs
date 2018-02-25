@@ -52,7 +52,7 @@ public class LoadSceneScript : MonoBehaviour
         {
             AwakeData.Instance.doutList.Add(0);
         }
-        AwakeData.Instance.playerPosition_ = new Vector3(213.4f, 0.2f, 127.7f);
+        AwakeData.Instance.playerPosition_ = new Vector3(18.0f, 0.2f, 63.0f);
         AwakeData.Instance.cameraPosition_ = new Vector3(213.4f, 13.0f, 120.7f);
         AwakeData.Instance.cameraRotate_ = new Quaternion(0.5f,0.0f,0.0f,0.8660254f);
         AwakeData.Instance.worldTime_ = 0.0f;
@@ -65,11 +65,11 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.mass = 0;
         AwakeData.Instance.menuflag = false;
 
-        if (GameObject.FindGameObjectWithTag("Player") == null)
-        {
-            AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
-            DontDestroyOnLoad(AwakeData.Instance.player);
-        }
+        //if (GameObject.FindGameObjectWithTag("Player") == null)
+        //{
+        //    AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
+        //    DontDestroyOnLoad(AwakeData.Instance.player);
+        //}
 
         SceneManager.LoadScene("LoadSceneManager");
 

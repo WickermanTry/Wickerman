@@ -15,9 +15,16 @@ public class CreateSlot : MonoBehaviour {
     [SerializeField]
     private ItemDataBase itemDataBase;
 
+
     //　アクティブになった時
     void OnEnable()
     {
+        if (itemDataBase == null || myItemStatus == null)
+        {
+            itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
+            myItemStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<MyItemStatus>();
+        }
+
         //　アイテムデータベースに登録されているアイテム用のスロットを全作成
         CreateSlots(itemDataBase.GetItemData());
     }

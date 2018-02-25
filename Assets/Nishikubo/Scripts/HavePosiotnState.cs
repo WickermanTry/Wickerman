@@ -6,6 +6,6 @@ public enum HavePosition
     Behind, //後
     Side,   //脇
     Push,   //押す
-    Pull,   //引く
-    Up,     //頭上
+    Pull,   //引く/
+    Up,     //頭上/
 }

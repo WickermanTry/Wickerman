@@ -7,17 +7,46 @@ public class LoadCheck : MonoBehaviour
     //[HideInInspector]
     public int _count = 0;
 
-	void Awake()
-	{
-        print("check");
-	}
+    public int _dayCheck = 0;
 
-	void Update ()
+    // DontDestroyOnLoad用
+    static LoadCheck loadCheck = null;
+    /// <summary>
+    /// DontDestroyOnLoad用
+    /// </summary>
+    static LoadCheck Instance
+    {
+        get { return loadCheck ?? (loadCheck = FindObjectOfType<LoadCheck>()); }
+    }
+
+    void Awake()
 	{
-        if (_count >= transform.childCount)
+        // オブジェクトが重複しているかのチェック
+        if (this != Instance)
         {
+            Destroy(gameObject);
+            return;
+        }
+        // シーン跨いでも破棄しないようにする
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Update()
+    {
+        if (_dayCheck==AwakeData.Instance.dayTime_)
+        {
+            _dayCheck = AwakeData.Instance.dayTime_ + 1;
             _count = 0;
             GameObject.Find("PatrolManager").GetComponent<PatrolManager>().SetRoute();
+            print("RouteSet");
         }
-	}
+    }
+
+    /// <summary>
+    /// // DontDestroyOnLoad用
+    /// </summary>
+    private void OnDestroy()
+    {
+        if (this == Instance) loadCheck = null;
+    }
 }

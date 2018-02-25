@@ -7,32 +7,55 @@ public class MyItemStatus : MonoBehaviour {
 
     public enum Item
     {
-        Arrows,
+        //Arrows,
+        //Ax,
+        //Barrel,
+        //Bed,
+        //Bow,
+        //Chair,
+        //ChestOfDrawers,
+        //CrystalBall,
+        //Denture,
+        //Fur,
+        //Futon,
+        //Jar,
+        //Mulberry,
+        //Pot,
+        //SelfPortrait,
+        //Sword,
+        //Vase,
+        //Vegetables,
+        //VillageHeadmanImage,
+        //WickermanImage,
+        //WoodenBox
+
+        Arrow,
         Ax,
-        Barrel,
-        Bed,
-        Bow,
-        Chair,
-        ChestOfDrawers,
+        CelestialModel,
+        CloseTreasureChest,
+        Coin,
+        Crystal,
         CrystalBall,
-        Denture,
-        Fur,
-        Futon,
-        Jar,
-        Mulberry,
-        Pot,
+        DragonImage,
+        GoldDenture,
+        GoldIngot,
+        HolyGrail,
+        Jewelry,
+        MagicLamp,
+        OpenTreasureChest,
         SelfPortrait,
+        Shield,
+        SilverDenture,
+        SilverIngot,
         Sword,
-        Vase,
-        Vegetables,
+        ThornBall,
         VillageHeadmanImage,
-        WickermanImage,
-        WoodenBox
+        WickermanImage
     }
 
     //　アイテムを持っているかどうかのフラグ
     [SerializeField]
-    private bool[] itemFlags = new bool[21];
+    private bool[] itemFlags = new bool[22];
     public bool[] GetItemFlagTotal
     {
         get { return itemFlags; }

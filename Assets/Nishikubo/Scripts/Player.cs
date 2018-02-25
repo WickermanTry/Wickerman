@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
 
     public Quaternion checkQuaternion_;
   
-
     [SerializeField,Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
 
@@ -52,24 +51,28 @@ public class Player : MonoBehaviour
     //        DontDestroyOnLoad(this);
     //    }
     //}
+    private bool m_isHideArea;
+    public bool isHideArea
+    {
+        get { return m_isHideArea; }
+    }
 
     // Use this for initialization
     void Start () {
-        this.gameObject.transform.position = AwakeData.Instance.playerPosition_;
-
         m_state = PlayerState.Idle;
 
         m_animator = this.GetComponent<Animator>();
         m_playerMove = this.GetComponent<PlayerMove>();
-        m_uiDisplay = this.gameObject.transform.Find("PlayerCanvas").GetComponent<UIDisplay>();
-        m_itemDataBase = this.gameObject.transform.Find("GameManager").GetComponent<ItemDataBase>();
+        m_uiDisplay = GameObject.Find("PlayerCanvas").GetComponent<UIDisplay>();
+        m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
 
+        this.transform.position = AwakeData.Instance.playerPosition_;
         //m_dayTime = AwakeData.Instance.sacrificeCount;
+
     }
 
     // Update is called once per frame
     void Update () {
-        checkQuaternion_ = this.gameObject.transform.rotation;
         switch (m_state)
         {
             case PlayerState.None: break;
@@ -131,6 +134,27 @@ public class Player : MonoBehaviour
             {
                 //放置(置けるポジションを用意する予定)
                 AwakeData.Instance.mass = AwakeData.Instance.mass - m_objectKeep.mass;
+                //地面にレイ飛ばしてポジションをそこの上にする
+                RaycastHit hit;
+                bool isHit = Physics.Raycast(m_objectKeep.transform.position, -transform.up, out hit);
+                if (isHit)
+                {
+                    Debug.Log(hit.collider.name +"  "+ hit.distance);
+                    m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, hit.distance, m_objectKeep.transform.position.z);
+                    if (m_objectKeep.havePosition == HavePosition.Side)
+                    {
+                        m_objectKeep.transform.localRotation = Quaternion.Euler(new Vector3(m_objectKeep.transform.eulerAngles.x, -90.0f, 0.0f));
+                        m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, hit.transform.position.y + 1.0f, m_objectKeep.transform.position.z);
+                    }
+
+                    if (hit.collider.name== "Terrain")
+                    {
+                        m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, 0.0f, m_objectKeep.transform.position.z);
+
+                    }
+
+                }
+
                 m_objectKeep.state = ObjectState.Idle;
             }
             else
@@ -146,12 +170,13 @@ public class Player : MonoBehaviour
                 hideArea = null;
                 m_uiDisplay.ImageActive(0, false);
             }
-            m_animator.SetBool("hikizuri", false);
             ItemFlag(m_itemDataBase.GetItemData(), false);
+            m_animator.SetBool("hikizuri", false);
             m_objectKeep = null;
             m_trailingCount = 0.0f;
 
             m_state = PlayerState.Idle;
+
         }
     }
 
@@ -178,7 +203,11 @@ public class Player : MonoBehaviour
 
         if ((isHit) || (isHit && checkbox))
         {
-            m_uiDisplay.ImageActive(1,true);
+            if(m_objectKeep==null)
+            {
+                m_uiDisplay.ImageActive(1, true);
+
+            }
 
             if (Input.GetButtonDown("Steal") && m_objectKeep==null /*&& isHit*/)//space
             {
@@ -212,6 +241,11 @@ public class Player : MonoBehaviour
             hideArea = other.gameObject;
             //m_uiDisplay.ImageActive(0, true);
         }
+        //if(other.gameObject.tag=="HideArea")
+        //{
+        //    m_isHideArea = true;
+        //}
+
     }
 
 
@@ -245,5 +279,20 @@ public class Player : MonoBehaviour
                 t.SetItemFlag(m_itemData.GetItemNumber(), flag);
             }
         }
+    }
+
+    //Trailing状態終了時に呼ぶ
+    public void AfterAchieving(string request)
+    {
+        if(m_objectKeep.gameObject.name == request || m_objectKeep.gameObject.name + "(Clone)" == request)
+        {
+            m_animator.SetBool("hikizuri", false);
+            m_objectKeep = null;
+            m_trailingCount = 0.0f;
+
+            m_state = PlayerState.Idle;
+
+        }
+
     }
 }

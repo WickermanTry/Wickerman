@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// むらびとの巡回プログラム
-/// 
-/// 01/16
-/// 巡回する人数・ルート・開始時間etcを自由に設定できるようにする
-/// 依頼品毎に日付が変わる(今のところ
 /// </summary>
 public class MurabitoPatrol : MonoBehaviour
 {
@@ -21,14 +18,17 @@ public class MurabitoPatrol : MonoBehaviour
     [SerializeField, Header("※デバッグ用 巡回ルートの名前")]
     private string mPatrolRouteName = "";
 
-    [SerializeField, Header("巡回ルートの番号")]
+    [Header("巡回ルートの番号")]
     private int _patrolRouteNum = 0;
 
-    [SerializeField, Header("巡回ルートの各地点")]
+    [SerializeField, Header("巡回ルートの各ポイント")]
     private List<Vector3> mPatrolPositions;
 
-    [SerializeField, Header("巡回地点用カウンター")]
+    [SerializeField, Header("巡回ポイント用カウンター")]
     private int _counter = 0;
+
+    [SerializeField, Header("※デバッグ用 目的地になっている巡回ポイント座標")]
+    private Vector3 mDestinationPoint;
 
     [Header("----------")]
 
@@ -37,6 +37,7 @@ public class MurabitoPatrol : MonoBehaviour
 
     [SerializeField, Header("巡回開始するまでの待機時間")]
     private float _patrolInterval = 0;
+    private float _intervalCount = 0;
 
     [SerializeField, Header("各家庭を巡回開始する時間(0は巡回しない)")]
     private float _housePatrolInterval = 0;
@@ -53,29 +54,66 @@ public class MurabitoPatrol : MonoBehaviour
 
     NavMeshAgent mNav; // NavMeshAgent取得用
 
+    string sceneName = "";
+    [SerializeField]
+    Vector3 SaveDistancePosition;
+
     private void Awake()
     {
-        print("murabito");
+        transform.parent.GetComponent<LoadCheck>()._count++;
     }
 
-    void Start ()
-	{
+    void Start()
+    {
         mNav = GetComponent<NavMeshAgent>();
 
         mAnim = GetComponent<Animator>();
         mModel = transform.Find("14.!Root");
 
-        transform.parent.GetComponent<LoadCheck>()._count++;
+        if (gameObject.name == "murabito2")
+        {
+            SceneManager.sceneLoaded += SceneLoaded;
+            SceneManager.sceneUnloaded += SceneUnloaded;
+            //SceneManager.activeSceneChanged += ActiveSceneChanged;
+
+            // Unloaded -> Changed -> Loadeds
+        }
+
+        sceneName = SceneManager.GetActiveScene().name;
     }
 
-	void Update ()
+    void SceneLoaded(UnityEngine.SceneManagement.Scene loadScene, LoadSceneMode arg1)
+    {
+        if (loadScene.name == sceneName)
+        {
+            print("!");
+            mNav.isStopped = false;
+            mNav.destination = SaveDistancePosition;
+        }
+        else
+        {
+            print("?"); 
+            mNav.isStopped = true;
+        }
+    }
+    private void SceneUnloaded(UnityEngine.SceneManagement.Scene unloadScene)
+    {
+        if (unloadScene.name == sceneName)
+            SaveDistancePosition = mNav.destination;
+    }
+    //private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
+    //{
+    //    Debug.LogError("changed:" + arg0.name + ", " + arg1.name);
+    //}
+
+    void Update ()
 	{
         // 巡回担当になっていない場合は巡回処理をしない
         if (!isPatrolShift) return;
 
-        if (_patrolInterval > 0)
+        if (_intervalCount > 0)
         {
-            _patrolInterval -= Time.deltaTime;
+            _intervalCount -= Time.deltaTime;
         }
         else
         {
@@ -88,6 +126,10 @@ public class MurabitoPatrol : MonoBehaviour
     /// </summary>
     void Patrol()
     {
+        // 室内シーン中の場合処理を止める
+        if (AwakeData.Instance.isHouse)
+            return;
+
         // 目指す巡回地点との距離が0.1未満になったら次の巡回地点をセット
         float min_Distance = 0.1f;
         if (mNav.remainingDistance < min_Distance && !mNav.isStopped)
@@ -111,6 +153,8 @@ public class MurabitoPatrol : MonoBehaviour
         {
             mAnim.SetBool("walk", false);
         }
+
+        mDestinationPoint = mNav.destination;
     }
 
     /// <summary>
@@ -120,10 +164,8 @@ public class MurabitoPatrol : MonoBehaviour
     {
         if (isPatrolShift) return;
 
+        mPatrolRouteName = "Route" + _patrolRouteNum;
         mPatrolPositions = route;
-
-        // 必要なプログラムを作動
-        //SetData();
 
         // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
         if (!isNotPointWarp)
@@ -142,6 +184,9 @@ public class MurabitoPatrol : MonoBehaviour
         // モデルの向きを次の巡回地点にする
         transform.LookAt(mPatrolPositions[_counter]);
         mModel.LookAt(mPatrolPositions[_counter]);
+
+        // 巡回開始までの時間をカウント用変数に入れる
+        _intervalCount = _patrolInterval;
 
         // 巡回担当に振り分けられたフラグを立てる
         isPatrolShift = true;
@@ -192,9 +237,31 @@ public class MurabitoPatrol : MonoBehaviour
         mNav.isStopped = false;
     }
 
+    /// <summary>
+    /// 日付跨いだ際のデータリセット用
+    /// </summary>
+    public void DataReset()
+    {
+        transform.parent.GetComponent<LoadCheck>()._count++;
+        if (mPatrolPositions.Count > 0)
+        {
+            StartSetting(mPatrolPositions);
+        }
+        print("reset");
+    }
+
     // 巡回ルート番号取得用
     public int GetRouteNumber()
     {
         return _patrolRouteNum;
+    }
+
+    /// <summary>
+    /// 室内シーン中のNavMeshの動作のストップ切替
+    /// </summary>
+    /// <param name="flag"></param>
+    public void NavMeshIsStopped(bool flag)
+    {
+        
     }
 }

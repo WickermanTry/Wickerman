@@ -43,6 +43,12 @@ public class AwakeData
     public int maxMass;//最大限もてる重さ
     public int mass;//現在の重さ
 
+    // 今室内かどうか
+    public bool isHouse;
+    // 今家の出入りをしているかどうか
+    public bool isDoorMove;
+    // プレイヤーのtransform
+    public Transform mPlayerTransform;
 
     public bool inout_;
     //時間分

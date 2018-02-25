@@ -6,6 +6,9 @@ using System.IO;
 using Novel;
 using UnityEngine.UI;
 
+/// <summary>
+/// 巡回してない時
+/// </summary>
 public class Murabito : MonoBehaviour
 {
     [SerializeField, Header("村人の番号")]

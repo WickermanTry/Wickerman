@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class ItemDataBase : MonoBehaviour {
 
-    private ItemData[] itemLists = new ItemData[21];
-
+    private ItemData[] itemLists = new ItemData[22];
 
     void Awake()
     {
-        setIcon();
+        //　アイテムの全情報を作成
+        //itemLists[0] = new ItemData(0, Resources.Load("Prefabs/Arrows", typeof(Sprite)) as Sprite, "弓矢", MyItemStatus.Item.Arrow, HavePosition.Behind, 1, true);
+        itemLists[0] = new ItemData(0, Load(0), "弓矢", MyItemStatus.Item.Arrow, HavePosition.Behind, 1, true);
+        itemLists[1] = new ItemData(1, Load(1), "斧", MyItemStatus.Item.Ax, HavePosition.Behind, 3, true);
+        itemLists[2] = new ItemData(2, Load(2), "天体模型みたいな玉", MyItemStatus.Item.CelestialModel, HavePosition.None, 2, true);
+        itemLists[3] = new ItemData(3, Load(3), "閉じた宝箱", MyItemStatus.Item.CloseTreasureChest, HavePosition.Before, 3, false);
+        itemLists[4] = new ItemData(4, Load(4), "コイン", MyItemStatus.Item.Coin, HavePosition.None, 2, true);
+        itemLists[5] = new ItemData(5, Load(5), "クリスタル", MyItemStatus.Item.Crystal, HavePosition.None, 2, true);
+        itemLists[6] = new ItemData(6, Load(6), "水晶玉", MyItemStatus.Item.CrystalBall, HavePosition.None, 2, true);
+        itemLists[7] = new ItemData(7, Load(7), "竜の置物", MyItemStatus.Item.DragonImage, HavePosition.Before, 3, false);
+        itemLists[8] = new ItemData(8, Load(8), "金の入れ歯", MyItemStatus.Item.GoldDenture, HavePosition.None, 1, true);
+        itemLists[9] = new ItemData(9, Load(9), "金塊", MyItemStatus.Item.GoldIngot, HavePosition.None, 3, true);
+        itemLists[10] = new ItemData(10, Load(10), "聖杯", MyItemStatus.Item.HolyGrail, HavePosition.None, 1, true);
+        itemLists[11] = new ItemData(11, Load(11), "宝石", MyItemStatus.Item.Jewelry, HavePosition.None, 1, true);
+        itemLists[12] = new ItemData(12, Load(12), "魔法のランプ", MyItemStatus.Item.MagicLamp, HavePosition.None, 1, true);
+        itemLists[13] = new ItemData(13, Load(13), "中身が見える宝箱", MyItemStatus.Item.OpenTreasureChest, HavePosition.Before, 3, false);
+        itemLists[14] = new ItemData(14, Load(14), "村長の自画像", MyItemStatus.Item.SelfPortrait, HavePosition.Side, 2, false);
+        itemLists[15] = new ItemData(15, Load(15), "盾", MyItemStatus.Item.Shield, HavePosition.Behind, 3, true);
+        itemLists[16] = new ItemData(16, Load(16), "銀の入れ歯", MyItemStatus.Item.SilverDenture, HavePosition.None, 1, true);
+        itemLists[17] = new ItemData(17, Load(17), "銀塊", MyItemStatus.Item.SilverIngot, HavePosition.None, 3, true);
+        itemLists[18] = new ItemData(18, Load(18), "剣", MyItemStatus.Item.Sword, HavePosition.Behind, 3, true);
+        itemLists[19] = new ItemData(19, Load(19), "トゲ玉", MyItemStatus.Item.ThornBall, HavePosition.None, 2, true);
+        itemLists[20] = new ItemData(20, Load(20), "村長の像", MyItemStatus.Item.VillageHeadmanImage, HavePosition.Push, 30, false);
+        itemLists[21] = new ItemData(21, Load(21), "ウィッカーマンの像", MyItemStatus.Item.WickermanImage, HavePosition.Push, 30, false);
+
     }
 
 
     public ItemData[] GetItemData()
     {
-        if (itemLists[0] == null)
-        {
-            setIcon();
-        }
         return itemLists;
     }
 
@@ -27,29 +46,11 @@ public class ItemDataBase : MonoBehaviour {
         return itemLists.Length;
     }
 
-    public void setIcon()
+    public Sprite Load(int spriteNum)
     {
-        //　アイテムの全情報を作成
-        itemLists[0] = new ItemData(0, Resources.Load("ItemIcon/atomball", typeof(Sprite)) as Sprite, "矢の束", MyItemStatus.Item.Arrows, HavePosition.None, 1, true);
-        itemLists[1] = new ItemData(1, Resources.Load("ItemIcon/axe", typeof(Sprite)) as Sprite, "斧", MyItemStatus.Item.Ax, HavePosition.None, 2, true);
-        itemLists[2] = new ItemData(2, Resources.Load("ItemIcon/bow", typeof(Sprite)) as Sprite, "樽", MyItemStatus.Item.Barrel, HavePosition.Behind, 3, false);
-        itemLists[3] = new ItemData(3, Resources.Load("ItemIcon/closeTreasurebox", typeof(Sprite)) as Sprite, "ベッド", MyItemStatus.Item.Bed, HavePosition.Pull, 30, false);
-        itemLists[4] = new ItemData(4, Resources.Load("ItemIcon/coin", typeof(Sprite)) as Sprite, "弓", MyItemStatus.Item.Bow, HavePosition.None, 1, true);
-        itemLists[5] = new ItemData(5, Resources.Load("ItemIcon/crystal", typeof(Sprite)) as Sprite, "椅子", MyItemStatus.Item.Chair, HavePosition.Before, 2, false);
-        itemLists[6] = new ItemData(6, Resources.Load("ItemIcon/crystalball", typeof(Sprite)) as Sprite, "箪笥", MyItemStatus.Item.ChestOfDrawers, HavePosition.Push, 30, false);
-        itemLists[7] = new ItemData(7, Resources.Load("ItemIcon/dragon", typeof(Sprite)) as Sprite, "水晶", MyItemStatus.Item.CrystalBall, HavePosition.None, 1, true);
-        itemLists[8] = new ItemData(8, Resources.Load("ItemIcon/gold", typeof(Sprite)) as Sprite, "入れ歯", MyItemStatus.Item.Denture, HavePosition.None, 1, true);
-        itemLists[9] = new ItemData(9, Resources.Load("ItemIcon/goldDenter", typeof(Sprite)) as Sprite, "毛皮", MyItemStatus.Item.Fur, HavePosition.None, 1, true);
-        itemLists[10] = new ItemData(10, Resources.Load("ItemIcon/head", typeof(Sprite)) as Sprite, "布団", MyItemStatus.Item.Futon, HavePosition.Before, 2, false);
-        itemLists[11] = new ItemData(11, Resources.Load("ItemIcon/holy", typeof(Sprite)) as Sprite, "壺", MyItemStatus.Item.Jar, HavePosition.Before, 3, false);
-        itemLists[12] = new ItemData(12, Resources.Load("ItemIcon/houseki", typeof(Sprite)) as Sprite, "桑", MyItemStatus.Item.Mulberry, HavePosition.None, 2, true);
-        itemLists[13] = new ItemData(13, Resources.Load("ItemIcon/magicpot", typeof(Sprite)) as Sprite, "鍋", MyItemStatus.Item.Pot, HavePosition.Up, 2, true);
-        itemLists[14] = new ItemData(14, Resources.Load("ItemIcon/openTreasurebox", typeof(Sprite)) as Sprite, "自画像", MyItemStatus.Item.SelfPortrait, HavePosition.Side, 2, false);
-        itemLists[15] = new ItemData(15, Resources.Load("ItemIcon/painting", typeof(Sprite)) as Sprite, "剣", MyItemStatus.Item.Sword, HavePosition.None, 3, true);
-        itemLists[16] = new ItemData(16, Resources.Load("ItemIcon/sheld", typeof(Sprite)) as Sprite, "花瓶", MyItemStatus.Item.Vase, HavePosition.None, 2, true);
-        itemLists[17] = new ItemData(17, Resources.Load("ItemIcon/silver", typeof(Sprite)) as Sprite, "野菜", MyItemStatus.Item.Vegetables, HavePosition.None, 1, true);
-        itemLists[18] = new ItemData(18, Resources.Load("ItemIcon/silverDenter", typeof(Sprite)) as Sprite, "村長の像", MyItemStatus.Item.VillageHeadmanImage, HavePosition.Push, 30, false);
-        itemLists[19] = new ItemData(19, Resources.Load("ItemIcon/wickerman", typeof(Sprite)) as Sprite, "ウィッカーマンの像", MyItemStatus.Item.WickermanImage, HavePosition.Push, 30, false);
-        itemLists[20] = new ItemData(20, Resources.Load("ItemIcon/sword", typeof(Sprite)) as Sprite, "木箱", MyItemStatus.Item.WoodenBox, HavePosition.Before, 3, false);
+        // Resoucesから対象のテクスチャから生成したスプライト一覧を取得
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Prefabs/steal");
+        // 対象のスプライトを取得
+        return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals("steal_"+spriteNum.ToString()));
     }
 }

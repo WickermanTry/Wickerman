@@ -2,44 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 村のカメラ
+/// </summary>
 public class MainCameraScript : MonoBehaviour
 {
+    [Header("Player Object")]
+    private GameObject mPlayer;
 
-    GameObject targetObj;
-    Vector3 targetPos;
-    Quaternion targetRota;
-    public Transform target;
-    public Quaternion testcheck;
-    public Quaternion testcheckupdate;
+    [Header("Playerを見る角度")]
+    public float _cameraAngle = 40;
+
+    [SerializeField, Header("カメラの高さ")]
+    private float _cameraHeight = 10;
+
+    public bool test;
 
     void Start()
     {
-        this.gameObject.transform.position = AwakeData.Instance.cameraPosition_;
-        this.gameObject.transform.rotation = AwakeData.Instance.cameraRotate_;
-        targetObj = GameObject.FindGameObjectWithTag("Player");
-        targetPos = targetObj.transform.position;
-        targetRota = targetObj.transform.rotation;
-        testcheck = this.gameObject.transform.rotation;
-        //this.transform.position = AwakeData.Instance.cameraPosition_ + AwakeData.Instance.playerPosition_;
+        mPlayer = GetComponent<MainCameraManager>().mPlayer;
     }
 
     void Update()
     {
-        testcheckupdate = this.gameObject.transform.rotation;
         // targetの移動量分、自分（カメラ）も移動する
-        transform.position += targetObj.transform.position - targetPos;
-        targetPos = targetObj.transform.position;
-        transform.LookAt(target);
+        transform.position = mPlayer.transform.position - transform.forward * _cameraHeight;
+        transform.LookAt(mPlayer.transform.position);
+        
         // マウスの右クリックを押している間
         if (Input.GetMouseButton(1))
         {
+            Cursor.lockState = CursorLockMode.Confined;
+
             // マウスの移動量
             float mouseInputX = Input.GetAxis("Mouse X");
             float mouseInputY = Input.GetAxis("Mouse Y");
             // targetの位置のY軸を中心に、回転（公転）する
-            transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * 200f);
+            transform.RotateAround(mPlayer.transform.position, Vector3.up, mouseInputX * Time.deltaTime * 200f);
             // カメラの垂直移動（※角度制限なし、必要が無ければコメントアウト）
             //transform.RotateAround(targetPos, transform.right, mouseInputY * Time.deltaTime * 200f);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

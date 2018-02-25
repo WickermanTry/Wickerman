@@ -18,6 +18,10 @@ public class PlayerMove : MonoBehaviour {
     private float m_sp;//スピード保持
     private Rigidbody m_rb;
 
+    //[SerializeField]
+    //private float minPosition = -100.0f;
+    //[SerializeField]
+    //private float maxPosition = 100.0f;
 
     // Use this for initialization
     void Start () {
@@ -34,6 +38,8 @@ public class PlayerMove : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //移動範囲
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, minPosition, maxPosition), Mathf.Clamp(transform.position.y, minPosition, maxPosition), Mathf.Clamp(transform.position.z, minPosition, maxPosition));
 
     }
 
@@ -66,6 +72,7 @@ public class PlayerMove : MonoBehaviour {
                 Debug.Log("Error:" + m_state);
                 break;
         }
+        
     }
 
 
@@ -75,11 +82,12 @@ public class PlayerMove : MonoBehaviour {
     /// <param name="s">+か-で向き変化</param>
     private void Move(float s)
     {
-        m_inputH = Input.GetAxis("Horizontal");
-        m_inputV = Input.GetAxis("Vertical");
 
         if(Camera.main != null)
         {
+            m_inputH = Input.GetAxis("Horizontal");
+            m_inputV = Input.GetAxis("Vertical");
+
             // カメラの方向から、X-Z平面の単位ベクトルを取得
             Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             // 方向キーの入力値とカメラの向きから、移動方向を決定
@@ -92,6 +100,10 @@ public class PlayerMove : MonoBehaviour {
             {
                 transform.rotation = Quaternion.LookRotation(moveForward * s);
             }
+        }
+        else if(Camera.main==null)
+        {
+            Debug.Log("error ");
         }
         
     }
@@ -110,25 +122,33 @@ public class PlayerMove : MonoBehaviour {
     {
         m_mass = AwakeData.Instance.mass;
 
-        if (0 <= m_mass && m_mass <= 4)//普通
+        if (!SceneNavigator.Instance.IsFading)
         {
-            m_speed = m_sp;
+
+            if (0 <= m_mass && m_mass <= 4)//普通
+            {
+                m_speed = m_sp;
+            }
+            else if (5 <= m_mass && m_mass <= 9)//少し遅い
+            {
+                m_speed = m_sp / 1.2f;
+            }
+            else if (10 <= m_mass && m_mass <= 14)//遅い
+            {
+                m_speed = m_sp / 1.5f;
+            }
+            else if (15 <= m_mass && m_mass <= 29)//結構遅い
+            {
+                m_speed = m_sp / 2.0f;
+            }
+            else if (30 <= m_mass)//論外
+            {
+                m_speed = m_sp / 9.0f;
+            }
         }
-        else if (5 <= m_mass && m_mass <= 9)//少し遅い
+        else
         {
-            m_speed = m_sp / 1.2f;
-        }
-        else if (10 <= m_mass && m_mass <= 14)//遅い
-        {
-            m_speed = m_sp / 1.5f;
-        }
-        else if (15 <= m_mass && m_mass <= 29)//結構遅い
-        {
-            m_speed = m_sp / 2.0f;
-        }
-        else if (30 <= m_mass)//論外
-        {
-            m_speed = m_sp / 9.0f;
+            m_speed = 0;
         }
 
         return m_speed;

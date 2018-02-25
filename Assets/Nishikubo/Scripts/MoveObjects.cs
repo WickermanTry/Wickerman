@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public enum ObjectState
 {
@@ -13,22 +14,19 @@ public enum ObjectState
 }
 
 //動かせる（盗める）もの
-public class MoveObjects : MonoBehaviour
-{
+public class MoveObjects : MonoBehaviour {
 
     [SerializeField, Tooltip("状態遷移")]
-    private ObjectState m_state = ObjectState.None;  //遷移
+    private ObjectState m_state = ObjectState.Idle;  //遷移
     public ObjectState state
     {
         get { return m_state; }
         set { m_state = value; }
     }
-    public int stealNum_;
-    public int treasureNum_;
-    private bool stealTrigger_ = true;
+
     private GameObject m_player;
     private BoxCollider m_boxCol;
-    private Vector3 m_velocity = Vector3.zero;
+    //private Vector3 m_velocity = Vector3.zero;
 
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
@@ -51,21 +49,25 @@ public class MoveObjects : MonoBehaviour
         get { return m_isMultiple; }
     }
 
+    void Awake()
+    {
+        //DestoryIfExist(this.name);
+        DontDestroyOnLoad(this);
+
+    }
 
     // Use this for initialization
     void Start()
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_boxCol = this.GetComponent<BoxCollider>();
-        m_itemDataBase = this.gameObject.transform.Find("GameManager").GetComponent<ItemDataBase>();
-
-        m_state = ObjectState.Idle;
+        m_itemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
+        //m_state = ObjectState.Idle;
         ObjectStatus(m_itemDataBase.GetItemData());
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update () {
         switch (m_state)
         {
             case ObjectState.None:
@@ -74,25 +76,9 @@ public class MoveObjects : MonoBehaviour
                 gameObject.SetActive(true);
                 m_boxCol.isTrigger = false;
                 transform.parent = null;//仮
-                if (AwakeData.Instance.houseNum_ == stealNum_)
-                {
-                    if (stealTrigger_ == false)
-                    {
-                        AwakeData.Instance.stealList[stealNum_] = false;
-                        AwakeData.Instance.stealTypeList[treasureNum_] = false;
-                        AwakeData.Instance.stealNumList[stealNum_] = +1;
-                        stealTrigger_ = true;
-                    }
-                }
+
                 break;
             case ObjectState.Carry:
-                if (stealTrigger_ == true)
-                {
-                    AwakeData.Instance.stealList[stealNum_] = true;
-                    AwakeData.Instance.stealTypeList[treasureNum_] = true;
-                    AwakeData.Instance.stealNumList[stealNum_] = -1;
-                    stealTrigger_ = false;
-                }
                 switch (m_havePosition)
                 {
                     case HavePosition.None:
@@ -104,42 +90,58 @@ public class MoveObjects : MonoBehaviour
                         gameObject.SetActive(false);
 
                         break;
-                    case HavePosition.Before://仮
-                        m_boxCol.isTrigger = true;
+                    case HavePosition.Before:
+                        if (isMultiple == false)
+                        {
+                            m_boxCol.isTrigger = false;
+
+                        }
+                        else
+                        {
+                            m_boxCol.isTrigger = true;
+                        }
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Behind://仮
+                    case HavePosition.Behind:
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("BehindPosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Side://仮
-                        m_boxCol.isTrigger = true;
+                    case HavePosition.Side:
+                        if (isMultiple == false)
+                        {
+                            m_boxCol.isTrigger = false;
+
+                        }
+                        else
+                        {
+                            m_boxCol.isTrigger = true;
+                        }
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("SidePosition").transform.localPosition;
+                        transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 90.0f, 90.0f));
+
+                        break;
+                    case HavePosition.Push:
+                        m_boxCol.isTrigger = false;
+                        transform.parent = m_player.transform;
+                        transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Push://仮
+                    case HavePosition.Pull://
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
                         transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
 
                         break;
-                    case HavePosition.Pull:
-                        m_boxCol.isTrigger = true;
-                        transform.parent = m_player.transform;
-                        transform.localPosition = GameObject.Find("BeforePosition").transform.localPosition;
-                        transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0.0f, transform.eulerAngles.z));
-
-                        break;
-                    case HavePosition.Up://仮
+                    case HavePosition.Up://
                         m_boxCol.isTrigger = true;
                         transform.parent = m_player.transform;
                         transform.localPosition = GameObject.Find("UpPosition").transform.localPosition;
@@ -170,7 +172,49 @@ public class MoveObjects : MonoBehaviour
                 break;
         }
 
+
+
     }
+
+    /// <summary>
+    ///生成処理 
+    /// </summary>
+    private void Inisialize()
+    {
+        //int count = 0;
+        ////すでに存在するとき&&プレイヤーが所持してるとき
+        ////生成しない
+        //GameObject obj = GameObject.Find(this.name);
+        //if(GameObject.Find(this.name).name == this.name)
+        //{
+        //    count++;
+        //    Debug.Log("aaaa "+count);
+        //}
+        //else
+        //{
+        //    Debug.Log("EEEE " + count);
+        //}
+    }
+
+    //public void DestoryIfExist(string name)
+    //{
+    //    var gameObject = GameObject.Find("Player").transform.FindChild(name);
+    //    //var gameObjectclone = GameObject.Find("Player").transform.FindChild(name+"(Clone)");
+
+    //    if (gameObject == null)
+    //    {
+    //        return;
+    //    }
+    //    GameObject.Destroy(this.gameObject);
+
+    //    //else
+    //    //{
+    //    //    Debug.Log("aru");
+    //    //}
+
+
+        
+    //}
 
     /// <summary>
     /// ItamDataBaseから値参照用
@@ -190,5 +234,6 @@ public class MoveObjects : MonoBehaviour
             }
         }
     }
+
 
 }
