@@ -336,8 +336,8 @@ public class SceneInit : MonoBehaviour {
 
 		yield return new WaitForSeconds (0.01f);
 
-		Vector3 aTapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		Collider2D aCollider2d = Physics2D.OverlapPoint (aTapPoint);
+		//Vector3 aTapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		//Collider2D aCollider2d = Physics2D.OverlapPoint (aTapPoint);
 
 		//Debug.Log ("====EVENT");
 		//Debug.Log (aCollider2d);
@@ -348,16 +348,16 @@ public class SceneInit : MonoBehaviour {
 		}
 
 
-		if (StatusManager.isEventStop==false && aCollider2d) {
+		//if (StatusManager.isEventStop==false && aCollider2d) {
 
-			GameObject obj = aCollider2d.transform.gameObject;
+			//GameObject obj = aCollider2d.transform.gameObject;
 
 			//特別な機能を持つ
-			string name = obj.name;
+			//string name = obj.name;
 
-			gameManager.eventManager.checkEvent (obj.name, "click");
+			//gameManager.eventManager.checkEvent (obj.name, "click");
 
-		} else {
+		//} else {
 
 			if (StatusManager.inUiClick == true) {
 				StatusManager.inUiClick = false;
@@ -395,7 +395,7 @@ public class SceneInit : MonoBehaviour {
 
 
 
-	}
+//	}
 
 
 	//スキップをスタートさせる

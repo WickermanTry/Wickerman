@@ -1,0 +1,36 @@
+﻿;メッセージ表示
+[showmessage]
+
+;ゲーム作成で便利なマクロ集
+[call file=wide/libs/utils]
+[text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
+[text_show name="_sp_chara_name"]
+
+;背景の新規定義
+[bg_new storage="talk"]
+
+;背景の表示
+[bg_show]
+
+;MMDの表示
+[sd_new name=merchant storage=merchant x=5.37 y=-2.5 z=-4]
+
+;3Dモデルを表示
+;真っ黒の状態で商人を表示(2行目まで)
+;商人を黒から普通のに(3行目のとこから)
+[sd_show name=merchant]
+
+辺りも暗くなってきたしそろそろか…。[r]
+よし、仕事に取り掛かるとしよう。[p]
+分かっているとは思うが念の為もう一度言っておく。[r]
+俺らの仕事はこの村の宝を一つ残らず盗むことだ。[r]
+だが一度で全部は無理があるから毎晩少しづつ盗む。[p]
+ここに俺の作ったこの村にある宝のリストがある。[r]
+俺がこの中からいくつかピックアップして言うから、[r]
+お前はその宝を盗んで俺の所に持ってきてくれればいい。[p]
+宝は欲張って持ちすぎるとその重みで移動が遅くなる。[r]
+注意してくれ。[p]
+さて…今夜は「コイン」と「トゲ玉」を持ってきてもらおう。[r]
+頼んだぞ。[p]
+
+[scene file="LoadSceneManager"]

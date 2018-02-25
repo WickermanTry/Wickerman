@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Novel;
 
 
 //商人クラス
@@ -45,7 +46,8 @@ public class Merchant : MonoBehaviour {
     private MyItemStatus m_myItemStatus;
 
     private bool m_falg = false;//1度のみ
-
+    private bool m_kind = false;
+    private bool m_kind2 = false;
 
 
 
@@ -98,7 +100,8 @@ public class Merchant : MonoBehaviour {
     {
         bool item1 = false;
         bool item2 = false;
-
+        AwakeData.Instance.item1_ = false;
+        AwakeData.Instance.item2_ = false;
         foreach (var item in itemData)
         {
             //依頼品がアイテムデータベースにある&&所持している
@@ -106,6 +109,7 @@ public class Merchant : MonoBehaviour {
             {
                 //Debug.Log("item1は所持");
                 item1 = true;
+                AwakeData.Instance.item1_ = true;
             }
         }
         foreach (var item in itemData)
@@ -115,30 +119,49 @@ public class Merchant : MonoBehaviour {
             {
                 //Debug.Log("item2は所持");
                 item2 = true;
+                AwakeData.Instance.item2_ = true;
             }
         }
         return (item1 && item2);
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void talkMethod()
     {
-        if (other.gameObject.tag == "Player")
+        //はじめの会話
+        if (!m_falg)
         {
-            m_falg = false;
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/start_" + AwakeData.Instance.dayNum_, "");
+            m_falg = true;
+        }
+        //両方持ってないとき1回目
+        else if (!AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !m_kind)
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing_" + AwakeData.Instance.dayNum_, "");
+            m_kind = true;
+        }
+        //片方だけ初めて持ってきたとき一回目
+        else if (AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !m_kind2 || !AwakeData.Instance.item1_ && AwakeData.Instance.item2_ && !m_kind2)
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/not", "");
+            m_kind2 = true;
+        }
+        //すべてが集まってるとき
+        else if (AwakeData.Instance.item1_ && AwakeData.Instance.item2_)
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/clear", "");
+        }
+        //集まりきってないときの二回めの会話
+        else
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing", "");
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && Input.GetButtonDown("Steal"))
         {
-            //Debug.Log("in");
-            if (/*Input.GetButtonDown("Steal") &&*/ !m_falg)
-            {
-                SceneNavigator.Instance.Additive("Talk",0.5f);
-                m_falg = true;
-            }
+            talkMethod();
         }
     }
 
