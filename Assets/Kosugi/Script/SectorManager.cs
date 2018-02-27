@@ -34,7 +34,8 @@ public class SectorManager : MonoBehaviour
                 Gizmos.color = Color.yellow;
                 // sekizui1 -> center -> 14!Root -> Murabito
                 GameObject me = transform.parent.parent.parent.gameObject;
-                me.GetComponent<MurabitoPatrol>().mAnim.SetBool("Find", true);
+                if (me.GetComponent<MurabitoPatrol>().isPatrolShift)
+                    me.GetComponent<MurabitoPatrol>().mAnim.SetBool("Find", true);
                 
                 Debug.LogWarning(me.name + "プレイヤー発見！");
             }
