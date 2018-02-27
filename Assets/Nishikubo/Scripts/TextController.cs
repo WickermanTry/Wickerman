@@ -263,13 +263,13 @@ public class TextController : MonoBehaviour {
                     player.AfterAchieving(item.GetItemType().ToString());
                 }
                 //依頼品がプレイヤーの配下にあったらDelete
-                if (player.transform.FindChild(item.GetItemType().ToString()) != null)
+                if (player.transform.Find(item.GetItemType().ToString()) != null)
                 {
-                    Destroy(player.transform.FindChild(item.GetItemType().ToString()).gameObject);
+                    Destroy(player.transform.Find(item.GetItemType().ToString()).gameObject);
                 }
-                else if (player.transform.FindChild(item.GetItemType().ToString() + "(Clone)") != null)
+                else if (player.transform.Find(item.GetItemType().ToString() + "(Clone)") != null)
                 {
-                    Destroy(player.transform.FindChild(item.GetItemType().ToString() + "(Clone)").gameObject);
+                    Destroy(player.transform.Find(item.GetItemType().ToString() + "(Clone)").gameObject);
                 }
                 //依頼品のMyItemFlagをFalseに
                 player.GetComponent<MyItemStatus>().SetItemFlag(item.GetItemNumber(), false);
@@ -290,13 +290,13 @@ public class TextController : MonoBehaviour {
                         player.AfterAchieving(item.GetItemType().ToString());
                     }
                     //依頼品がプレイヤーの配下にあったらDelete
-                    if (player.transform.FindChild(item.GetItemType().ToString()) != null)
+                    if (player.transform.Find(item.GetItemType().ToString()) != null)
                     {
-                        Destroy(player.transform.FindChild(item.GetItemType().ToString()).gameObject);
+                        Destroy(player.transform.Find(item.GetItemType().ToString()).gameObject);
                     }
-                    else if (player.transform.FindChild(item.GetItemType().ToString() + "(Clone)") != null)
+                    else if (player.transform.Find(item.GetItemType().ToString() + "(Clone)") != null)
                     {
-                        Destroy(player.transform.FindChild(item.GetItemType().ToString() + "(Clone)").gameObject);
+                        Destroy(player.transform.Find(item.GetItemType().ToString() + "(Clone)").gameObject);
                     }
                     //依頼品のMyItemFlagをFalseに
                     player.GetComponent<MyItemStatus>().SetItemFlag(item.GetItemNumber(), false);
