@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
             case PlayerState.Dead: DeadState(); break;
             default: break;
         }
+        transform.position = new Vector3(transform.position.x, 0.2f, transform.position.z);
     }
 
     /// <summary>
@@ -219,7 +220,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            m_uiDisplay.ImageActive(1,false);
+            //m_uiDisplay.ImageActive(1,false);
         }
     }
 

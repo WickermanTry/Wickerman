@@ -144,9 +144,10 @@ public class MurabitoPatrol : MonoBehaviour
     /// </summary>
     void Patrol()
     {
-        // 室内シーン中の場合処理を止める
-        if (AwakeData.Instance.isHouse)
+        // 室内シーン中の場合処理を止める 会話中も停止
+        if (AwakeData.Instance.isHouse||AwakeData.Instance.talkTimeFlag)
             return;
+        
 
         // 目指す巡回地点との距離が0.1未満になったら次の巡回地点をセット
         float min_Distance = 0.1f;
