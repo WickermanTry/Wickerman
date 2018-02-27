@@ -69,4 +69,5 @@ public class AwakeData
     public bool firstkind;
     public bool secondkind;
     public bool thirdkind;
+    public PlayerState beforeState;
 }

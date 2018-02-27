@@ -9,15 +9,16 @@ public class SceneManagerScript : MonoBehaviour
     private RequestDataBase m_RequestDataBase;
     private ItemData m_itemData;
     private Player player;
-    private PlayerState beforeState;//遷移前のプレイヤーの状態
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (AwakeData.Instance.talkTimeFlag)
             AwakeData.Instance.talkTimeFlag = true;
+        
 
         if(AwakeData.Instance.talkFlag)
         {
-            player.state = beforeState;
+            player.state = AwakeData.Instance.beforeState;
             if (merchant.isAchieved)//達成後
             {
                 DayReset(m_ItemDataBase.GetItemData());

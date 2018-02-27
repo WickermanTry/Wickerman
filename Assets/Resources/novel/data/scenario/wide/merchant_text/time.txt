@@ -23,5 +23,5 @@
 [sd_show name=merchant]
 
 時間切れだ、直に夜が明ける。引き上げるぞ。[p]
-
+頼んだ宝は揃わなかったが仕方ない、また明日来よう。[p]
 [scene file="LoadSceneManager"]

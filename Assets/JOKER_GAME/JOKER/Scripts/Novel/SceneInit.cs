@@ -12,17 +12,21 @@ public class SceneInit : MonoBehaviour {
 
 	private string currentMessage = ""; //現在表示中の文字列
 	public string messageForSaveTitle = ""; //セーブのタイトル用に保持する文字列.
+    private Player player;
 
 
-	public SceneInit(){
+    public SceneInit(){
 
 	}
 
 	// Use this for initialization
 	void Start () {
-
-		//すべてクリアする。
-		NovelSingleton.clearSingleton ();
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //プレイヤーの動きを止める
+        //AwakeData.Instance.beforeState = player.state;
+        //player.state = PlayerState.None;
+        //すべてクリアする。
+        NovelSingleton.clearSingleton ();
 		StatusManager.initScene ();
 
 		Debug.Log("GameStart"); 
@@ -446,8 +450,6 @@ public class SceneInit : MonoBehaviour {
 
 	//アプリ終了前
 	void OnApplicationQuit(){
-
-		//gameManager.saveManager.saveFromSnap("autosave"); 
 
 	}
 

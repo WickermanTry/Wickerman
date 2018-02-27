@@ -71,6 +71,7 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.firstkind = false;
         AwakeData.Instance.secondkind = false;
         AwakeData.Instance.thirdkind = false;
+        AwakeData.Instance.beforeState = PlayerState.Idle;
         //if (GameObject.FindGameObjectWithTag("Player") == null)
         //{
         //    AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));
