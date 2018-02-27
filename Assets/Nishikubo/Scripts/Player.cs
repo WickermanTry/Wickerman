@@ -178,6 +178,8 @@ public class Player : MonoBehaviour
     private void DeadState()
     {
         Debug.Log("Dead");
+        //SceneNavigator.Instance.Change("ゲームオーバーシーン名");
+
     }
 
 

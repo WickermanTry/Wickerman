@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour {
     private Player m_player;
 
     private int m_maxMass;
-    [SerializeField]
+    [SerializeField, Tooltip("入力しなくてOK")]
     private int m_mass;//現在の持っている重さ
     private bool m_pluralityHave = false;//複数持っているかどうか
 
@@ -18,10 +18,10 @@ public class PlayerMove : MonoBehaviour {
     private float m_sp;//スピード保持
     private Rigidbody m_rb;
 
-    //[SerializeField]
-    //private float minPosition = -100.0f;
-    //[SerializeField]
-    //private float maxPosition = 100.0f;
+    [SerializeField, Tooltip("最小移動範囲")]
+    private Vector3 minPosition = new Vector3(0,0,0);
+    [SerializeField, Tooltip("最大移動範囲")]
+    private Vector3 maxPosition = new Vector3(260,50,260);
 
     // Use this for initialization
     void Start () {
@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //移動範囲
-        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, minPosition, maxPosition), Mathf.Clamp(transform.position.y, minPosition, maxPosition), Mathf.Clamp(transform.position.z, minPosition, maxPosition));
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minPosition.x, maxPosition.x), Mathf.Clamp(transform.position.y, minPosition.y, maxPosition.y), Mathf.Clamp(transform.position.z, minPosition.z, maxPosition.z));
 
     }
 
