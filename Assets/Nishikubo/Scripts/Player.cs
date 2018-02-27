@@ -27,11 +27,14 @@ public class Player : MonoBehaviour
     private Animator m_animator;
     private PlayerMove m_playerMove;
     private UIDisplay m_uiDisplay;
-
+    private float counter;
     private RaycastHit m_objectHit;//モノがヒットしてるか
     private MoveObjects m_objectKeep;//盗んだモノの保持用
     private float m_trailingCount = 0.0f;
     private GameObject hideArea;//隠せる場所を保存用
+
+    public AudioClip InSound_;
+    public AudioClip OutSound_;
 
     [SerializeField,Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
@@ -40,6 +43,8 @@ public class Player : MonoBehaviour
 
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
+
+    private AudioSource audioSource;
 
     private bool m_isHideArea;
     public bool isHideArea
@@ -59,6 +64,8 @@ public class Player : MonoBehaviour
 
         this.transform.position = AwakeData.Instance.playerPosition_;
         //m_dayTime = AwakeData.Instance.sacrificeCount;
+
+        audioSource = gameObject.GetComponent<AudioSource>();
 
     }
 
@@ -97,13 +104,34 @@ public class Player : MonoBehaviour
     /// </summary>
     private void WalkState()
     {
+        //if (AwakeData.Instance.houseNum_ != 0)//室内
+        //{
+        //    audioSource.clip = InSound_;
+        //    if (counter < 1.0f)
+        //    {
+        //        audioSource.Play();
+        //        counter = 1.0f;
+        //    }
+        //}
+        //else
+        //{
+        //    audioSource.clip = OutSound_;
+        //    if (counter < 2.0f)
+        //    {
+        //        audioSource.Play();
+        //        counter = 2.5f;
+        //    }
+        //    counter -= 1 * Time.deltaTime;
+        //}
         m_animator.SetBool("run_check", true);//歩き
+ 
         m_playerMove.CarryPosition(HavePosition.None);
         HitObject();
 
         //移動入力されてるかチェック
         if (m_playerMove.IsInput())
         {
+            audioSource.Stop();
             m_state = PlayerState.Idle;
         }
     }

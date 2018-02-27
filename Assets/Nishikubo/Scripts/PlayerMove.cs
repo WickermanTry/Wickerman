@@ -31,7 +31,6 @@ public class PlayerMove : MonoBehaviour {
 
         m_maxMass = AwakeData.Instance.maxMass;
         m_mass = AwakeData.Instance.mass;
-
         m_sp = m_speed;
         m_rb = this.GetComponent<Rigidbody>();
     }
