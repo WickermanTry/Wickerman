@@ -13,7 +13,7 @@ public class SceneManagerScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (AwakeData.Instance.talkTimeFlag)
-            AwakeData.Instance.talkTimeFlag = true;
+            AwakeData.Instance.talkTimeFlag = false;
         
 
         if(AwakeData.Instance.talkFlag)
