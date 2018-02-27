@@ -43,9 +43,6 @@ public class ViewField : MonoBehaviour
 
         if (isDebugMeshUpdate)
             DebugMeshUpdate();
-
-        //自分 -> Eyes -> sekizui1 視界に入った人の方を向く
-        GameObject neck = transform.parent.parent.gameObject;
     }
 
     /// <summary>

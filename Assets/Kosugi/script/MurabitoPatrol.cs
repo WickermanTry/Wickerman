@@ -219,9 +219,6 @@ public class MurabitoPatrol : MonoBehaviour
 
         // 巡回担当に振り分けられたフラグを立てる
         isPatrolShift = true;
-
-        // モデル等を非表示→表示にする
-        GetComponent<MurabitoHouse>().SetPosition(true);
     }
 
     /// <summary>
