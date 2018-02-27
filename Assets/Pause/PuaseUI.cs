@@ -12,7 +12,6 @@ public class PuaseUI : MonoBehaviour {
     private bool _CursolMoveUp = false;
     private bool _CursolMoveDown = false;
 
-    
     public GameObject Item;
     public GameObject Map;
     public GameObject Pause;

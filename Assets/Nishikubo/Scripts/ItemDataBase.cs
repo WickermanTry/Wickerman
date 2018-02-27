@@ -49,8 +49,8 @@ public class ItemDataBase : MonoBehaviour {
     public Sprite Load(int spriteNum)
     {
         // Resoucesから対象のテクスチャから生成したスプライト一覧を取得
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Prefabs/steal");
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Prefabs/stealItem");
         // 対象のスプライトを取得
-        return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals("steal_"+spriteNum.ToString()));
+        return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals("stealItem_"+spriteNum.ToString()));
     }
 }

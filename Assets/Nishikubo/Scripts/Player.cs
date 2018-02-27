@@ -271,8 +271,7 @@ public class Player : MonoBehaviour
             m_itemData = item;
             //配列にヒットした要素があるか
             //var itemtypeString = m_itemData.GetItemType().ToString();
-            var itemnameString = m_itemData.GetItemName();
-            if ((itemnameString == m_objectKeep.name) || (m_itemData.GetItemType().ToString() + "(Clone)" == m_objectKeep.name))
+            if ((m_itemData.GetItemType().ToString() == m_objectKeep.name) || (m_itemData.GetItemType().ToString() + "(Clone)" == m_objectKeep.name))
             {
                 //フラグを立てて盗んだ状態
                 var t = this.GetComponent<MyItemStatus>();
