@@ -8,11 +8,15 @@ public class SceneManagerScript : MonoBehaviour
     {
         if (AwakeData.Instance.houseNum_ == 0)
         {
-            SceneManager.LoadScene("hiru" + AwakeData.Instance.dayNum_);
+            //SceneManager.LoadScene("hiru" + AwakeData.Instance.dayNum_);
+            SceneNavigator.Instance.Change("hiru" + AwakeData.Instance.dayNum_);
+
         }
         else
         {
-            SceneManager.LoadScene("House" + AwakeData.Instance.houseNum_);
+            //SceneManager.LoadScene("House" + AwakeData.Instance.houseNum_);
+            SceneNavigator.Instance.Change("House" + AwakeData.Instance.houseNum_);
+
         }
     }
 }
