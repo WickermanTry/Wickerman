@@ -128,6 +128,10 @@ public class MurabitoPatrol : MonoBehaviour
         }
         else if (mAnim.GetBool("Find"))
         {
+            // 室内シーン中の場合処理を止める 会話中も停止
+            if (AwakeData.Instance.isHouse || AwakeData.Instance.talkTimeFlag)
+                return;
+
             transform.LookAt(GameObject.Find("Player").transform.position);
             StopCoroutine("Swing");
             mNav.isStopped = true;
