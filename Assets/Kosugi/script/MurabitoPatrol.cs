@@ -52,7 +52,7 @@ public class MurabitoPatrol : MonoBehaviour
     [SerializeField, Header("振り向きにかける時間(とりあえず3s～10sまで)"), Range(3, 10)]
     private int _swingTime = 3;
 
-    private bool isNotPointWarp = false;
+    private bool isNotFirstTime = false;
 
     /*---内部データ---*/
     public Animator mAnim; // Animator取得用
@@ -68,7 +68,7 @@ public class MurabitoPatrol : MonoBehaviour
 
     private void Awake()
     {
-        transform.parent.GetComponent<LoadCheck>()._count++;
+
     }
 
     void Start()
@@ -180,14 +180,15 @@ public class MurabitoPatrol : MonoBehaviour
     /// </summary>
     public void RouteSetting(List<Vector3> route)
     {
-        if (isPatrolShift) return;
+        //if (isPatrolShift) return;
 
         patrolRouteName = "Route" + _patrolRouteNum;
         mPatrolPositions = route;
 
         // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
-        if (!isNotPointWarp)
+        if (!isNotFirstTime)
         {
+            //毎回カウント入れ直してるからおかしい
             if (isRouteDelay)
             {
                 transform.position = mPatrolPositions[mPatrolPositions.Count / 2];
@@ -197,8 +198,8 @@ public class MurabitoPatrol : MonoBehaviour
             {
                 transform.position = mPatrolPositions[0];
             }
-            
-            isNotPointWarp = false;
+
+            isNotFirstTime = true;
         }
 
         // NavMeshを起動させる
@@ -237,10 +238,12 @@ public class MurabitoPatrol : MonoBehaviour
         _patrolInterval = patrolInterval;
         _swingDirection = swingDirection;
         _housePatrolInterval = housePatrolInterval;
-        isRouteDelay = isAlready;
+        if (!isNotFirstTime)
+            isRouteDelay = isAlready;
 
         RouteSetting(route);
 
+        mAnim.SetBool("Find", false);
         mAnim.SetInteger("swing_num", _swingDirection);
     }
 
@@ -279,8 +282,10 @@ public class MurabitoPatrol : MonoBehaviour
     {
         if (mPatrolPositions.Count > 0)
         {
+            isNotFirstTime = false;
             RouteSetting(mPatrolPositions);
         }
+        transform.parent.GetComponent<LoadCheck>()._count++;
         print("Reset");
     }
 }

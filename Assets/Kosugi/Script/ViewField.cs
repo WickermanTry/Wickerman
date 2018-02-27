@@ -11,7 +11,7 @@ public enum SectorType
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class ViewField : MonoBehaviour
 {
-    [Range(1, 5)]
+    [Range(1, 10)]
     public float _radius = 3.0f;
     [Range(1, 360)]
     public int _degree = 1;

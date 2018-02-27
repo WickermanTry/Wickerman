@@ -43,7 +43,7 @@ public class PatrolManager : MonoBehaviour
     // テキストデータ用変数
     private string[,] data, murabitoData;
 
-    public int _dayCheck = 0;
+    public int _today = 99;
 
     // DontDestroyOnLoad用
     static PatrolManager patrolManager = null;
@@ -103,9 +103,9 @@ public class PatrolManager : MonoBehaviour
             SetRoute();// _patrolValue);
         }
 
-        if (_dayCheck == AwakeData.Instance.dayTime_)
+        if (_today != AwakeData.Instance.dayNum_)
         {
-            _dayCheck = AwakeData.Instance.dayTime_ + 1;
+            _today = AwakeData.Instance.dayNum_;
             for (int i = 1; i < mPatrolMurabitoList.Count; i++)
             {
                 mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().DataReset();
@@ -325,19 +325,15 @@ public class PatrolManager : MonoBehaviour
     }
 
     /// <summary>
-    /// データ初期化用
-    /// </summary>
-    public void DataReset()
-    {
-        mPatrolMurabitoList.Clear();
-        mPatrolMurabitoList.Add(null);
-    }
-
-    /// <summary>
     /// // DontDestroyOnLoad用
     /// </summary>
     private void OnDestroy()
     {
         if (this == Instance) patrolManager = null;
+    }
+
+    public int ListCount()
+    {
+        return mPatrolMurabitoList.Count - 1;
     }
 }
