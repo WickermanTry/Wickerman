@@ -51,7 +51,8 @@ public class MurabitoHouse : MonoBehaviour
 
     public void SetModel()
     {
-        if (AwakeData.Instance.isHouse || gameObject.GetComponent<MurabitoPatrol>().isPatrolShift)
+        if ((AwakeData.Instance.isHouse && !gameObject.GetComponent<MurabitoPatrol>().isPatrolShift)
+            || (!AwakeData.Instance.isHouse && gameObject.GetComponent<MurabitoPatrol>().isPatrolShift))
         {
             mModel.SetActive(true);
         }
