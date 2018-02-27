@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Novel;
 
 
 //商人クラス
-public class Merchant : MonoBehaviour {
+public class Merchant : MonoBehaviour
+{
 
-    
+
     //日付
     private int m_day;
     public int day
@@ -44,16 +46,19 @@ public class Merchant : MonoBehaviour {
     private RequestData m_RequestData;
     private MyItemStatus m_myItemStatus;
 
-    private bool m_falg = false;//1度のみ
-
-
-
-
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        if(AwakeData.Instance.merchantNum < AwakeData.Instance.dayNum_)
+        {
+            AwakeData.Instance.firstkind = false;
+            AwakeData.Instance.secondkind = false;
+            AwakeData.Instance.thirdkind = false;
+            AwakeData.Instance.merchantNum = AwakeData.Instance.dayNum_;
+        }
         m_ItemDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDataBase>();
         m_RequestDataBase = GameObject.FindGameObjectWithTag("GameManager").GetComponent<RequestDataBase>();
-        if(m_myItemStatus==null)
+        if (m_myItemStatus == null)
         {
             m_myItemStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<MyItemStatus>();
         }
@@ -62,8 +67,9 @@ public class Merchant : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        if(m_myItemStatus==null)
+    void Update()
+    {
+        if (m_myItemStatus == null)
         {
             return;
         }
@@ -80,7 +86,7 @@ public class Merchant : MonoBehaviour {
         foreach (var request in requestLists)
         {
             m_RequestData = request;
-            if(m_RequestData.GetDay()==m_day)
+            if (m_RequestData.GetDay() == m_day)
             {
                 //日付にあったデータを入れる
                 m_day = m_RequestData.GetDay();
@@ -98,7 +104,8 @@ public class Merchant : MonoBehaviour {
     {
         bool item1 = false;
         bool item2 = false;
-
+        AwakeData.Instance.item1_ = false;
+        AwakeData.Instance.item2_ = false;
         foreach (var item in itemData)
         {
             //依頼品がアイテムデータベースにある&&所持している
@@ -106,6 +113,7 @@ public class Merchant : MonoBehaviour {
             {
                 //Debug.Log("item1は所持");
                 item1 = true;
+                AwakeData.Instance.item1_ = true;
             }
         }
         foreach (var item in itemData)
@@ -115,31 +123,52 @@ public class Merchant : MonoBehaviour {
             {
                 //Debug.Log("item2は所持");
                 item2 = true;
+                AwakeData.Instance.item2_ = true;
             }
         }
         return (item1 && item2);
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void talkMethod()
     {
-        if (other.gameObject.tag == "Player")
+        //はじめの会話
+        if (!AwakeData.Instance.firstkind)
         {
-            m_falg = false;
+            AwakeData.Instance.firstkind = true;
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/start_" + AwakeData.Instance.dayNum_, "");
+        }
+        //両方持ってないとき1回目
+        else if (!AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !AwakeData.Instance.secondkind)
+        {
+            AwakeData.Instance.secondkind = true;
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing_" + AwakeData.Instance.dayNum_, "");
+        }
+        //片方だけ初めて持ってきたとき一回目
+        else if (AwakeData.Instance.item1_ && !AwakeData.Instance.item2_ && !AwakeData.Instance.thirdkind || !AwakeData.Instance.item1_ && AwakeData.Instance.item2_ && !AwakeData.Instance.thirdkind)
+        {
+            AwakeData.Instance.thirdkind = true;
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/not", "");
+        }
+        //すべてが集まってるとき
+        else if (AwakeData.Instance.item1_ && AwakeData.Instance.item2_)
+        {
+            AwakeData.Instance.talkFlag = true;
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/clear", "");
+
+        }
+        //集まりきってないときの二回めの会話
+        else
+        {
+            NovelSingleton.StatusManager.callJoker("wide/merchant_text/nothing", "");
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
-            //Debug.Log("in");
-            if (/*Input.GetButtonDown("Steal") &&*/ !m_falg)
-            {
-                SceneNavigator.Instance.Additive("Talk",0.5f);
-                m_falg = true;
-            }
+            AwakeData.Instance.talkTimeFlag = true;
+            talkMethod();
         }
     }
-
 }

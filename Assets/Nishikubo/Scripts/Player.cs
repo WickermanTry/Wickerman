@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
     private float m_trailingCount = 0.0f;
     private GameObject hideArea;//隠せる場所を保存用
 
-    public Quaternion checkQuaternion_;
-  
     [SerializeField,Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
 
@@ -43,19 +41,12 @@ public class Player : MonoBehaviour
     private ItemDataBase m_itemDataBase;
     private ItemData m_itemData;
 
-
-    //void Awake()
-    //{
-    //    if (GameObject.FindGameObjectWithTag("Player") == null)
-    //    {
-    //        DontDestroyOnLoad(this);
-    //    }
-    //}
     private bool m_isHideArea;
     public bool isHideArea
     {
         get { return m_isHideArea; }
     }
+
 
     // Use this for initialization
     void Start () {
@@ -82,6 +73,7 @@ public class Player : MonoBehaviour
             case PlayerState.Dead: DeadState(); break;
             default: break;
         }
+        transform.position = new Vector3(transform.position.x, 0.2f, transform.position.z);
     }
 
     /// <summary>
@@ -228,7 +220,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            m_uiDisplay.ImageActive(1,false);
+            //m_uiDisplay.ImageActive(1,false);
         }
     }
 
@@ -270,12 +262,10 @@ public class Player : MonoBehaviour
         {
             m_itemData = item;
             //配列にヒットした要素があるか
-            //var itemtypeString = m_itemData.GetItemType().ToString();
             if ((m_itemData.GetItemType().ToString() == m_objectKeep.name) || (m_itemData.GetItemType().ToString() + "(Clone)" == m_objectKeep.name))
             {
                 //フラグを立てて盗んだ状態
-                var t = this.GetComponent<MyItemStatus>();
-                t.SetItemFlag(m_itemData.GetItemNumber(), flag);
+                this.GetComponent<MyItemStatus>().SetItemFlag(m_itemData.GetItemNumber(), flag);
             }
         }
     }
@@ -293,5 +283,10 @@ public class Player : MonoBehaviour
 
         }
 
+    }
+
+    public void PlayerFind()
+    {
+        print("むらびとに見つかった...");
     }
 }

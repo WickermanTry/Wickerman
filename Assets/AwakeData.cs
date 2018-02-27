@@ -62,4 +62,12 @@ public class AwakeData
 
     public GameObject player;
 
+    public bool item1_, item2_;
+    public bool talkFlag;
+    public bool talkTimeFlag;
+    public int merchantNum;
+    public bool firstkind;
+    public bool secondkind;
+    public bool thirdkind;
+    public PlayerState beforeState;
 }

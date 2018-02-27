@@ -43,7 +43,7 @@ public class PatrolManager : MonoBehaviour
     // テキストデータ用変数
     private string[,] data, murabitoData;
 
-    public int _dayCheck = 0;
+    public int _today = 99;
 
     // DontDestroyOnLoad用
     static PatrolManager patrolManager = null;
@@ -103,17 +103,17 @@ public class PatrolManager : MonoBehaviour
             SetRoute();// _patrolValue);
         }
 
-        if (_dayCheck == AwakeData.Instance.dayTime_)
+        if (_today != AwakeData.Instance.dayNum_)
         {
-            _dayCheck = AwakeData.Instance.dayTime_ + 1;
-            for(int i = 1; i < mPatrolMurabitoList.Count; i++)
+            _today = AwakeData.Instance.dayNum_;
+            for (int i = 1; i < mPatrolMurabitoList.Count; i++)
             {
                 mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().DataReset();
             }
         }
 
-        // むらびとのルートをルート1からルート5にチェンジ
-        // 途中でルート変更するかわからないので保留
+        // むらびとのルートをチェンジ
+        // 保留
         //if (isRouteChange && isSwitchable)
         //{
         //    // 4人未満(ルート1の人数しかいない)場合は処理を進めない
@@ -266,6 +266,7 @@ public class PatrolManager : MonoBehaviour
 
     /// <summary>
     /// 巡回担当の配列にセットされているむらびとに必要なデータをセット
+    /// 巡回直前で実行しデータを渡す
     /// </summary>
     void SetMurabitoData()
     {
@@ -303,11 +304,17 @@ public class PatrolManager : MonoBehaviour
             float interval = float.Parse(murabitoData[i, patrolIntervalColumn]);
             // 各家庭の巡回を開始するまでの時間
             float homeInterval = float.Parse(murabitoData[i, housePatrolIntervalColumn]);
-            mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().SetData(swing, route, interval, homeInterval);
 
-            // 巡回ルートを子オブジェクトから検索しルートを格納した配列を渡す
-            MurabitoPatrol murabito = mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>();
-            murabito.StartSetting(transform.GetChild(murabito.GetRouteNumber()).GetComponent<RoutePositionSave>().mRoutePosition);
+            // 巡回ルートを格納している配列のあるRoutePositionSaveスクリプト
+            RoutePositionSave patrolRoute = transform.GetChild(route).GetComponent<RoutePositionSave>();
+            // 担当の巡回ルートは既に誰か巡回しているかどうか
+            bool isAlready = patrolRoute.GetAlreadyPatrolFlag();
+
+            mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().SetData
+                (swing, route, interval, homeInterval, patrolRoute.mRoutePosition, isAlready);
+
+            // 巡回ルートのフラグを立てる
+            patrolRoute.SetAlreadyPatrolFlag(true);
 
             // 各家庭を巡回するルートを別途渡す
             if (i < 3)
@@ -318,15 +325,6 @@ public class PatrolManager : MonoBehaviour
     }
 
     /// <summary>
-    /// データ初期化用
-    /// </summary>
-    public void DataReset()
-    {
-        mPatrolMurabitoList.Clear();
-        mPatrolMurabitoList.Add(null);
-    }
-
-    /// <summary>
     /// // DontDestroyOnLoad用
     /// </summary>
     private void OnDestroy()
@@ -334,12 +332,8 @@ public class PatrolManager : MonoBehaviour
         if (this == Instance) patrolManager = null;
     }
 
-
-    public void NavMeshStopSwitch(bool flag)
+    public int ListCount()
     {
-        for(int i = 1; i < mPatrolMurabitoList.Count; i++)
-        {
-            mPatrolMurabitoList[i].GetComponent<MurabitoPatrol>().NavMeshIsStopped(flag);
-        }
+        return mPatrolMurabitoList.Count - 1;
     }
 }

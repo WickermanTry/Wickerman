@@ -63,8 +63,15 @@ public class LoadSceneScript : MonoBehaviour
         AwakeData.Instance.worldMinite_ = 0;
         AwakeData.Instance.maxMass = 30;
         AwakeData.Instance.mass = 0;
-        AwakeData.Instance.menuflag = false;
-
+        AwakeData.Instance.item1_ = false;
+        AwakeData.Instance.item2_ = false;
+        AwakeData.Instance.talkFlag = false;
+        AwakeData.Instance.talkTimeFlag = false;
+        AwakeData.Instance.merchantNum = 0;
+        AwakeData.Instance.firstkind = false;
+        AwakeData.Instance.secondkind = false;
+        AwakeData.Instance.thirdkind = false;
+        AwakeData.Instance.beforeState = PlayerState.Idle;
         //if (GameObject.FindGameObjectWithTag("Player") == null)
         //{
         //    AwakeData.Instance.player = Instantiate((GameObject)Resources.Load("Prefabs/Player"));

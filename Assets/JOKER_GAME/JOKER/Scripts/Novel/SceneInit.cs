@@ -12,17 +12,21 @@ public class SceneInit : MonoBehaviour {
 
 	private string currentMessage = ""; //現在表示中の文字列
 	public string messageForSaveTitle = ""; //セーブのタイトル用に保持する文字列.
+    private Player player;
 
 
-	public SceneInit(){
+    public SceneInit(){
 
 	}
 
 	// Use this for initialization
 	void Start () {
-
-		//すべてクリアする。
-		NovelSingleton.clearSingleton ();
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //プレイヤーの動きを止める
+        //AwakeData.Instance.beforeState = player.state;
+        //player.state = PlayerState.None;
+        //すべてクリアする。
+        NovelSingleton.clearSingleton ();
 		StatusManager.initScene ();
 
 		Debug.Log("GameStart"); 
@@ -336,8 +340,8 @@ public class SceneInit : MonoBehaviour {
 
 		yield return new WaitForSeconds (0.01f);
 
-		Vector3 aTapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		Collider2D aCollider2d = Physics2D.OverlapPoint (aTapPoint);
+		//Vector3 aTapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		//Collider2D aCollider2d = Physics2D.OverlapPoint (aTapPoint);
 
 		//Debug.Log ("====EVENT");
 		//Debug.Log (aCollider2d);
@@ -348,16 +352,16 @@ public class SceneInit : MonoBehaviour {
 		}
 
 
-		if (StatusManager.isEventStop==false && aCollider2d) {
+		//if (StatusManager.isEventStop==false && aCollider2d) {
 
-			GameObject obj = aCollider2d.transform.gameObject;
+			//GameObject obj = aCollider2d.transform.gameObject;
 
 			//特別な機能を持つ
-			string name = obj.name;
+			//string name = obj.name;
 
-			gameManager.eventManager.checkEvent (obj.name, "click");
+			//gameManager.eventManager.checkEvent (obj.name, "click");
 
-		} else {
+		//} else {
 
 			if (StatusManager.inUiClick == true) {
 				StatusManager.inUiClick = false;
@@ -395,7 +399,7 @@ public class SceneInit : MonoBehaviour {
 
 
 
-	}
+//	}
 
 
 	//スキップをスタートさせる
@@ -446,8 +450,6 @@ public class SceneInit : MonoBehaviour {
 
 	//アプリ終了前
 	void OnApplicationQuit(){
-
-		//gameManager.saveManager.saveFromSnap("autosave"); 
 
 	}
 

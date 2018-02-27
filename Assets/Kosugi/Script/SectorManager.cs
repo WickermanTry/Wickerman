@@ -12,9 +12,6 @@ public class SectorManager : MonoBehaviour
     [SerializeField, Header("目線の長さ")]
     private float _rayLength = 0;
 
-    [SerializeField,Header("デバッグ用 レイの表示")]
-    bool isEnable = false;
-
     [Header("プレイヤーが範囲に入ったか")]
     public bool isFind = false;
 
@@ -23,7 +20,7 @@ public class SectorManager : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        if (!isEnable||!isFind)
+        if (!isFind)
             return;
 
         Vector3 playerPos = (GameObject.Find("Player").transform.position - transform.position).normalized;
@@ -35,8 +32,11 @@ public class SectorManager : MonoBehaviour
             if (hit.collider.tag == "Player")
             {
                 Gizmos.color = Color.yellow;
-                //自分 -> sekizui1 -> center -> 14!Root -> Murabito -> Murabito's
-                GameObject me = transform.parent.parent.parent.parent.gameObject;
+                // sekizui1 -> center -> 14!Root -> Murabito
+                GameObject me = transform.parent.parent.parent.gameObject;
+                if (me.GetComponent<MurabitoPatrol>().isPatrolShift)
+                    me.GetComponent<MurabitoPatrol>().mAnim.SetBool("Find", true);
+                
                 Debug.LogWarning(me.name + "プレイヤー発見！");
             }
             else
@@ -50,6 +50,5 @@ public class SectorManager : MonoBehaviour
             Gizmos.color = Color.white;
             Gizmos.DrawRay(transform.position, playerPos * _rayLength);
         }
-        
     }
 }
