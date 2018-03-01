@@ -18,31 +18,39 @@ public class ViewField : MonoBehaviour
     [Range(3, 30)]
     public int _triangleNum = 10;
 
-    MeshFilter m;
+    MeshFilter f;
+    MeshRenderer r;
+    MeshCollider c;
 
     [SerializeField, Header("Gizmoの色")]
     private Color mColor;
-
-    public bool isDebugMeshUpdate = false;
 
     [SerializeField]
     private SectorType mSectorType;
 
     void Start()
     {
-        m = this.GetComponent<MeshFilter>();
-        m.mesh = CreateMesh();
+        f = GetComponent<MeshFilter>();
+        f.mesh = CreateMesh();
+
+        r = GetComponent<MeshRenderer>();
 
         gameObject.AddComponent<MeshCollider>();
+        c = GetComponent<MeshCollider>();
     }
 
     void Update()
     {
-        // メッシュ
-        m.mesh = CreateMesh();
-
-        if (isDebugMeshUpdate)
-            DebugMeshUpdate();
+        if (AwakeData.Instance.isHouse)
+        {
+            r.enabled = false;
+            c.enabled = false;
+        }
+        else
+        {
+            r.enabled = true;
+            c.enabled = true;
+        }
     }
 
     /// <summary>
@@ -98,17 +106,6 @@ public class ViewField : MonoBehaviour
         mesh.name = "Sector";
 
         return mesh;
-    }
-
-    /// <summary>
-    /// メッシュの更新(デバッグ用)
-    /// </summary>
-    void DebugMeshUpdate()
-    {
-        Destroy(GetComponent<MeshCollider>());
-        gameObject.AddComponent<MeshCollider>();
-
-        isDebugMeshUpdate = false;
     }
 
     // 広い範囲の視界に入った場合

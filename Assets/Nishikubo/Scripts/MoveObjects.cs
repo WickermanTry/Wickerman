@@ -24,6 +24,10 @@ public class MoveObjects : MonoBehaviour {
         set { m_state = value; }
     }
 
+    public int stealNum_;
+    public int treasureNum_;
+    private bool stealTrigger_ = true;
+
     private GameObject m_player;
     private BoxCollider m_boxCol;
     //private Vector3 m_velocity = Vector3.zero;
@@ -72,13 +76,30 @@ public class MoveObjects : MonoBehaviour {
         {
             case ObjectState.None:
                 break;
-            case ObjectState.Idle:
+            case ObjectState.Idle://普通
                 gameObject.SetActive(true);
                 m_boxCol.isTrigger = false;
                 transform.parent = null;//仮
-
+                                       //室内番号  //盗んだ家番号　置かれたものがその場所で一致していれば
+                if (AwakeData.Instance.houseNum_ == stealNum_)
+                {
+                    if (stealTrigger_ == false)//一度盗まれていればfalseになってるので戻す
+                    {
+                        AwakeData.Instance.stealList[stealNum_] = false;// 盗まれたものがないので　false
+                        AwakeData.Instance.stealTypeList[treasureNum_] = false;//このお宝は置かれているのでfalse
+                        AwakeData.Instance.stealNumList[stealNum_] = +1;//盗めるお宝の数が１つ増える
+                        stealTrigger_ = true;//盗まれてない盗める状態
+                    }
+                }
                 break;
-            case ObjectState.Carry:
+            case ObjectState.Carry://持たれている
+                if (stealTrigger_ == true)//盗んでから１回目の判定の処理
+                {
+                    AwakeData.Instance.stealList[stealNum_] = true; //ハウスナンバーにリンクした場所がtrue
+                    AwakeData.Instance.stealTypeList[treasureNum_] = true;//お宝ナンバーにリンクした場所をtrueへ
+                    AwakeData.Instance.stealNumList[stealNum_] = -1;//盗めるお宝が１つ減った
+                    stealTrigger_ = false;//盗んでいる状態
+                }
                 switch (m_havePosition)
                 {
                     case HavePosition.None:
