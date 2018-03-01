@@ -6,7 +6,7 @@ public class CameraBotton : MonoBehaviour {
 
     public GameObject mapCamera_;
     public GameObject m_Pause;
-   
+    public GameObject mmmm;
 
     // Use this for initialization
     void Start () {
