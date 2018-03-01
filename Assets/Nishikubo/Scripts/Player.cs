@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     public AudioClip InSound_;
     public AudioClip OutSound_;
 
-    [SerializeField,Tooltip("フェードにかける時間")]
+    [SerializeField, Tooltip("フェードにかける時間")]
     private float m_fadeTime = 2.0f;
 
     //public int m_dayTime;//0:朝,1:昼,2:夜
@@ -54,7 +54,8 @@ public class Player : MonoBehaviour
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         m_state = PlayerState.Idle;
 
         m_animator = this.GetComponent<Animator>();
@@ -70,7 +71,8 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         switch (m_state)
         {
             case PlayerState.None: break;
@@ -104,27 +106,28 @@ public class Player : MonoBehaviour
     /// </summary>
     private void WalkState()
     {
-        //if (AwakeData.Instance.houseNum_ != 0)//室内
-        //{
-        //    audioSource.clip = InSound_;
-        //    if (counter < 1.0f)
-        //    {
-        //        audioSource.Play();
-        //        counter = 1.0f;
-        //    }
-        //}
-        //else
-        //{
-        //    audioSource.clip = OutSound_;
-        //    if (counter < 2.0f)
-        //    {
-        //        audioSource.Play();
-        //        counter = 2.5f;
-        //    }
-        //    counter -= 1 * Time.deltaTime;
-        //}
+        if (AwakeData.Instance.houseNum_ != 0)//室内
+        {
+            audioSource.clip = InSound_;
+            if (counter < 2.0f)
+            {
+                audioSource.Play();
+                counter = 2.5f;
+            }
+            counter -= 1 * Time.deltaTime;
+        }
+        else
+        {
+            audioSource.clip = OutSound_;
+            if (counter < 2.0f)
+            {
+                audioSource.Play();
+                counter = 2.5f;
+            }
+            counter -= 1 * Time.deltaTime;
+        }
         m_animator.SetBool("run_check", true);//歩き
- 
+
         m_playerMove.CarryPosition(HavePosition.None);
         HitObject();
 
@@ -141,14 +144,14 @@ public class Player : MonoBehaviour
     /// </summary>
     private void TrailingState()
     {
-        m_uiDisplay.ImageActive(1,false);
+        m_uiDisplay.ImageActive(1, false);
 
         m_animator.SetBool("hikizuri", true);
         //プレイヤーの向きを反転
         m_playerMove.CarryPosition(m_objectKeep.havePosition);
         m_trailingCount++;
 
-        if(m_trailingCount > 1.0f && Input.GetButtonDown("Steal"))//space
+        if (m_trailingCount > 1.0f && Input.GetButtonDown("Steal"))//space
         {
             if (hideArea == null)
             {
@@ -159,7 +162,7 @@ public class Player : MonoBehaviour
                 bool isHit = Physics.Raycast(m_objectKeep.transform.position, -transform.up, out hit);
                 if (isHit)
                 {
-                    Debug.Log(hit.collider.name +"  "+ hit.distance);
+                    Debug.Log(hit.collider.name + "  " + hit.distance);
                     m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, hit.distance, m_objectKeep.transform.position.z);
                     if (m_objectKeep.havePosition == HavePosition.Side)
                     {
@@ -167,7 +170,7 @@ public class Player : MonoBehaviour
                         m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, hit.transform.position.y + 1.0f, m_objectKeep.transform.position.z);
                     }
 
-                    if (hit.collider.name== "Terrain")
+                    if (hit.collider.name == "Terrain")
                     {
                         m_objectKeep.transform.position = new Vector3(m_objectKeep.transform.position.x, 0.0f, m_objectKeep.transform.position.z);
 
@@ -225,26 +228,26 @@ public class Player : MonoBehaviour
 
         if ((isHit) || (isHit && checkbox))
         {
-            if(m_objectKeep==null)
+            if (m_objectKeep == null)
             {
                 m_uiDisplay.ImageActive(1, true);
 
             }
 
-            if (Input.GetButtonDown("Steal") && m_objectKeep==null /*&& isHit*/)//space
+            if (Input.GetButtonDown("Steal") && m_objectKeep == null /*&& isHit*/)//space
             {
-                
+
                 m_objectKeep = m_objectHit.collider.gameObject.GetComponent<MoveObjects>();
-                ItemFlag(m_itemDataBase.GetItemData(),true);
+                ItemFlag(m_itemDataBase.GetItemData(), true);
                 AwakeData.Instance.mass = AwakeData.Instance.mass + m_objectKeep.mass;
                 m_objectKeep.state = ObjectState.Carry;
                 if (!m_objectKeep.isMultiple)//重いものだったら
                 {
                     m_state = PlayerState.Trailing;//盗んだ状態
                 }
-                else if(m_objectKeep.isMultiple)//軽いものだったら
+                else if (m_objectKeep.isMultiple)//軽いものだったら
                 {
-                    m_objectKeep = null;                   
+                    m_objectKeep = null;
                 }
             }
         }
@@ -258,7 +261,7 @@ public class Player : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         //引きずってる状態&&隠せるエリア内
-        if (other.gameObject.tag == "HideArea" && m_state==PlayerState.Trailing)
+        if (other.gameObject.tag == "HideArea" && m_state == PlayerState.Trailing)
         {
             hideArea = other.gameObject;
             //m_uiDisplay.ImageActive(0, true);
@@ -286,7 +289,7 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="itemLists">アイテム</param>
     /// <param name="flag">true:盗めた ,false:盗んでない</param>
-    private void ItemFlag(ItemData[] itemLists,bool flag)
+    private void ItemFlag(ItemData[] itemLists, bool flag)
     {
         foreach (var item in itemLists)
         {
@@ -303,7 +306,7 @@ public class Player : MonoBehaviour
     //Trailing状態終了時に呼ぶ
     public void AfterAchieving(string request)
     {
-        if(m_objectKeep.gameObject.name == request || m_objectKeep.gameObject.name + "(Clone)" == request)
+        if (m_objectKeep.gameObject.name == request || m_objectKeep.gameObject.name + "(Clone)" == request)
         {
             m_animator.SetBool("hikizuri", false);
             m_objectKeep = null;
