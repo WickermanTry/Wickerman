@@ -11,6 +11,7 @@ public class BackBotton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        AwakeData.Instance.menuflag = false;
         Canvas_.SetActive(true);
         canvas.SetActive(false);
 	}

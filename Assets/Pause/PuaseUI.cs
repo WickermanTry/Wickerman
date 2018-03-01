@@ -16,6 +16,7 @@ public class PuaseUI : MonoBehaviour {
     public GameObject Map;
     public GameObject Pause;
     public GameObject Pausemenu;
+
     // Use this for initialization
     void Start()
     {
@@ -24,6 +25,7 @@ public class PuaseUI : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+      
         if (Input.GetKeyDown(KeyCode.W) || Input.GetAxis("VVertical") >= 1.0f)
         {
             if (!_CursolMoveUp)
@@ -73,12 +75,11 @@ public class PuaseUI : MonoBehaviour {
                 case 0:
                     Item.SetActive(true);
                     Pause.SetActive(false);
-                    AwakeData.Instance.menuflag = false;
                     break;
                 case 1:
                     Map.SetActive(true);
                     Pause.SetActive(false);
-                    AwakeData.Instance.menuflag = false;
+                    AwakeData.Instance._mapcamera = true;
                     break;
                 case 2:
                     Time.timeScale = 1;

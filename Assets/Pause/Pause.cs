@@ -5,7 +5,6 @@ using UnityEngine;
 public class Pause : MonoBehaviour {
 
     public GameObject Pausemenu;
-    private bool menu = false;
     private int counter = 0;
     private bool counterflag = false;
 	// Use this for initialization
@@ -20,7 +19,7 @@ public class Pause : MonoBehaviour {
             Pausemenu.SetActive(true);
             counterflag = true;
             AwakeData.Instance.menuflag = true;
-        }else if(Input.GetKeyDown(KeyCode.X) && counter > 30 && AwakeData.Instance.menuflag)
+        }else if(Input.GetKeyDown(KeyCode.X) && counter > 15 && AwakeData.Instance.menuflag)
         {
             Time.timeScale = 1;
             Pausemenu.SetActive(false);

@@ -59,6 +59,8 @@ public class AwakeData
     public int houseNum_;
 
     public bool cameraFrag_;
+    //tureかfalseでマップとメニューが一緒に消えないように
+    public bool _mapcamera;
 
     public GameObject player;
 
