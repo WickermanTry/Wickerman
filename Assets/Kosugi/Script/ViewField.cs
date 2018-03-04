@@ -41,16 +41,16 @@ public class ViewField : MonoBehaviour
 
     void Update()
     {
-        if (AwakeData.Instance.isHouse)
-        {
-            r.enabled = false;
-            c.enabled = false;
-        }
-        else
-        {
-            r.enabled = true;
-            c.enabled = true;
-        }
+        //if (AwakeData.Instance.isHouse)
+        //{
+        //    r.enabled = false;
+        //    c.enabled = false;
+        //}
+        //else
+        //{
+        //    r.enabled = true;
+        //    c.enabled = true;
+        //}
     }
 
     /// <summary>

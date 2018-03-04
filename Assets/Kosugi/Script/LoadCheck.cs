@@ -33,7 +33,6 @@ public class LoadCheck : MonoBehaviour
 
     void Update()
     {
-        print(GameObject.Find("PatrolManager").GetComponent<PatrolManager>().ListCount());
         if (_count == GameObject.Find("PatrolManager").GetComponent<PatrolManager>().ListCount() && _today != AwakeData.Instance.dayNum_)
         {
             _today = AwakeData.Instance.dayNum_;

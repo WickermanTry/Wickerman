@@ -22,7 +22,7 @@ public class MurabitoHouse : MonoBehaviour
     private string houseName;
 
     [SerializeField, Header("アクティブにする子オブジェクト")]
-    private GameObject mModel;
+    private List<GameObject> mModels = new List<GameObject>();
 
     // テキストデータ用変数
     private string[,] data, murabitoData;
@@ -31,7 +31,8 @@ public class MurabitoHouse : MonoBehaviour
     private void Awake()
     {
         _murabitoNumber = int.Parse(gameObject.name.Substring(8));
-        mModel = transform.Find("U_Char").gameObject;
+        mModels.Add(transform.Find("U_Char").gameObject);
+        mModels.Add(transform.Find("14.!Root").gameObject);
 
         // テキストデータを読み込む
         DataExport(_murabitoNumber);
@@ -51,14 +52,13 @@ public class MurabitoHouse : MonoBehaviour
 
     public void SetModel()
     {
-        if ((AwakeData.Instance.isHouse && !gameObject.GetComponent<MurabitoPatrol>().isPatrolShift)
-            || (!AwakeData.Instance.isHouse && gameObject.GetComponent<MurabitoPatrol>().isPatrolShift))
+        if (!gameObject.GetComponent<MurabitoPatrol>().isPatrolShift)
         {
-            mModel.SetActive(true);
+            for (int i = 0; i < mModels.Count; i++) { mModels[i].SetActive(false); }
         }
         else
         {
-            mModel.SetActive(false);
+            for (int i = 0; i < mModels.Count; i++) { mModels[i].SetActive(true); }
         }
     }
 

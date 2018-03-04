@@ -61,16 +61,6 @@ public class MurabitoPatrol : MonoBehaviour
 
     NavMeshAgent mNav; // NavMeshAgent取得用
 
-    string sceneName = "";
-
-    [SerializeField]
-    Vector3 SaveDistancePosition;
-
-    private void Awake()
-    {
-
-    }
-
     void Start()
     {
         mNav = GetComponent<NavMeshAgent>();
@@ -83,34 +73,27 @@ public class MurabitoPatrol : MonoBehaviour
         //SceneManager.activeSceneChanged += ActiveSceneChanged;
 
         // Unloaded -> Changed -> Loadeds
-
-        sceneName = SceneManager.GetActiveScene().name;
     }
 
     void SceneLoaded(UnityEngine.SceneManagement.Scene loadScene, LoadSceneMode arg1)
     {
         if (isPatrolShift)
         {
-            if (loadScene.name == sceneName)
-            {
-                mNav.isStopped = false;
-                mNav.destination = SaveDistancePosition;
-            }
-            else
+            if (AwakeData.Instance.talkTimeFlag)
             {
                 mNav.isStopped = true;
             }
-        }
-    }
-    private void SceneUnloaded(UnityEngine.SceneManagement.Scene unloadScene)
-    {
-        if (isPatrolShift)
-        {
-            if (unloadScene.name == sceneName)
+            else
             {
-                SaveDistancePosition = mNav.destination;
+                mNav.isStopped = false;
+                mNav.destination = mDestinationPoint;
             }
         }
+    }
+
+    private void SceneUnloaded(UnityEngine.SceneManagement.Scene unloadScene)
+    {
+
     }
     //private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
     //{
@@ -129,7 +112,7 @@ public class MurabitoPatrol : MonoBehaviour
         else if (mAnim.GetBool("Find"))
         {
             // 室内シーン中の場合処理を止める 会話中も停止
-            if (AwakeData.Instance.isHouse || AwakeData.Instance.talkTimeFlag)
+            if (AwakeData.Instance.talkTimeFlag)
                 return;
 
             transform.LookAt(GameObject.Find("Player").transform.position);
@@ -149,9 +132,8 @@ public class MurabitoPatrol : MonoBehaviour
     void Patrol()
     {
         // 室内シーン中の場合処理を止める 会話中も停止
-        if (AwakeData.Instance.isHouse||AwakeData.Instance.talkTimeFlag)
+        if (AwakeData.Instance.talkTimeFlag)
             return;
-        
 
         // 目指す巡回地点との距離が0.1未満になったら次の巡回地点をセット
         float min_Distance = 0.1f;
@@ -193,7 +175,6 @@ public class MurabitoPatrol : MonoBehaviour
         // 初回のみ自分の位置を巡回地点の開始地点(position0)に移動する
         if (!isNotFirstTime)
         {
-            //毎回カウント入れ直してるからおかしい
             if (isRouteDelay)
             {
                 transform.position = mPatrolPositions[mPatrolPositions.Count / 2];
@@ -274,6 +255,10 @@ public class MurabitoPatrol : MonoBehaviour
     {
         Quaternion a = Quaternion.LookRotation(mPatrolPositions[_counter] - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, a, Time.deltaTime / 2);
+
+        if (AwakeData.Instance.talkTimeFlag)
+            return;
+
         mNav.isStopped = false;
     }
 
@@ -288,6 +273,6 @@ public class MurabitoPatrol : MonoBehaviour
             RouteSetting(mPatrolPositions);
         }
         transform.parent.GetComponent<LoadCheck>()._count++;
-        print("Reset");
+        print("PatrolReset");
     }
 }
