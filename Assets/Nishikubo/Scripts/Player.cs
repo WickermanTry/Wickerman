@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            //m_uiDisplay.ImageActive(1,false);
+            m_uiDisplay.ImageActive(1,false);
         }
     }
 
